@@ -1,0 +1,169 @@
+{
+  "schemaVersion": "1.0.0",
+  "projectStateVersion": 9,
+  "summary": "Full-stack ICP app called 'Actuality Studio' with React + TypeScript frontend hosted on an asset canister, Motoko backend, Internet Identity authentication, and NFT membership minting with 30-day trial support. Global design theme updated to a professional warm Autumn/Spring palette with terracotta, sage green, gold, blush, cream, and forest green; serif headings, sans-serif body, and subtle leaf/vine motifs.",
+  "architectural_notes": [
+    "Frontend: React + TypeScript, deployed to ICP asset canister",
+    "Backend: Motoko canisters on the Internet Computer",
+    "Auth: Internet Identity integration",
+    "Membership: NFT-based with 30-day trial logic",
+    "Design theme: Autumn/Spring palette — terracotta (#C46A4E), sage (#A8CABA), gold (#F4A261), blush (#E8B4A2), cream (#F8F1E9), forest green (#4A7043); serif headings, sans-serif body, leaf/vine motifs"
+  ],
+  "known_issues": [],
+  "isFixRequest": false,
+  "imageRequirements": "## Edit Images\n- Brighten the image slightly and ensure the blue sky occupies the upper third for maximum visual impact behind text overlay (mckinley-elementary-hero.jpg > mckinley-elementary-hero.jpg)",
+  "generatedImages": [
+    {
+      "filename": "mckinley-elementary-hero.jpg",
+      "description": "Exterior of McKinley Elementary School in Spokane, WA — 1902 Neoclassical red-brick building with symmetrical windows, classical pediment, brick detailing, and a clear blue sky.",
+      "targetWidth": 1920,
+      "targetHeight": 900
+    }
+  ],
+  "existing_features": [
+    {
+      "id": "feature-implement-internet-identity-authentication-in-the-frontend-users-should-be-able-to-log-in-and-log-out-using-internet-identity-the-authenticated-principal-should-be-accessible-throughout-the-app-via-a-global-auth-context-or-react-query-hook",
+      "title": "Implement Internet Identity authentication in the frontend. Users should be able to log in and log out using Internet Identity. The authenticated principal should be accessible throughout the app via a global auth context or React Query hook.",
+      "reqIds": [
+        "REQ-1"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-implement-nft-membership-minting-ui-and-logic-after-login-users-without-a-membership-should-be-offered-a-30-day-free-trial-users-on-a-trial-or-with-an-active-membership-should-see-their-membership-status-a-mint-membership-nft-action-should-call-the-backend-mintmembership-function-and-update-the-ui-to-reflect-the-minted-state",
+      "title": "Implement NFT membership minting UI and logic. After login, users without a membership should be offered a 30-day free trial. Users on a trial or with an active membership should see their membership status. A 'Mint Membership NFT' action should call the backend mintMembership() function and update the UI to reflect the minted state.",
+      "reqIds": [
+        "REQ-3"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-design-and-apply-a-cohesive-visual-theme-for-actuality-studio-use-a-dark-editorial-aesthetic-with-high-contrast-typography-subtle-grid-or-geometric-motifs-and-an-accent-color-palette-suggesting-creativity-and-digital-authenticity-avoid-blue-and-purple-apply-the-theme-consistently-across-all-pages-and-components",
+      "title": "Design and apply a cohesive visual theme for Actuality Studio. Use a dark, editorial aesthetic with high-contrast typography, subtle grid or geometric motifs, and an accent color palette suggesting creativity and digital authenticity (avoid blue and purple). Apply the theme consistently across all pages and components.",
+      "reqIds": [
+        "REQ-4"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-generate-and-render-a-branded-hero-banner-image-for-the-actuality-studio-landing-page-and-a-logomark-icon-use-these-as-static-assets-served-from-frontend-public-assets-generated",
+      "title": "Generate and render a branded hero banner image for the Actuality Studio landing page and a logomark icon. Use these as static assets served from frontend/public/assets/generated.",
+      "reqIds": [
+        "REQ-5"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-update-the-global-css-custom-properties-and-tailwind-config-to-use-the-new-autumn-spring-palette-primary-terracotta-orange-c46a4e-accent-sage-green-a8caba-warm-gold-f4a261-soft-blush-e8b4a2-cream-background-f8f1e9-and-deep-forest-green-4a7043-replace-all-existing-dark-editorial-color-tokens-in-frontend-src-index-css-and-frontend-tailwind-config-js-with-these-new-values-ensuring-light-cream-backgrounds-and-warm-foregrounds-are-used-as-defaults-across-the-app",
+      "title": "Update the global CSS custom properties and Tailwind config to use the new Autumn/Spring palette: primary terracotta orange (#C46A4E), accent sage green (#A8CABA), warm gold (#F4A261), soft blush (#E8B4A2), cream background (#F8F1E9), and deep forest green (#4A7043). Replace all existing dark/editorial color tokens in frontend/src/index.css and frontend/tailwind.config.js with these new values, ensuring light cream backgrounds and warm foregrounds are used as defaults across the app.",
+      "reqIds": [
+        "REQ-6"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-update-typography-across-the-app-apply-an-elegant-serif-font-e-g-playfair-display-or-lora-via-google-fonts-to-all-headings-h1-h4-and-a-clean-modern-sans-serif-font-e-g-inter-or-space-grotesk-already-in-use-to-body-text-and-ui-elements-update-frontend-src-index-css-and-frontend-tailwind-config-js-font-family-tokens-accordingly",
+      "title": "Update typography across the app: apply an elegant serif font (e.g., Playfair Display or Lora via Google Fonts) to all headings (h1–h4), and a clean modern sans-serif font (e.g., Inter or Space Grotesk, already in use) to body text and UI elements. Update frontend/src/index.css and frontend/tailwind.config.js font family tokens accordingly.",
+      "reqIds": [
+        "REQ-7"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-integrate-subtle-seasonal-leaf-and-vine-svg-motifs-as-decorative-background-elements-throughout-the-app-add-them-as-lightweight-inline-svgs-or-css-background-patterns-in-the-layout-herosection-and-section-dividers-on-landingpage-and-membershippage-motifs-should-be-low-opacity-10-20-and-not-interfere-with-readability-or-interactive-elements-use-the-palette-colors-terracotta-sage-green-forest-green-for-the-motifs",
+      "title": "Integrate subtle seasonal leaf and vine SVG motifs as decorative background elements throughout the app. Add them as lightweight inline SVGs or CSS background patterns in the Layout, HeroSection, and section dividers on LandingPage and MembershipPage. Motifs should be low-opacity (10–20%) and not interfere with readability or interactive elements. Use the palette colors (terracotta, sage green, forest green) for the motifs.",
+      "reqIds": [
+        "REQ-8"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-restyle-all-existing-components-header-footer-herosection-membershipcard-loginbutton-landingpage-feature-cards-profilesetupmodal-to-be-consistent-with-the-new-warm-autumn-spring-theme-replace-dark-editorial-styling-with-cream-backgrounds-warm-text-colors-terracotta-ctas-sage-green-accents-and-gold-highlights-ensure-sufficient-contrast-ratios-for-accessibility",
+      "title": "Restyle all existing components (Header, Footer, HeroSection, MembershipCard, LoginButton, LandingPage feature cards, ProfileSetupModal) to be consistent with the new warm Autumn/Spring theme. Replace dark/editorial styling with cream backgrounds, warm text colors, terracotta CTAs, sage green accents, and gold highlights. Ensure sufficient contrast ratios for accessibility.",
+      "reqIds": [
+        "REQ-9"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-update-the-header-component-frontend-src-components-header-tsx-to-be-a-sticky-fixed-top-navigation-bar-with-the-following-structure-1-left-side-actuality-studio-logo-rendered-as-gold-serif-text-using-playfair-display-color-gold-f4a261-with-optional-logomark-icon-2-center-middle-horizontal-navigation-links-home-about-memberships-sovereign-catalog-community-examples-styled-with-the-autumn-spring-palette-forest-green-or-warm-text-on-cream-background-and-smooth-hover-states-3-right-side-the-existing-login-with-internet-identity-loginbutton-component-the-header-must-be-sticky-position-fixed-top-0-full-width-z-index-above-content-have-a-cream-or-lightly-translucent-background-with-a-subtle-bottom-border-or-shadow-to-separate-it-from-page-content-and-be-fully-responsive-mobile-friendly-with-a-hamburger-or-collapsed-menu-on-small-screens",
+      "title": "Update the Header component (frontend/src/components/Header.tsx) to be a sticky, fixed-top navigation bar with the following structure: (1) Left side — 'Actuality Studio' logo rendered as gold serif text (using Playfair Display, color: gold/F4A261) with optional logomark icon; (2) Center/middle — horizontal navigation links: Home, About, Memberships, Sovereign Catalog, Community Examples — styled with the autumn/spring palette (forest green or warm text on cream background) and smooth hover states; (3) Right side — the existing 'Login with Internet Identity' LoginButton component. The header must be sticky (position: fixed, top: 0, full width, z-index above content), have a cream or lightly translucent background with a subtle bottom border or shadow to separate it from page content, and be fully responsive (mobile-friendly with a hamburger or collapsed menu on small screens).",
+      "reqIds": [
+        "REQ-10"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-update-frontend-src-components-herosection-tsx-to-render-a-full-width-hero-banner-using-the-existing-generated-image-mckinley-elementary-hero-jpg-served-from-frontend-public-assets-generated-as-the-background-the-banner-must-cover-the-full-viewport-width-and-be-at-least-80vh-tall-apply-a-subtle-dark-gradient-overlay-to-ensure-text-legibility-over-the-photo",
+      "title": "Update frontend/src/components/HeroSection.tsx to render a full-width hero banner using the existing generated image 'mckinley-elementary-hero.jpg' (served from frontend/public/assets/generated/) as the background. The banner must cover the full viewport width and be at least 80vh tall. Apply a subtle dark gradient overlay to ensure text legibility over the photo.",
+      "reqIds": [
+        "REQ-11"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-add-centered-overlay-content-on-the-hero-banner-in-herosection-tsx-1-a-primary-heading-in-white-gold-using-playfair-display-serif-font-reading-actuality-studio-sovereign-design-for-pocket-neighborhoods-adu-co-housing-2-a-subtitle-in-white-off-white-reading-repurposing-landmarks-like-mckinley-elementary-school-spokane-into-thriving-sovereign-communities-on-the-blockchain-3-a-prominent-sage-green-cta-button-labeled-start-your-free-30-day-trial-that-triggers-the-existing-trial-membership-flow",
+      "title": "Add centered overlay content on the hero banner in HeroSection.tsx: (1) A primary heading in white/gold using Playfair Display serif font reading 'Actuality Studio – Sovereign Design for Pocket Neighborhoods & ADU Co-Housing'; (2) A subtitle in white/off-white reading 'Repurposing landmarks like McKinley Elementary School Spokane into thriving sovereign communities on the blockchain'; (3) A prominent sage-green CTA button labeled 'Start Your Free 30-Day Trial' that triggers the existing trial/membership flow.",
+      "reqIds": [
+        "REQ-12"
+      ],
+      "version": 1
+    }
+  ],
+  "new_feature_requests": [
+    {
+      "id": "AR-1",
+      "summary": "React + TypeScript frontend hosted on ICP asset canister",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-2",
+      "summary": "Motoko backend canisters",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-3",
+      "summary": "Internet Identity authentication flow",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-4",
+      "summary": "NFT membership minting with 30-day trial support",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-6",
+      "summary": "Create a Motoko backend actor that manages membership state. It should store each user's membership record keyed by their Internet Identity principal, including: membership tier (e.g., 'trial', 'member'), mint status (NFT minted or not), and trial expiry timestamp. Expose query and update calls to read and write membership state.",
+      "reqIds": [
+        "REQ-2"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "AR-7",
+      "summary": "Update global design theme to professional warm Autumn/Spring palette: primary terracotta (#C46A4E), sage green (#A8CABA), warm gold (#F4A261), soft blush (#E8B4A2), cream background (#F8F1E9), deep forest green (#4A7043). Elegant serif headings, clean modern sans-serif body, subtle seasonal leaf and vine motifs throughout.",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-8",
+      "summary": "Create a sticky professional header with the Actuality Studio logo (text in gold serif), navigation links: Home, About, Memberships, Sovereign Catalog, Community Examples, and a 'Login with Internet Identity' button on the right.",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-9",
+      "summary": "Full-width hero banner with McKinley Elementary School exterior photo background, overlaid white/gold heading 'Actuality Studio – Sovereign Design for Pocket Neighborhoods & ADU Co-Housing', subtitle about repurposing landmarks into sovereign communities on the blockchain, and a sage-green 'Start Your Free 30-Day Trial' CTA button.",
+      "reqIds": [],
+      "status": "pending"
+    }
+  ],
+  "gameProjectType": "none",
+  "projectName": "Actuality Studio",
+  "clarification_mode": "instant",
+  "clarification_rounds": 0
+}

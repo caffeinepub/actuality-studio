@@ -1,0 +1,45 @@
+{
+  "kind": "feature_evidence_report",
+  "features": [
+    {
+      "featureId": "feature-update-frontend-src-components-herosection-tsx-to-render-a-full-width-hero-banner-using-the-existing-generated-image-mckinley-elementary-hero-jpg-served-from-frontend-public-assets-generated-as-the-background-the-banner-must-cover-the-full-viewport-width-and-be-at-least-80vh-tall-apply-a-subtle-dark-gradient-overlay-to-ensure-text-legibility-over-the-photo",
+      "featureTitle": "Update frontend/src/components/HeroSection.tsx to render a full-width hero banner using the existing generated image 'mckinley-elementary-hero.jpg' (served from frontend/public/assets/generated/) as the background. The banner must cover the full viewport width and be at least 80vh tall. Apply a subtle dark gradient overlay to ensure text legibility over the photo.",
+      "files": [
+        "frontend/src/components/HeroSection.tsx"
+      ],
+      "components": [
+        "authorization@4.0.0",
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0",
+        "blob-storage@4.0.0"
+      ],
+      "testIds": [
+        "REQ-11"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-add-centered-overlay-content-on-the-hero-banner-in-herosection-tsx-1-a-primary-heading-in-white-gold-using-playfair-display-serif-font-reading-actuality-studio-sovereign-design-for-pocket-neighborhoods-adu-co-housing-2-a-subtitle-in-white-off-white-reading-repurposing-landmarks-like-mckinley-elementary-school-spokane-into-thriving-sovereign-communities-on-the-blockchain-3-a-prominent-sage-green-cta-button-labeled-start-your-free-30-day-trial-that-triggers-the-existing-trial-membership-flow",
+      "featureTitle": "Add centered overlay content on the hero banner in HeroSection.tsx: (1) A primary heading in white/gold using Playfair Display serif font reading 'Actuality Studio – Sovereign Design for Pocket Neighborhoods & ADU Co-Housing'; (2) A subtitle in white/off-white reading 'Repurposing landmarks like McKinley Elementary School Spokane into thriving sovereign communities on the blockchain'; (3) A prominent sage-green CTA button labeled 'Start Your Free 30-Day Trial' that triggers the existing trial/membership flow.",
+      "files": [
+        "frontend/src/components/HeroSection.tsx"
+      ],
+      "components": [
+        "authorization@4.0.0",
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0",
+        "blob-storage@4.0.0"
+      ],
+      "testIds": [
+        "REQ-12"
+      ],
+      "confidence": "high"
+    }
+  ]
+}

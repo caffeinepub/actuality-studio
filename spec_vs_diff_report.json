@@ -1,0 +1,36 @@
+{
+  "kind": "spec_vs_diff_report",
+  "version": "1.0",
+  "generatedAt": "2026-02-24T23:55:50.792Z",
+  "summary": "The diff implements HeroSection.tsx with a full-width hero banner using the correct image path, dark gradient overlay, centered overlay content with heading/subtitle/CTA, and sage-green button triggering the trial flow. All major requirements appear to be addressed.",
+  "missing_requirements": [],
+  "hallucinated_features": [
+    {
+      "description": "Decorative rule with gold horizontal lines and 'Sovereign Communities · Blockchain' eyebrow label above the heading",
+      "reason": "The build request does not specify any decorative rule or eyebrow label above the primary heading in the hero overlay content.",
+      "evidence": [
+        "frontend/src/components/HeroSection.tsx"
+      ]
+    },
+    {
+      "description": "Subtle warm tint overlay (forest/30 gradient) applied in addition to the dark gradient overlay",
+      "reason": "The build request specifies only a single subtle dark gradient overlay for legibility; a second warm tint overlay layer was not requested.",
+      "evidence": [
+        "frontend/src/components/HeroSection.tsx"
+      ]
+    },
+    {
+      "description": "Mouse-enter/mouse-leave hover color change via inline style manipulation on the CTA button",
+      "reason": "The build request does not specify hover state behavior for the CTA button beyond displaying it with sage-green (#A8CABA).",
+      "evidence": [
+        "frontend/src/components/HeroSection.tsx"
+      ]
+    }
+  ],
+  "confidence": 0.82,
+  "changed_files": [
+    "frontend-file-summaries.txt",
+    "frontend/src/components/HeroSection.tsx",
+    "project_state.json"
+  ]
+}

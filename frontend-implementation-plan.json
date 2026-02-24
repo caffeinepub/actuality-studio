@@ -1,0 +1,41 @@
+{
+  "kind": "implementation_plan",
+  "version": "1.0",
+  "title": "Full-width McKinley Elementary hero banner with overlay text and CTA",
+  "requirements": [
+    {
+      "id": "REQ-11",
+      "summary": "Update HeroSection.tsx to render a full-width hero banner using the mckinley-elementary-hero.jpg image with gradient overlay for text legibility",
+      "acceptanceCriteria": [
+        "The hero section spans full viewport width with a minimum height of 80vh",
+        "The mckinley-elementary-hero.jpg image is used as the CSS background-image, covering the full area with object-fit: cover",
+        "A gradient overlay is applied so that overlaid text remains legible against the photo background"
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/components/HeroSection.tsx",
+          "operation": "modify",
+          "description": "Replace the current background image with frontend/public/assets/generated/mckinley-elementary-hero.jpg. Update the component styles to ensure full viewport width coverage and a minimum height of 80vh. Apply a dark gradient overlay (using Tailwind or inline styles) over the background image to ensure sufficient contrast for overlaid text. Maintain the existing component structure but update the background-image CSS property to reference the new McKinley Elementary photo."
+        }
+      ]
+    },
+    {
+      "id": "REQ-12",
+      "summary": "Add centered overlay content with primary heading in Playfair Display, subtitle, and sage-green CTA button triggering the trial membership flow",
+      "acceptanceCriteria": [
+        "Primary heading renders in Playfair Display serif, is visually white/gold, and contains the exact text 'Actuality Studio – Sovereign Design for Pocket Neighborhoods & ADU Co-Housing'",
+        "Subtitle renders below the heading in white or off-white and contains the exact text 'Repurposing landmarks like McKinley Elementary School Spokane into thriving sovereign communities on the blockchain'",
+        "A sage-green (#A8CABA) CTA button labeled 'Start Your Free 30-Day Trial' is displayed prominently below the subtitle",
+        "All overlay content is horizontally and vertically centered within the hero banner",
+        "The CTA button links to or triggers the existing membership trial flow consistent with the rest of the app"
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/components/HeroSection.tsx",
+          "operation": "modify",
+          "description": "Add centered overlay content within the hero banner. Implement a primary heading using Playfair Display font (already imported in index.html) with white/gold styling (using Tailwind text-gold-300 or similar) displaying 'Actuality Studio – Sovereign Design for Pocket Neighborhoods & ADU Co-Housing'. Below the heading, add a subtitle in white/off-white (text-cream-100 or text-white/90) with the text 'Repurposing landmarks like McKinley Elementary School Spokane into thriving sovereign communities on the blockchain'. Finally, add a prominent CTA button styled with sage-green background (#A8CABA or bg-sage-400) labeled 'Start Your Free 30-Day Trial' that navigates to the membership page or triggers the createTrialMembership mutation if the user is authenticated. Use Tailwind flexbox utilities to center all content both horizontally and vertically within the 80vh container. Reference the existing authentication state from useInternetIdentity hook to determine the appropriate CTA behavior (login prompt vs. trial creation)."
+        }
+      ]
+    }
+  ]
+}

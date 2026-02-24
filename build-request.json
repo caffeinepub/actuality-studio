@@ -1,0 +1,64 @@
+{
+  "kind": "build_request",
+  "title": "Full-width McKinley Elementary hero banner with overlay text and CTA",
+  "projectName": "Actuality Studio",
+  "priority": "normal",
+  "requirements": [
+    {
+      "id": "REQ-11",
+      "text": "Update frontend/src/components/HeroSection.tsx to render a full-width hero banner using the existing generated image 'mckinley-elementary-hero.jpg' (served from frontend/public/assets/generated/) as the background. The banner must cover the full viewport width and be at least 80vh tall. Apply a subtle dark gradient overlay to ensure text legibility over the photo.",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "msg-4"
+        ],
+        "quotes": [
+          "Build a full-width hero banner using a high-resolution exterior photo of the historic McKinley Elementary School in Spokane, WA"
+        ]
+      },
+      "acceptanceCriteria": [
+        "The hero section spans full viewport width with a minimum height of 80vh",
+        "The mckinley-elementary-hero.jpg image is used as the CSS background-image, covering the full area with object-fit: cover",
+        "A gradient overlay is applied so that overlaid text remains legible against the photo background"
+      ]
+    },
+    {
+      "id": "REQ-12",
+      "text": "Add centered overlay content on the hero banner in HeroSection.tsx: (1) A primary heading in white/gold using Playfair Display serif font reading 'Actuality Studio – Sovereign Design for Pocket Neighborhoods & ADU Co-Housing'; (2) A subtitle in white/off-white reading 'Repurposing landmarks like McKinley Elementary School Spokane into thriving sovereign communities on the blockchain'; (3) A prominent sage-green CTA button labeled 'Start Your Free 30-Day Trial' that triggers the existing trial/membership flow.",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "msg-4"
+        ],
+        "quotes": [
+          "Overlay centered white/gold text: 'Actuality Studio – Sovereign Design for Pocket Neighborhoods & ADU Co-Housing'",
+          "Subtitle: 'Repurposing landmarks like McKinley Elementary School Spokane into thriving sovereign communities on the blockchain'",
+          "Add a prominent sage-green button: 'Start Your Free 30-Day Trial'"
+        ]
+      },
+      "acceptanceCriteria": [
+        "Primary heading renders in Playfair Display serif, is visually white/gold, and contains the exact text 'Actuality Studio – Sovereign Design for Pocket Neighborhoods & ADU Co-Housing'",
+        "Subtitle renders below the heading in white or off-white and contains the exact text 'Repurposing landmarks like McKinley Elementary School Spokane into thriving sovereign communities on the blockchain'",
+        "A sage-green (#A8CABA) CTA button labeled 'Start Your Free 30-Day Trial' is displayed prominently below the subtitle",
+        "All overlay content is horizontally and vertically centered within the hero banner",
+        "The CTA button links to or triggers the existing membership trial flow consistent with the rest of the app"
+      ]
+    }
+  ],
+  "constraints": [
+    "Use only the existing generated image filename 'mckinley-elementary-hero.jpg' from frontend/public/assets/generated/ — do not rename or reference a different path",
+    "Do not modify any files under frontend/src/hooks/ or frontend/src/components/ui/",
+    "The CTA button must use sage-green (#A8CABA) consistent with the existing Autumn/Spring palette tokens"
+  ],
+  "nonGoals": [
+    "Do not create a new backend endpoint for the hero banner",
+    "Do not alter the Header, Footer, or Layout components",
+    "Do not change the overall color palette or typography tokens already defined in index.css and tailwind.config.js"
+  ],
+  "imageRequirements": {
+    "required": [],
+    "edits": [
+      "Brighten the image slightly and ensure the blue sky occupies the upper third for maximum visual impact behind text overlay (mckinley-elementary-hero.jpg > mckinley-elementary-hero.jpg)"
+    ]
+  }
+}
