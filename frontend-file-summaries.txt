@@ -13,5 +13,5 @@
   "frontend/src/pages/MembershipPage.tsx": "Dedicated membership page with cream background, Playfair Display serif headings in forest green, terracotta gem icon, and decorative leaf/vine SVG motifs positioned at corners at 10–12% opacity.",
   "frontend/src/App.tsx": "Root app component with TanStack Router setup (root, index, membership routes), AppShell component managing the profile setup modal visibility logic.",
   "frontend/index.html": "HTML entry point with Google Fonts preconnect and stylesheet import for Playfair Display (serif, weights 400/600/700) alongside Space Grotesk for body text.",
-  "frontend/src/components/AboutSection.tsx": "New two-column section component displaying the \"About Actuality Studio\" heading, descriptive platform text, a \"View Memberships\" CTA button linking to /membership, and side-by-side labeled images of McKinley Elementary School (1902 historic and current exterior) with decorative leaf motifs consistent with the autumn/warm palette."
+  "frontend/src/components/AboutSection.tsx": "Two-column About section with left text/CTA column and right column showing side-by-side labeled images — the historic 1902 McKinley Elementary School exterior and the current gymnasium photo (`mckinley-gymnasium-current.dim_600x400.png`) — with decorative leaf motifs and autumn palette styling."
 }

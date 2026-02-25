@@ -1,66 +1,43 @@
 {
   "kind": "build_request",
-  "title": "Add 'About Actuality Studio' section below hero",
-  "projectName": "Actuality Studio",
+  "title": "Update About Section Right Column to Side-by-Side McKinley School Photos",
   "priority": "normal",
   "requirements": [
     {
       "id": "REQ-1",
-      "text": "Generate a historic 1902 black-and-white photo-style illustration of McKinley Elementary School exterior in Spokane, WA, and a current modern exterior photo-style illustration of the same building, both suitable for side-by-side display in the About section.",
+      "text": "Update the right column of the AboutSection component to display two images side-by-side: a historic 1902 photo of McKinley Elementary School in Spokane, WA on the left, and a current gymnasium photo of McKinley Elementary School in Spokane, WA on the right. Each image should be clearly labeled (e.g., '1902' and 'Today' or 'Historic' and 'Current Gymnasium'). The layout must remain visually balanced within the two-column About section.",
       "target": "frontend",
       "source": {
         "messageIds": [
-          "msg-4"
+          "msg-7"
         ],
         "quotes": [
-          "side-by-side historic 1902 photo and current exterior of McKinley Elementary School Spokane, WA"
+          "Right: side-by-side historic 1902 photo and current gymnasium photo of McKinley Elementary School Spokane, WA."
         ]
       },
       "acceptanceCriteria": [
-        "Two images are generated: one representing the 1902 historic exterior and one representing the current exterior of McKinley Elementary School.",
-        "Images are saved as static assets in frontend/public/assets/generated.",
-        "Both images are visually distinct — the historic image has a sepia/black-and-white aesthetic and the current image appears in full color."
-      ]
-    },
-    {
-      "id": "REQ-2",
-      "text": "Add an 'About Actuality Studio' section on the LandingPage (frontend/src/pages/LandingPage.tsx) immediately below the HeroSection, using a 2-column layout. The left column contains the heading 'About Actuality Studio' and the descriptive text: 'A decentralized platform on Dfinity's Internet Computer for creating ADU-based pocket neighborhoods and small co-housing communities. Secure, transparent, and truly sovereign.' The right column displays the two generated McKinley Elementary School images (1902 historic and current exterior) side by side with appropriate labels. Below the left column text, include a call-to-action button labeled 'View Memberships' that navigates to the /membership route.",
-      "target": "frontend",
-      "source": {
-        "messageIds": [
-          "msg-4"
-        ],
-        "quotes": [
-          "Add an 'About Actuality Studio' section below the hero with 2-column layout.",
-          "Left: descriptive text – 'A decentralized platform on Dfinity's Internet Computer for creating ADU-based pocket neighborhoods and small co-housing communities. Secure, transparent, and truly sovereign.'",
-          "Right: side-by-side historic 1902 photo and current exterior of McKinley Elementary School Spokane, WA.",
-          "Include call-to-action button linking to Memberships."
-        ]
-      },
-      "acceptanceCriteria": [
-        "The 'About Actuality Studio' section appears directly below the HeroSection on the landing page.",
-        "The section uses a 2-column grid layout on desktop; columns stack vertically on mobile.",
-        "Left column displays the heading 'About Actuality Studio' and the full descriptive text as specified.",
-        "A 'View Memberships' CTA button is present below the descriptive text in the left column and navigates to /membership when clicked.",
-        "Right column displays both McKinley Elementary School images side by side, with a label or caption identifying '1902' and 'Today' (or similar).",
-        "Section styling is consistent with the existing autumn/warm OKLCH color palette and typography used throughout the app (Playfair Display headings, Space Grotesk body text)."
+        "The right column of the About section shows exactly two images displayed side-by-side horizontally.",
+        "The left image depicts McKinley Elementary School in a historic 1902 style.",
+        "The right image depicts the current gymnasium of McKinley Elementary School in Spokane, WA.",
+        "Both images have clear descriptive labels visible beneath or overlaid on them.",
+        "The side-by-side layout is visually balanced and does not break the two-column About section layout.",
+        "Images are rendered from static assets in frontend/public/assets/generated."
       ]
     }
   ],
   "constraints": [
-    "Do not modify any files under frontend/src/hooks/ or frontend/src/components/ui.",
-    "Generated images must be stored in frontend/public/assets/generated and referenced as static asset paths.",
-    "Navigation to /membership must use TanStack Router, consistent with the existing routing setup in App.tsx."
+    "Do not alter the overall two-column layout of the AboutSection component.",
+    "Do not modify files in frontend/src/hooks/useInternetIdentity.ts, frontend/src/hooks/useActor.ts, frontend/src/main.tsx, or frontend/src/components/ui."
   ],
   "nonGoals": [
-    "Do not add new backend endpoints or modify backend/main.mo.",
-    "Do not redesign or alter the existing HeroSection component.",
-    "Do not add real external photos; use generated image assets only."
+    "Changes to the left column of the About section.",
+    "Changes to any other page or section.",
+    "Backend changes."
   ],
   "imageRequirements": {
     "required": [
-      "Black-and-white sepia-toned historic exterior of a two-story early 1900s red-brick elementary school with arched windows, a prominent entrance, and period-appropriate landscaping (mckinley-1902.dim_600x400.png)",
-      "Full-color contemporary exterior of a restored two-story red-brick elementary school with modern landscaping, clear blue sky, and well-maintained grounds (mckinley-current.dim_600x400.png)"
+      "Historic sepia-toned exterior photograph style illustration of a classic early 1900s brick elementary school building with period-accurate architectural details, labeled '1902' (mckinley-1902.dim_600x400.png)",
+      "Bright modern interior gymnasium of an elementary school with hardwood floors, basketball hoops, and bleachers in a contemporary Pacific Northwest school setting (mckinley-gymnasium-current.dim_600x400.png)"
     ],
     "edits": []
   }

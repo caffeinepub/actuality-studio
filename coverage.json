@@ -1,37 +1,24 @@
 {
   "kind": "coverage_report",
   "version": "1.0",
-  "generatedAt": "2026-02-25T01:27:56.811Z",
+  "generatedAt": "2026-02-25T01:46:54.004Z",
   "sources": {
     "buildRequest": true,
     "implementationPlan": true
   },
   "requirements": {
-    "total": 2,
-    "implemented": 2,
+    "total": 1,
+    "implemented": 1,
     "items": [
       {
         "id": "REQ-1",
-        "summary": "Generate a historic 1902 black-and-white photo-style illustration of McKinley Elementary School exterior in Spokane, WA, and a current modern exterior photo-style illustration of the same building, both suitable for side-by-side display in the About section.",
+        "summary": "Update the right column of the AboutSection component to display two images side-by-side: a historic 1902 photo of McKinley Elementary School in Spokane, WA on the left, and a current gymnasium photo of McKinley Elementary School in Spokane, WA on the right. Each image should be clearly labeled (e.g., '1902' and 'Today' or 'Historic' and 'Current Gymnasium'). The layout must remain visually balanced within the two-column About section.",
         "status": "implemented",
         "plannedFiles": [
-          "frontend/src/pages/LandingPage.tsx"
+          "frontend/src/components/AboutSection.tsx"
         ],
         "matchedFiles": [
-          "frontend/src/pages/LandingPage.tsx"
-        ]
-      },
-      {
-        "id": "REQ-2",
-        "summary": "Add an 'About Actuality Studio' section on the LandingPage (frontend/src/pages/LandingPage.tsx) immediately below the HeroSection, using a 2-column layout. The left column contains the heading 'About Actuality Studio' and the descriptive text: 'A decentralized platform on Dfinity's Internet Computer for creating ADU-based pocket neighborhoods and small co-housing communities. Secure, transparent, and truly sovereign.' The right column displays the two generated McKinley Elementary School images (1902 historic and current exterior) side by side with appropriate labels. Below the left column text, include a call-to-action button labeled 'View Memberships' that navigates to the /membership route.",
-        "status": "implemented",
-        "plannedFiles": [
-          "frontend/src/components/AboutSection.tsx",
-          "frontend/src/pages/LandingPage.tsx"
-        ],
-        "matchedFiles": [
-          "frontend/src/components/AboutSection.tsx",
-          "frontend/src/pages/LandingPage.tsx"
+          "frontend/src/components/AboutSection.tsx"
         ]
       }
     ]
@@ -42,9 +29,8 @@
     "frontend-file-summaries.txt",
     "frontend-implementation-plan.json",
     "frontend/public/assets/generated/mckinley-1902.dim_600x400.png",
-    "frontend/public/assets/generated/mckinley-current.dim_600x400.png",
+    "frontend/public/assets/generated/mckinley-gymnasium-current.dim_600x400.png",
     "frontend/src/components/AboutSection.tsx",
-    "frontend/src/pages/LandingPage.tsx",
     "project_state.json",
     "scratch/component-selection.json",
     "spec.md",

@@ -88,12 +88,12 @@ export default function AboutSection() {
                 </div>
               </div>
 
-              {/* Current exterior photo */}
+              {/* Current gymnasium photo */}
               <div className="flex flex-col gap-2">
                 <div className="relative overflow-hidden rounded-lg shadow-warm border border-sage/30 aspect-[3/2]">
                   <img
-                    src="/assets/generated/mckinley-current.dim_600x400.png"
-                    alt="McKinley Elementary School, Spokane WA — current exterior"
+                    src="/assets/generated/mckinley-gymnasium-current.dim_600x400.png"
+                    alt="McKinley Elementary School, Spokane WA — current gymnasium"
                     className="w-full h-full object-cover"
                     loading="lazy"
                   />
@@ -101,7 +101,7 @@ export default function AboutSection() {
                 <div className="flex items-center gap-1.5">
                   <span className="block w-2 h-2 rounded-full bg-sage/80 flex-shrink-0" />
                   <span className="font-sans text-xs font-semibold text-forest/70 tracking-wide uppercase">
-                    Today — Spokane, WA
+                    Gymnasium — Today
                   </span>
                 </div>
               </div>

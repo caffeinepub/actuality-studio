@@ -1,41 +1,23 @@
 {
   "schemaVersion": "1.0.0",
   "projectStateVersion": 3,
-  "summary": "A decentralized platform on Dfinity's Internet Computer for creating ADU-based pocket neighborhoods and small co-housing communities. The project (Actuality Studio) features a hero banner with Internet Identity login and an About section with historic/current McKinley Elementary School photos.",
-  "architectural_notes": [
-    "Built on Dfinity's Internet Computer; uses Internet Identity for authentication."
-  ],
+  "summary": "New project",
+  "architectural_notes": [],
   "known_issues": [],
   "isFixRequest": false,
-  "imageRequirements": "## Required Images\n- Black-and-white sepia-toned historic exterior of a two-story early 1900s red-brick elementary school with arched windows, a prominent entrance, and period-appropriate landscaping (mckinley-1902.dim_600x400.png)\n- Full-color contemporary exterior of a restored two-story red-brick elementary school with modern landscaping, clear blue sky, and well-maintained grounds (mckinley-current.dim_600x400.png)",
+  "imageRequirements": "## Required Images\n- Historic sepia-toned exterior photograph style illustration of a classic early 1900s brick elementary school building with period-accurate architectural details, labeled '1902' (mckinley-1902.dim_600x400.png)\n- Bright modern interior gymnasium of an elementary school with hardwood floors, basketball hoops, and bleachers in a contemporary Pacific Northwest school setting (mckinley-gymnasium-current.dim_600x400.png)",
   "existing_features": [
     {
-      "id": "feature-generate-a-historic-1902-black-and-white-photo-style-illustration-of-mckinley-elementary-school-exterior-in-spokane-wa-and-a-current-modern-exterior-photo-style-illustration-of-the-same-building-both-suitable-for-side-by-side-display-in-the-about-section",
-      "title": "Generate a historic 1902 black-and-white photo-style illustration of McKinley Elementary School exterior in Spokane, WA, and a current modern exterior photo-style illustration of the same building, both suitable for side-by-side display in the About section.",
+      "id": "feature-update-the-right-column-of-the-aboutsection-component-to-display-two-images-side-by-side-a-historic-1902-photo-of-mckinley-elementary-school-in-spokane-wa-on-the-left-and-a-current-gymnasium-photo-of-mckinley-elementary-school-in-spokane-wa-on-the-right-each-image-should-be-clearly-labeled-e-g-1902-and-today-or-historic-and-current-gymnasium-the-layout-must-remain-visually-balanced-within-the-two-column-about-section",
+      "title": "Update the right column of the AboutSection component to display two images side-by-side: a historic 1902 photo of McKinley Elementary School in Spokane, WA on the left, and a current gymnasium photo of McKinley Elementary School in Spokane, WA on the right. Each image should be clearly labeled (e.g., '1902' and 'Today' or 'Historic' and 'Current Gymnasium'). The layout must remain visually balanced within the two-column About section.",
       "reqIds": [
         "REQ-1"
       ],
       "version": 1
-    },
-    {
-      "id": "feature-add-an-about-actuality-studio-section-on-the-landingpage-frontend-src-pages-landingpage-tsx-immediately-below-the-herosection-using-a-2-column-layout-the-left-column-contains-the-heading-about-actuality-studio-and-the-descriptive-text-a-decentralized-platform-on-dfinity-s-internet-computer-for-creating-adu-based-pocket-neighborhoods-and-small-co-housing-communities-secure-transparent-and-truly-sovereign-the-right-column-displays-the-two-generated-mckinley-elementary-school-images-1902-historic-and-current-exterior-side-by-side-with-appropriate-labels-below-the-left-column-text-include-a-call-to-action-button-labeled-view-memberships-that-navigates-to-the-membership-route",
-      "title": "Add an 'About Actuality Studio' section on the LandingPage (frontend/src/pages/LandingPage.tsx) immediately below the HeroSection, using a 2-column layout. The left column contains the heading 'About Actuality Studio' and the descriptive text: 'A decentralized platform on Dfinity's Internet Computer for creating ADU-based pocket neighborhoods and small co-housing communities. Secure, transparent, and truly sovereign.' The right column displays the two generated McKinley Elementary School images (1902 historic and current exterior) side by side with appropriate labels. Below the left column text, include a call-to-action button labeled 'View Memberships' that navigates to the /membership route.",
-      "reqIds": [
-        "REQ-2"
-      ],
-      "version": 1
     }
   ],
-  "new_feature_requests": [
-    {
-      "id": "AR-1",
-      "summary": "Add 'About Actuality Studio' section below hero: 2-column layout with descriptive text on left and side-by-side 1902 historic + current McKinley Elementary School exterior photos on right, plus a CTA button linking to Memberships.",
-      "reqIds": [],
-      "status": "pending"
-    }
-  ],
-  "gameProjectType": "none",
-  "projectName": "Actuality Studio",
+  "new_feature_requests": [],
+  "projectName": "Update About Section Right Column to Side-by-Side McKinley School Photos",
   "clarification_mode": "instant",
   "clarification_rounds": 0
 }

@@ -2,10 +2,10 @@
   "kind": "feature_evidence_report",
   "features": [
     {
-      "featureId": "feature-generate-a-historic-1902-black-and-white-photo-style-illustration-of-mckinley-elementary-school-exterior-in-spokane-wa-and-a-current-modern-exterior-photo-style-illustration-of-the-same-building-both-suitable-for-side-by-side-display-in-the-about-section",
-      "featureTitle": "Generate a historic 1902 black-and-white photo-style illustration of McKinley Elementary School exterior in Spokane, WA, and a current modern exterior photo-style illustration of the same building, both suitable for side-by-side display in the About section.",
+      "featureId": "feature-update-the-right-column-of-the-aboutsection-component-to-display-two-images-side-by-side-a-historic-1902-photo-of-mckinley-elementary-school-in-spokane-wa-on-the-left-and-a-current-gymnasium-photo-of-mckinley-elementary-school-in-spokane-wa-on-the-right-each-image-should-be-clearly-labeled-e-g-1902-and-today-or-historic-and-current-gymnasium-the-layout-must-remain-visually-balanced-within-the-two-column-about-section",
+      "featureTitle": "Update the right column of the AboutSection component to display two images side-by-side: a historic 1902 photo of McKinley Elementary School in Spokane, WA on the left, and a current gymnasium photo of McKinley Elementary School in Spokane, WA on the right. Each image should be clearly labeled (e.g., '1902' and 'Today' or 'Historic' and 'Current Gymnasium'). The layout must remain visually balanced within the two-column About section.",
       "files": [
-        "frontend/src/pages/LandingPage.tsx"
+        "frontend/src/components/AboutSection.tsx"
       ],
       "components": [
         "authorization@4.0.0",
@@ -18,27 +18,6 @@
       ],
       "testIds": [
         "REQ-1"
-      ],
-      "confidence": "high"
-    },
-    {
-      "featureId": "feature-add-an-about-actuality-studio-section-on-the-landingpage-frontend-src-pages-landingpage-tsx-immediately-below-the-herosection-using-a-2-column-layout-the-left-column-contains-the-heading-about-actuality-studio-and-the-descriptive-text-a-decentralized-platform-on-dfinity-s-internet-computer-for-creating-adu-based-pocket-neighborhoods-and-small-co-housing-communities-secure-transparent-and-truly-sovereign-the-right-column-displays-the-two-generated-mckinley-elementary-school-images-1902-historic-and-current-exterior-side-by-side-with-appropriate-labels-below-the-left-column-text-include-a-call-to-action-button-labeled-view-memberships-that-navigates-to-the-membership-route",
-      "featureTitle": "Add an 'About Actuality Studio' section on the LandingPage (frontend/src/pages/LandingPage.tsx) immediately below the HeroSection, using a 2-column layout. The left column contains the heading 'About Actuality Studio' and the descriptive text: 'A decentralized platform on Dfinity's Internet Computer for creating ADU-based pocket neighborhoods and small co-housing communities. Secure, transparent, and truly sovereign.' The right column displays the two generated McKinley Elementary School images (1902 historic and current exterior) side by side with appropriate labels. Below the left column text, include a call-to-action button labeled 'View Memberships' that navigates to the /membership route.",
-      "files": [
-        "frontend/src/components/AboutSection.tsx",
-        "frontend/src/pages/LandingPage.tsx"
-      ],
-      "components": [
-        "authorization@4.0.0",
-        "core-infrastructure@1.0.2",
-        "shadcn-ui@1.0.0",
-        "build-template-react@1.0.0",
-        "initial-app@1.0.0",
-        "github-export-icp-cli@1.0.0",
-        "blob-storage@4.0.0"
-      ],
-      "testIds": [
-        "REQ-2"
       ],
       "confidence": "high"
     }

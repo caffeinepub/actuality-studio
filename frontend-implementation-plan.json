@@ -1,45 +1,24 @@
 {
   "kind": "implementation_plan",
   "version": "1.0",
-  "title": "Add 'About Actuality Studio' section below hero",
+  "title": "Update About Section Right Column to Side-by-Side McKinley School Photos",
   "requirements": [
     {
       "id": "REQ-1",
-      "summary": "Generate two McKinley Elementary School exterior images (1902 historic and current) for side-by-side display in the About section",
+      "summary": "Update the right column of the AboutSection component to display two images side-by-side: a historic 1902 photo of McKinley Elementary School and a current gymnasium photo, each with clear descriptive labels",
       "acceptanceCriteria": [
-        "Two images are generated: one representing the 1902 historic exterior and one representing the current exterior of McKinley Elementary School.",
-        "Images are saved as static assets in frontend/public/assets/generated.",
-        "Both images are visually distinct — the historic image has a sepia/black-and-white aesthetic and the current image appears in full color."
-      ],
-      "file_operations": [
-        {
-          "path": "frontend/src/pages/LandingPage.tsx",
-          "operation": "modify",
-          "description": "Wire the two generated McKinley Elementary School images (frontend/public/assets/generated/mckinley-1902.dim_600x400.png and frontend/public/assets/generated/mckinley-current.dim_600x400.png) into the new AboutSection component as static asset references. These images will be displayed side-by-side in the right column of the About section layout."
-        }
-      ]
-    },
-    {
-      "id": "REQ-2",
-      "summary": "Add an 'About Actuality Studio' section on the LandingPage immediately below the HeroSection with 2-column layout, descriptive text, two side-by-side McKinley Elementary School images, and a 'View Memberships' CTA button",
-      "acceptanceCriteria": [
-        "The 'About Actuality Studio' section appears directly below the HeroSection on the landing page.",
-        "The section uses a 2-column grid layout on desktop; columns stack vertically on mobile.",
-        "Left column displays the heading 'About Actuality Studio' and the full descriptive text as specified.",
-        "A 'View Memberships' CTA button is present below the descriptive text in the left column and navigates to /membership when clicked.",
-        "Right column displays both McKinley Elementary School images side by side, with a label or caption identifying '1902' and 'Today' (or similar).",
-        "Section styling is consistent with the existing autumn/warm OKLCH color palette and typography used throughout the app (Playfair Display headings, Space Grotesk body text)."
+        "The right column of the About section shows exactly two images displayed side-by-side horizontally.",
+        "The left image depicts McKinley Elementary School in a historic 1902 style.",
+        "The right image depicts the current gymnasium of McKinley Elementary School in Spokane, WA.",
+        "Both images have clear descriptive labels visible beneath or overlaid on them.",
+        "The side-by-side layout is visually balanced and does not break the two-column About section layout.",
+        "Images are rendered from static assets in frontend/public/assets/generated."
       ],
       "file_operations": [
         {
           "path": "frontend/src/components/AboutSection.tsx",
-          "operation": "create",
-          "description": "Create an AboutSection component with a 2-column responsive grid layout. The left column contains the heading 'About Actuality Studio', the descriptive text 'A decentralized platform on Dfinity's Internet Computer for creating ADU-based pocket neighborhoods and small co-housing communities. Secure, transparent, and truly sovereign.', and a 'View Memberships' button using TanStack Router Link to navigate to /membership. The right column displays the two generated McKinley Elementary School images (frontend/public/assets/generated/mckinley-1902.dim_600x400.png and frontend/public/assets/generated/mckinley-current.dim_600x400.png) side by side with labels '1902' and 'Today'. Apply consistent autumn/warm OKLCH color palette styling with Playfair Display for headings and Space Grotesk for body text. Ensure mobile responsiveness by stacking columns vertically on smaller screens."
-        },
-        {
-          "path": "frontend/src/pages/LandingPage.tsx",
           "operation": "modify",
-          "description": "Import and insert the AboutSection component immediately below the HeroSection in the page layout. The AboutSection should appear between the HeroSection and the existing mission statement section, maintaining the visual flow of the landing page."
+          "description": "Update the right column to replace the existing single image with a side-by-side layout displaying two images: frontend/public/assets/generated/mckinley-1902.dim_600x400.png labeled '1902' on the left, and frontend/public/assets/generated/mckinley-gymnasium-current.dim_600x400.png labeled 'Today' on the right. Maintain the two-column grid layout and ensure the images are horizontally aligned with proper spacing and labels beneath each image. Use responsive flex or grid layout to keep images balanced within the right column."
         }
       ]
     }
