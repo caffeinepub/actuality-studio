@@ -1,13 +1,13 @@
 # Specification
 
 ## Summary
-**Goal:** Update the HeroSection component to display a full-width hero banner with overlay text and a CTA button using an existing photo of McKinley Elementary School.
+**Goal:** Add an "About Actuality Studio" section directly below the hero on the landing page, with a 2-column layout featuring descriptive text and side-by-side McKinley Elementary School images.
 
 **Planned changes:**
-- Update `HeroSection.tsx` to use `mckinley-elementary-hero.jpg` as a full-width, full-cover background image with a minimum height of 80vh
-- Apply a subtle dark gradient overlay on the hero banner to ensure text legibility
-- Add a centered primary heading in Playfair Display serif (white/gold): "Actuality Studio – Sovereign Design for Pocket Neighborhoods & ADU Co-Housing"
-- Add a centered subtitle in white/off-white: "Repurposing landmarks like McKinley Elementary School Spokane into thriving sovereign communities on the blockchain"
-- Add a sage-green (#A8CABA) CTA button labeled "Start Your Free 30-Day Trial" that triggers the existing membership trial flow
+- Generate two McKinley Elementary School exterior images: one historic 1902 black-and-white/sepia style and one modern full-color exterior
+- Add an "About Actuality Studio" section in `LandingPage.tsx` immediately below the HeroSection
+- Left column: heading "About Actuality Studio", descriptive text about the platform, and a "View Memberships" CTA button linking to `/membership`
+- Right column: both McKinley school images displayed side by side with "1902" and "Today" captions
+- Section uses 2-column grid on desktop, stacked on mobile, consistent with existing autumn/warm OKLCH color palette, Playfair Display headings, and Space Grotesk body text
 
-**User-visible outcome:** Visitors see a striking full-width hero banner featuring a photo of McKinley Elementary School with branded overlay text and a prominent call-to-action button linking to the free trial flow.
+**User-visible outcome:** Visitors to the landing page will see an informational "About Actuality Studio" section below the hero, with platform description, a call-to-action button to view memberships, and historic vs. current school images side by side.

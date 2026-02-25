@@ -2,10 +2,10 @@
   "kind": "feature_evidence_report",
   "features": [
     {
-      "featureId": "feature-update-frontend-src-components-herosection-tsx-to-render-a-full-width-hero-banner-using-the-existing-generated-image-mckinley-elementary-hero-jpg-served-from-frontend-public-assets-generated-as-the-background-the-banner-must-cover-the-full-viewport-width-and-be-at-least-80vh-tall-apply-a-subtle-dark-gradient-overlay-to-ensure-text-legibility-over-the-photo",
-      "featureTitle": "Update frontend/src/components/HeroSection.tsx to render a full-width hero banner using the existing generated image 'mckinley-elementary-hero.jpg' (served from frontend/public/assets/generated/) as the background. The banner must cover the full viewport width and be at least 80vh tall. Apply a subtle dark gradient overlay to ensure text legibility over the photo.",
+      "featureId": "feature-generate-a-historic-1902-black-and-white-photo-style-illustration-of-mckinley-elementary-school-exterior-in-spokane-wa-and-a-current-modern-exterior-photo-style-illustration-of-the-same-building-both-suitable-for-side-by-side-display-in-the-about-section",
+      "featureTitle": "Generate a historic 1902 black-and-white photo-style illustration of McKinley Elementary School exterior in Spokane, WA, and a current modern exterior photo-style illustration of the same building, both suitable for side-by-side display in the About section.",
       "files": [
-        "frontend/src/components/HeroSection.tsx"
+        "frontend/src/pages/LandingPage.tsx"
       ],
       "components": [
         "authorization@4.0.0",
@@ -17,15 +17,16 @@
         "blob-storage@4.0.0"
       ],
       "testIds": [
-        "REQ-11"
+        "REQ-1"
       ],
       "confidence": "high"
     },
     {
-      "featureId": "feature-add-centered-overlay-content-on-the-hero-banner-in-herosection-tsx-1-a-primary-heading-in-white-gold-using-playfair-display-serif-font-reading-actuality-studio-sovereign-design-for-pocket-neighborhoods-adu-co-housing-2-a-subtitle-in-white-off-white-reading-repurposing-landmarks-like-mckinley-elementary-school-spokane-into-thriving-sovereign-communities-on-the-blockchain-3-a-prominent-sage-green-cta-button-labeled-start-your-free-30-day-trial-that-triggers-the-existing-trial-membership-flow",
-      "featureTitle": "Add centered overlay content on the hero banner in HeroSection.tsx: (1) A primary heading in white/gold using Playfair Display serif font reading 'Actuality Studio – Sovereign Design for Pocket Neighborhoods & ADU Co-Housing'; (2) A subtitle in white/off-white reading 'Repurposing landmarks like McKinley Elementary School Spokane into thriving sovereign communities on the blockchain'; (3) A prominent sage-green CTA button labeled 'Start Your Free 30-Day Trial' that triggers the existing trial/membership flow.",
+      "featureId": "feature-add-an-about-actuality-studio-section-on-the-landingpage-frontend-src-pages-landingpage-tsx-immediately-below-the-herosection-using-a-2-column-layout-the-left-column-contains-the-heading-about-actuality-studio-and-the-descriptive-text-a-decentralized-platform-on-dfinity-s-internet-computer-for-creating-adu-based-pocket-neighborhoods-and-small-co-housing-communities-secure-transparent-and-truly-sovereign-the-right-column-displays-the-two-generated-mckinley-elementary-school-images-1902-historic-and-current-exterior-side-by-side-with-appropriate-labels-below-the-left-column-text-include-a-call-to-action-button-labeled-view-memberships-that-navigates-to-the-membership-route",
+      "featureTitle": "Add an 'About Actuality Studio' section on the LandingPage (frontend/src/pages/LandingPage.tsx) immediately below the HeroSection, using a 2-column layout. The left column contains the heading 'About Actuality Studio' and the descriptive text: 'A decentralized platform on Dfinity's Internet Computer for creating ADU-based pocket neighborhoods and small co-housing communities. Secure, transparent, and truly sovereign.' The right column displays the two generated McKinley Elementary School images (1902 historic and current exterior) side by side with appropriate labels. Below the left column text, include a call-to-action button labeled 'View Memberships' that navigates to the /membership route.",
       "files": [
-        "frontend/src/components/HeroSection.tsx"
+        "frontend/src/components/AboutSection.tsx",
+        "frontend/src/pages/LandingPage.tsx"
       ],
       "components": [
         "authorization@4.0.0",
@@ -37,7 +38,7 @@
         "blob-storage@4.0.0"
       ],
       "testIds": [
-        "REQ-12"
+        "REQ-2"
       ],
       "confidence": "high"
     }

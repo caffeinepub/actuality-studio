@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from '@tanstack/react-router';
 import HeroSection from '../components/HeroSection';
+import AboutSection from '../components/AboutSection';
 import MembershipCard from '../components/MembershipCard';
 import { useInternetIdentity } from '../hooks/useInternetIdentity';
 import { Shield, Zap, Globe, ArrowRight } from 'lucide-react';
@@ -49,6 +50,50 @@ export default function LandingPage() {
     <div className="min-h-screen bg-background">
       {/* Hero */}
       <HeroSection />
+
+      {/* About Actuality Studio */}
+      <AboutSection />
+
+      {/* Below-hero mission statement section */}
+      <section className="py-16 px-6 bg-forest text-center relative overflow-hidden">
+        {/* Subtle decorative overlay */}
+        <div className="absolute inset-0 bg-gradient-to-b from-black/20 to-black/10 pointer-events-none" />
+
+        <div className="relative z-10 max-w-4xl mx-auto flex flex-col items-center gap-6">
+          {/* Primary line */}
+          <h2
+            className="font-heading font-bold text-white leading-tight"
+            style={{ fontSize: 'clamp(1.4rem, 3.2vw, 2.4rem)' }}
+          >
+            Sovereign Community Projects for Pocket Neighborhoods &amp; ADU Co-Housing
+          </h2>
+
+          {/* Decorative divider */}
+          <div className="flex items-center gap-3">
+            <span className="block h-px w-16 bg-gold/60" />
+            <span className="block w-2 h-2 rounded-full bg-gold/70" />
+            <span className="block h-px w-16 bg-gold/60" />
+          </div>
+
+          {/* First subtitle */}
+          <p
+            className="font-sans text-white/90 leading-relaxed max-w-3xl"
+            style={{ fontSize: 'clamp(0.95rem, 1.8vw, 1.15rem)' }}
+          >
+            Join Us in the Renovation of the Historic McKinley Elementary School in Spokane, Washington.
+            We are creating an &ldquo;Actuality Studio&rdquo; for Architectural Arts &amp; Crafts.
+          </p>
+
+          {/* Second subtitle */}
+          <p
+            className="font-sans text-white/80 leading-relaxed max-w-3xl"
+            style={{ fontSize: 'clamp(0.9rem, 1.6vw, 1.05rem)' }}
+          >
+            An Invitation for Clients, Architects, Interior Designers, Landscape Architects, Builders
+            and related Trades, Suppliers, and Sponsors to open New Frontiers in Architecture here in Spokane.
+          </p>
+        </div>
+      </section>
 
       {/* Features */}
       <section className="py-20 px-6 relative overflow-hidden">

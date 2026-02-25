@@ -1,7 +1,7 @@
 {
   "kind": "coverage_report",
   "version": "1.0",
-  "generatedAt": "2026-02-24T23:55:50.796Z",
+  "generatedAt": "2026-02-25T01:27:56.811Z",
   "sources": {
     "buildRequest": true,
     "implementationPlan": true
@@ -11,25 +11,27 @@
     "implemented": 2,
     "items": [
       {
-        "id": "REQ-11",
-        "summary": "Update frontend/src/components/HeroSection.tsx to render a full-width hero banner using the existing generated image 'mckinley-elementary-hero.jpg' (served from frontend/public/assets/generated/) as the background. The banner must cover the full viewport width and be at least 80vh tall. Apply a subtle dark gradient overlay to ensure text legibility over the photo.",
+        "id": "REQ-1",
+        "summary": "Generate a historic 1902 black-and-white photo-style illustration of McKinley Elementary School exterior in Spokane, WA, and a current modern exterior photo-style illustration of the same building, both suitable for side-by-side display in the About section.",
         "status": "implemented",
         "plannedFiles": [
-          "frontend/src/components/HeroSection.tsx"
+          "frontend/src/pages/LandingPage.tsx"
         ],
         "matchedFiles": [
-          "frontend/src/components/HeroSection.tsx"
+          "frontend/src/pages/LandingPage.tsx"
         ]
       },
       {
-        "id": "REQ-12",
-        "summary": "Add centered overlay content on the hero banner in HeroSection.tsx: (1) A primary heading in white/gold using Playfair Display serif font reading 'Actuality Studio – Sovereign Design for Pocket Neighborhoods & ADU Co-Housing'; (2) A subtitle in white/off-white reading 'Repurposing landmarks like McKinley Elementary School Spokane into thriving sovereign communities on the blockchain'; (3) A prominent sage-green CTA button labeled 'Start Your Free 30-Day Trial' that triggers the existing trial/membership flow.",
+        "id": "REQ-2",
+        "summary": "Add an 'About Actuality Studio' section on the LandingPage (frontend/src/pages/LandingPage.tsx) immediately below the HeroSection, using a 2-column layout. The left column contains the heading 'About Actuality Studio' and the descriptive text: 'A decentralized platform on Dfinity's Internet Computer for creating ADU-based pocket neighborhoods and small co-housing communities. Secure, transparent, and truly sovereign.' The right column displays the two generated McKinley Elementary School images (1902 historic and current exterior) side by side with appropriate labels. Below the left column text, include a call-to-action button labeled 'View Memberships' that navigates to the /membership route.",
         "status": "implemented",
         "plannedFiles": [
-          "frontend/src/components/HeroSection.tsx"
+          "frontend/src/components/AboutSection.tsx",
+          "frontend/src/pages/LandingPage.tsx"
         ],
         "matchedFiles": [
-          "frontend/src/components/HeroSection.tsx"
+          "frontend/src/components/AboutSection.tsx",
+          "frontend/src/pages/LandingPage.tsx"
         ]
       }
     ]
@@ -39,8 +41,10 @@
     "feature_evidence.json",
     "frontend-file-summaries.txt",
     "frontend-implementation-plan.json",
-    "frontend/public/assets/generated/mckinley-elementary-hero.jpg",
-    "frontend/src/components/HeroSection.tsx",
+    "frontend/public/assets/generated/mckinley-1902.dim_600x400.png",
+    "frontend/public/assets/generated/mckinley-current.dim_600x400.png",
+    "frontend/src/components/AboutSection.tsx",
+    "frontend/src/pages/LandingPage.tsx",
     "project_state.json",
     "scratch/component-selection.json",
     "spec.md",
