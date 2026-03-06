@@ -451,7 +451,7 @@ export default function EnrollmentModal({
                   Unlocked Features
                 </p>
                 {[
-                  "Sovereign Catalog Preview",
+                  "Catalog Preview",
                   "Community Examples Access",
                   "Cohort Collaboration Tools",
                   "On-Chain Badge NFT",

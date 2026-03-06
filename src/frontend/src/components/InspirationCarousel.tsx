@@ -94,14 +94,14 @@ export default function InspirationCarousel() {
   }, [prev, next]);
 
   return (
-    <section className="py-16 sm:py-20 lg:py-24 bg-forest overflow-hidden">
+    <section className="py-16 sm:py-20 lg:py-24 bg-spring overflow-hidden">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
         <div className="text-center mb-8 sm:mb-12">
-          <span className="inline-block text-xs sm:text-sm font-body font-semibold tracking-widest uppercase text-gold/70 mb-3">
+          <span className="inline-block text-xs sm:text-sm font-body font-semibold tracking-widest uppercase text-primary/70 mb-3">
             Real-World Inspiration
           </span>
-          <h2 className="font-heading text-2xl sm:text-3xl lg:text-4xl font-bold text-cream">
+          <h2 className="font-heading text-2xl sm:text-3xl lg:text-4xl font-bold text-forest">
             The McKinley Vision — Spokane, WA
           </h2>
         </div>
@@ -168,10 +168,10 @@ export default function InspirationCarousel() {
           </div>
 
           {/* Caption below image */}
-          <div className="px-4 sm:px-6 lg:px-8 pt-4 pb-2 bg-forest/95 min-h-[3.5rem] flex items-center">
+          <div className="px-4 sm:px-6 lg:px-8 pt-4 pb-2 bg-forest/90 min-h-[3.5rem] flex items-center">
             <p
               className={`
-                font-body text-sm sm:text-base lg:text-lg text-cream/90 max-w-2xl mx-auto text-center w-full
+                font-body text-sm sm:text-base lg:text-lg text-cream/90 max-w-2xl mx-auto text-center w-full italic
                 transition-all duration-400 ease-in-out
                 ${isTransitioning ? "opacity-0 translate-y-1" : "opacity-100 translate-y-0"}
               `}
@@ -181,7 +181,7 @@ export default function InspirationCarousel() {
           </div>
 
           {/* Dots */}
-          <div className="flex items-center justify-center gap-2 py-3 bg-forest/90">
+          <div className="flex items-center justify-center gap-2 py-3 bg-forest/80">
             {slides.map((slide, i) => (
               <button
                 type="button"

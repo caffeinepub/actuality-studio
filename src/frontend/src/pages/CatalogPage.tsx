@@ -217,7 +217,7 @@ export default function CatalogPage() {
       <section className="py-12 sm:py-16 lg:py-20 bg-gradient-to-b from-cream/60 to-background">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <span className="inline-block text-xs sm:text-sm font-body font-semibold tracking-widest uppercase text-primary/70 mb-3">
-            Sovereign Catalog
+            Catalog
           </span>
           <h1 className="font-heading text-3xl sm:text-4xl lg:text-5xl font-bold text-foreground mb-4 leading-tight">
             The McKinley Collection
@@ -264,9 +264,9 @@ export default function CatalogPage() {
                 Members-Only Catalog
               </h3>
               <p className="font-body text-sm text-foreground/60 mb-6 max-w-md mx-auto">
-                Join Actuality Studio to access the full Sovereign Catalog for
-                McKinley Elementary School in Spokane, WA — including ADU
-                blueprints, furniture collections, and architectural details.
+                Join Actuality Studio to access the full Catalog for McKinley
+                Elementary School in Spokane, WA — including ADU blueprints,
+                furniture collections, and architectural details.
               </p>
               <Link
                 to="/membership"

@@ -26,7 +26,7 @@ export default function Footer() {
   );
 
   return (
-    <footer className="bg-forest text-cream/80">
+    <footer className="bg-spring border-t border-forest/10">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16">
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 sm:gap-10 mb-10 sm:mb-12">
           {/* Brand */}
@@ -38,11 +38,11 @@ export default function Footer() {
                 className="w-8 h-8 rounded-full object-cover"
                 loading="lazy"
               />
-              <span className="font-heading text-lg font-bold text-gold">
+              <span className="font-heading text-lg font-bold text-forest">
                 Actuality Studio
               </span>
             </div>
-            <p className="font-body text-sm text-cream/60 leading-relaxed max-w-xs">
+            <p className="font-body text-sm text-forest/70 leading-relaxed max-w-xs">
               Transforming Spokane, Washington's historic McKinley Elementary
               School into sovereign loft residences on the Internet Computer.
             </p>
@@ -50,19 +50,19 @@ export default function Footer() {
 
           {/* Navigation */}
           <div>
-            <h4 className="font-heading text-sm font-semibold text-cream/90 uppercase tracking-wider mb-4">
+            <h4 className="font-heading text-sm font-semibold text-forest/80 uppercase tracking-wider mb-4">
               Navigate
             </h4>
             <ul className="space-y-2.5">
               {[
                 { label: "Home", to: "/" },
                 { label: "Memberships", to: "/membership" },
-                { label: "Sovereign Catalog", to: "/catalog" },
+                { label: "Catalog", to: "/catalog" },
               ].map((item) => (
                 <li key={item.label}>
                   <Link
                     to={item.to}
-                    className="font-body text-sm text-cream/60 hover:text-gold transition-colors duration-200"
+                    className="font-body text-sm text-forest/60 hover:text-primary transition-colors duration-200"
                   >
                     {item.label}
                   </Link>
@@ -73,7 +73,7 @@ export default function Footer() {
 
           {/* Legal */}
           <div>
-            <h4 className="font-heading text-sm font-semibold text-cream/90 uppercase tracking-wider mb-4">
+            <h4 className="font-heading text-sm font-semibold text-forest/80 uppercase tracking-wider mb-4">
               Legal
             </h4>
             <ul className="space-y-2.5">
@@ -81,7 +81,7 @@ export default function Footer() {
                 <li key={item.label}>
                   <a
                     href={item.href}
-                    className="font-body text-sm text-cream/60 hover:text-gold transition-colors duration-200"
+                    className="font-body text-sm text-forest/60 hover:text-primary transition-colors duration-200"
                   >
                     {item.label}
                   </a>
@@ -92,14 +92,14 @@ export default function Footer() {
 
           {/* ICP + Social */}
           <div>
-            <h4 className="font-heading text-sm font-semibold text-cream/90 uppercase tracking-wider mb-4">
+            <h4 className="font-heading text-sm font-semibold text-forest/80 uppercase tracking-wider mb-4">
               Built On
             </h4>
             <a
               href="https://internetcomputer.org"
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 bg-cream/10 hover:bg-cream/15 border border-cream/20 rounded-xl px-3 py-2.5 transition-all duration-200 hover:scale-105 active:scale-95 mb-5"
+              className="inline-flex items-center gap-2 bg-forest/10 hover:bg-forest/15 border border-forest/20 rounded-xl px-3 py-2.5 transition-all duration-200 hover:scale-105 active:scale-95 mb-5"
             >
               <svg
                 viewBox="0 0 32 32"
@@ -129,7 +129,7 @@ export default function Footer() {
                 />
                 <circle cx="16" cy="16" r="2.5" fill="white" />
               </svg>
-              <span className="font-body text-xs text-cream/80">
+              <span className="font-body text-xs text-forest/80">
                 Decentralized on ICP
               </span>
             </a>
@@ -142,7 +142,7 @@ export default function Footer() {
                   target="_blank"
                   rel="noopener noreferrer"
                   aria-label={label}
-                  className="w-8 h-8 flex items-center justify-center rounded-full bg-cream/10 hover:bg-cream/20 text-cream/60 hover:text-gold transition-all duration-200 hover:scale-110 active:scale-95"
+                  className="w-8 h-8 flex items-center justify-center rounded-full bg-forest/10 hover:bg-forest/20 text-forest/60 hover:text-primary transition-all duration-200 hover:scale-110 active:scale-95"
                 >
                   <Icon className="w-3.5 h-3.5" />
                 </a>
@@ -152,13 +152,13 @@ export default function Footer() {
         </div>
 
         {/* Bottom bar */}
-        <div className="border-t border-cream/10 pt-6 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs font-body text-cream/40">
+        <div className="border-t border-forest/15 pt-6 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs font-body text-forest/50">
           <p>© {year} Actuality Studio. All rights reserved.</p>
           <a
             href={`https://caffeine.ai/?utm_source=Caffeine-footer&utm_medium=referral&utm_content=${appId}`}
             target="_blank"
             rel="noopener noreferrer"
-            className="flex items-center gap-1.5 hover:text-gold transition-colors duration-200"
+            className="flex items-center gap-1.5 hover:text-primary transition-colors duration-200"
           >
             Built with <Heart className="w-3 h-3 text-primary fill-primary" />{" "}
             using caffeine.ai

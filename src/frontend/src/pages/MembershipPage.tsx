@@ -22,7 +22,7 @@ const tiers: Tier[] = [
     priceNote: "30 days",
     features: [
       "30-day full access trial",
-      "Sovereign Catalog preview",
+      "Catalog preview",
       "Community examples access",
       "Cohort setup (up to 12 members)",
       "On-chain trial badge NFT",
@@ -36,7 +36,7 @@ const tiers: Tier[] = [
     price: "$49",
     priceNote: "/month",
     features: [
-      "Full Sovereign Catalog access",
+      "Full Catalog access",
       "ADU shell blueprints",
       "Community collaboration tools",
       "Cohort management (up to 12)",

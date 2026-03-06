@@ -120,7 +120,7 @@ export default function ProductTeaserGrid() {
         {/* Header */}
         <div className="text-center mb-10 sm:mb-14">
           <span className="inline-block text-xs sm:text-sm font-body font-semibold tracking-widest uppercase text-primary/70 mb-3">
-            Sovereign Catalog Preview
+            Catalog Preview
           </span>
           <h2 className="font-heading text-2xl sm:text-3xl lg:text-4xl font-bold text-foreground">
             Featured Products

@@ -88,7 +88,7 @@ export default function AboutSection() {
                   decoding="async"
                 />
               </div>
-              <p className="text-xs font-body text-foreground/50 text-center">
+              <p className="text-xs font-body text-primary/70 text-center italic">
                 c. 1902 — Original Building, Spokane, WA
               </p>
             </div>
@@ -98,10 +98,10 @@ export default function AboutSection() {
                 className={`rounded-xl overflow-hidden aspect-[4/3] shadow-warm ${img2Visible ? "image-reveal-visible" : "image-reveal-hidden"}`}
               >
                 <img
-                  src="/assets/generated/mckinley-gymnasium-current.dim_600x400.png"
-                  srcSet="/assets/generated/mckinley-gymnasium-current.dim_600x400.png 600w"
+                  src="/assets/generated/mckinley-gymnasium-studio.dim_600x400.png"
+                  srcSet="/assets/generated/mckinley-gymnasium-studio.dim_600x400.png 600w"
                   sizes="(max-width: 768px) 100vw, 50vw"
-                  alt="McKinley Elementary School Gymnasium, Spokane, WA — Current"
+                  alt="McKinley Elementary School Gymnasium renovated as Actuality Studio, Spokane, WA"
                   width={600}
                   height={400}
                   className="w-full h-full object-cover transition-transform duration-500 hover:scale-105"
@@ -109,7 +109,7 @@ export default function AboutSection() {
                   decoding="async"
                 />
               </div>
-              <p className="text-xs font-body text-foreground/50 text-center">
+              <p className="text-xs font-body text-primary/70 text-center italic">
                 Today — Gymnasium Space, Spokane, WA
               </p>
             </div>

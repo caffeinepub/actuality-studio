@@ -83,10 +83,10 @@ export default function LandingPage() {
                 className="bg-background rounded-2xl border border-border/30 shadow-warm p-6 sm:p-7 hover:shadow-lg transition-all duration-300 hover:-translate-y-1"
               >
                 <div className="text-3xl sm:text-4xl mb-4">{card.icon}</div>
-                <h3 className="font-heading text-lg sm:text-xl font-bold text-foreground mb-2">
+                <h3 className="font-heading text-lg sm:text-xl font-bold text-primary mb-2">
                   {card.title}
                 </h3>
-                <p className="font-body text-sm text-foreground/65 leading-relaxed">
+                <p className="font-body text-sm text-foreground/70 leading-relaxed">
                   {card.desc}
                 </p>
               </div>

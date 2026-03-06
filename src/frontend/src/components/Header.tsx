@@ -13,7 +13,7 @@ const navItems: NavItem[] = [
   { kind: "link", label: "Home", to: "/" },
   { kind: "scroll", label: "About", href: "#about" },
   { kind: "link", label: "Memberships", to: "/membership" },
-  { kind: "link", label: "Sovereign Catalog", to: "/catalog" },
+  { kind: "link", label: "Catalog", to: "/catalog" },
   { kind: "scroll", label: "Community", href: "#community" },
 ];
 

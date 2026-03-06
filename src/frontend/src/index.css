@@ -161,6 +161,11 @@
     background-color: oklch(0.97 0.008 70);
   }
 
+  /* Light spring background — soft sage-mint, bright and fresh */
+  .bg-spring {
+    background-color: oklch(0.96 0.025 155);
+  }
+
   /* ── Progressive Image Reveal ── */
   .image-reveal-hidden {
     opacity: 0;
