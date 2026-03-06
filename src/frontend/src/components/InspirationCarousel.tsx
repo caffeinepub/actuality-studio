@@ -131,21 +131,6 @@ export default function InspirationCarousel() {
                 `}
               />
             ))}
-            {/* Gradient overlay */}
-            <div className="absolute inset-0 bg-gradient-to-t from-forest/80 via-transparent to-transparent" />
-
-            {/* Caption */}
-            <div className="absolute bottom-0 left-0 right-0 p-4 sm:p-6 lg:p-8">
-              <p
-                className={`
-                  font-body text-sm sm:text-base lg:text-lg text-cream/90 max-w-2xl
-                  transition-all duration-400 ease-in-out
-                  ${isTransitioning ? "opacity-0 translate-y-2" : "opacity-100 translate-y-0"}
-                `}
-              >
-                {slides[current].caption}
-              </p>
-            </div>
 
             {/* Nav buttons */}
             <button
@@ -182,8 +167,21 @@ export default function InspirationCarousel() {
             </button>
           </div>
 
+          {/* Caption below image */}
+          <div className="px-4 sm:px-6 lg:px-8 pt-4 pb-2 bg-forest/95 min-h-[3.5rem] flex items-center">
+            <p
+              className={`
+                font-body text-sm sm:text-base lg:text-lg text-cream/90 max-w-2xl mx-auto text-center w-full
+                transition-all duration-400 ease-in-out
+                ${isTransitioning ? "opacity-0 translate-y-1" : "opacity-100 translate-y-0"}
+              `}
+            >
+              {slides[current].caption}
+            </p>
+          </div>
+
           {/* Dots */}
-          <div className="flex items-center justify-center gap-2 py-4 bg-forest/90">
+          <div className="flex items-center justify-center gap-2 py-3 bg-forest/90">
             {slides.map((slide, i) => (
               <button
                 type="button"
