@@ -1,0 +1,185 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --radius: 0.375rem;
+
+    /* ── Autumn/Spring Warm Palette ── */
+    /* Terracotta: #C46A4E → oklch(0.57 0.12 38) */
+    /* Off-white bg: warm near-white → oklch(0.98 0.008 75) */
+    /* Warm gold:  #F4A261 → oklch(0.76 0.13 60) */
+    /* Soft blush: #E8B4A2 → oklch(0.78 0.07 38) */
+    /* Forest grn: #4A7043 → oklch(0.47 0.10 145) */
+
+    --background: 0.98 0.008 75;
+    --foreground: 0.22 0.04 40;
+
+    --card: 0.99 0.005 75;
+    --card-foreground: 0.22 0.04 40;
+
+    --popover: 0.99 0.005 75;
+    --popover-foreground: 0.22 0.04 40;
+
+    /* Primary = terracotta */
+    --primary: 0.57 0.12 38;
+    --primary-foreground: 0.98 0.008 75;
+
+    /* Secondary = warm sandstone (very light warm neutral, no green tint) */
+    --secondary: 0.96 0.01 70;
+    --secondary-foreground: 0.28 0.06 50;
+
+    --muted: 0.94 0.012 75;
+    --muted-foreground: 0.5 0.05 50;
+
+    /* Accent = warm gold */
+    --accent: 0.76 0.13 60;
+    --accent-foreground: 0.18 0.04 40;
+
+    --destructive: 0.55 0.2 25;
+    --destructive-foreground: 0.98 0.008 75;
+
+    --border: 0.9 0.02 70;
+    --input: 0.9 0.02 70;
+    --ring: 0.57 0.12 38;
+
+    --chart-1: 0.57 0.12 38;
+    --chart-2: 0.96 0.015 148;
+    --chart-3: 0.76 0.13 60;
+    --chart-4: 0.47 0.1 145;
+    --chart-5: 0.78 0.07 38;
+
+    --sidebar: 0.97 0.01 75;
+    --sidebar-foreground: 0.22 0.04 40;
+    --sidebar-primary: 0.57 0.12 38;
+    --sidebar-primary-foreground: 0.98 0.008 75;
+    --sidebar-accent: 0.96 0.01 70;
+    --sidebar-accent-foreground: 0.28 0.06 50;
+    --sidebar-border: 0.9 0.02 70;
+    --sidebar-ring: 0.57 0.12 38;
+  }
+
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+    font-family: "Space Grotesk", system-ui, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    font-family: "Playfair Display", Georgia, serif;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+    line-height: 1.2;
+  }
+
+  h5,
+  h6 {
+    font-family: "Space Grotesk", system-ui, sans-serif;
+    font-weight: 600;
+  }
+}
+
+@layer utilities {
+  /* Gradient text using terracotta → gold */
+  .text-gradient-warm {
+    background: linear-gradient(
+      135deg,
+      oklch(0.57 0.12 38),
+      oklch(0.76 0.13 60)
+    );
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  /* Subtle warm grid overlay */
+  .grid-overlay {
+    background-image: linear-gradient(
+        rgba(196, 106, 78, 0.04) 1px,
+        transparent 1px
+      ), linear-gradient(90deg, rgba(196, 106, 78, 0.04) 1px, transparent 1px);
+    background-size: 60px 60px;
+  }
+
+  /* Terracotta glow */
+  .terracotta-glow {
+    box-shadow: 0 0 40px rgba(196, 106, 78, 0.15), 0 0 80px
+      rgba(196, 106, 78, 0.06);
+  }
+
+  /* Warm card style */
+  .card-warm {
+    background: oklch(0.99 0.005 75);
+    border: 1px solid oklch(0.9 0.02 70);
+    border-radius: 0.5rem;
+  }
+
+  /* Primary button — terracotta */
+  .btn-primary-warm {
+    background: oklch(0.57 0.12 38);
+    color: oklch(0.98 0.008 75);
+    font-weight: 600;
+    letter-spacing: 0.01em;
+    transition: all 0.2s ease;
+    border-radius: 0.375rem;
+  }
+
+  .btn-primary-warm:hover {
+    background: oklch(0.63 0.13 38);
+    box-shadow: 0 4px 16px rgba(196, 106, 78, 0.35);
+  }
+
+  .btn-primary-warm:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+
+  /* Pulse animation for minted NFT */
+  .pulse-terracotta {
+    animation: pulse-terracotta 2s ease-in-out infinite;
+  }
+
+  /* Leaf motif decorative SVG container */
+  .leaf-motif {
+    pointer-events: none;
+    user-select: none;
+    position: absolute;
+    opacity: 0.12;
+  }
+
+  /* Sandstone section background — warm light stone, no green tint */
+  .bg-sandstone {
+    background-color: oklch(0.97 0.008 70);
+  }
+
+  /* ── Progressive Image Reveal ── */
+  .image-reveal-hidden {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+
+  .image-reveal-visible {
+    opacity: 1;
+    transform: translateY(0);
+    transition: opacity 0.65s ease-out, transform 0.65s ease-out;
+  }
+}
+
+@keyframes pulse-terracotta {
+  0%,
+  100% {
+    box-shadow: 0 0 0 0 rgba(196, 106, 78, 0.4);
+  }
+  50% {
+    box-shadow: 0 0 0 8px rgba(196, 106, 78, 0);
+  }
+}
