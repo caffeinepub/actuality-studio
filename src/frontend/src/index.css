@@ -4,60 +4,64 @@
 
 @layer base {
   :root {
-    --radius: 0.375rem;
+    --radius: 0.75rem;
 
-    /* ── Autumn/Spring Warm Palette ── */
-    /* Terracotta: #C46A4E → oklch(0.57 0.12 38) */
-    /* Off-white bg: warm near-white → oklch(0.98 0.008 75) */
-    /* Warm gold:  #F4A261 → oklch(0.76 0.13 60) */
-    /* Soft blush: #E8B4A2 → oklch(0.78 0.07 38) */
-    /* Forest grn: #4A7043 → oklch(0.47 0.10 145) */
+    /* ── Actuality Studio Palette ── */
+    /* Warm Parchment: #f5e6c8 → oklch(0.92 0.04 78) */
+    /* Crimson Lustre: #c0392b → oklch(0.47 0.20 27) */
+    /* Text Primary:  #2c1a0e → oklch(0.19 0.04 47) */
+    /* Text Secondary:#5a3a22 → oklch(0.32 0.06 50) */
+    /* Text Muted:    #7a5c44 → oklch(0.45 0.05 55) */
+    /* Warm Gold:     #e8c98a → oklch(0.84 0.09 72) */
 
-    --background: 0.98 0.008 75;
-    --foreground: 0.22 0.04 40;
+    --background: 0.92 0.04 78;
+    --foreground: 0.19 0.04 47;
 
-    --card: 0.99 0.005 75;
-    --card-foreground: 0.22 0.04 40;
+    /* Card — warm translucent parchment tint */
+    --card: 0.94 0.03 78;
+    --card-foreground: 0.19 0.04 47;
 
-    --popover: 0.99 0.005 75;
-    --popover-foreground: 0.22 0.04 40;
+    --popover: 0.95 0.03 78;
+    --popover-foreground: 0.19 0.04 47;
 
-    /* Primary = terracotta */
-    --primary: 0.57 0.12 38;
-    --primary-foreground: 0.98 0.008 75;
+    /* Primary = crimson lustre */
+    --primary: 0.47 0.2 27;
+    --primary-foreground: 0.99 0.0 0;
 
-    /* Secondary = warm sandstone (very light warm neutral, no green tint) */
-    --secondary: 0.96 0.01 70;
-    --secondary-foreground: 0.28 0.06 50;
+    /* Secondary = warm parchment lighter */
+    --secondary: 0.96 0.025 78;
+    --secondary-foreground: 0.32 0.06 50;
 
-    --muted: 0.94 0.012 75;
-    --muted-foreground: 0.5 0.05 50;
+    /* Muted = warm gold tone */
+    --muted: 0.88 0.06 72;
+    --muted-foreground: 0.45 0.05 55;
 
-    /* Accent = warm gold */
-    --accent: 0.76 0.13 60;
-    --accent-foreground: 0.18 0.04 40;
+    /* Accent = deep warm gold */
+    --accent: 0.84 0.09 72;
+    --accent-foreground: 0.19 0.04 47;
 
-    --destructive: 0.55 0.2 25;
-    --destructive-foreground: 0.98 0.008 75;
+    --destructive: 0.42 0.22 25;
+    --destructive-foreground: 0.99 0.0 0;
 
-    --border: 0.9 0.02 70;
-    --input: 0.9 0.02 70;
-    --ring: 0.57 0.12 38;
+    /* Border = subtle crimson glow */
+    --border: 0.47 0.2 27 / 0.18;
+    --input: 0.85 0.04 72;
+    --ring: 0.47 0.2 27;
 
-    --chart-1: 0.57 0.12 38;
-    --chart-2: 0.96 0.015 148;
-    --chart-3: 0.76 0.13 60;
-    --chart-4: 0.47 0.1 145;
-    --chart-5: 0.78 0.07 38;
+    --chart-1: 0.47 0.2 27;
+    --chart-2: 0.84 0.09 72;
+    --chart-3: 0.32 0.06 50;
+    --chart-4: 0.6 0.12 38;
+    --chart-5: 0.75 0.07 55;
 
-    --sidebar: 0.97 0.01 75;
-    --sidebar-foreground: 0.22 0.04 40;
-    --sidebar-primary: 0.57 0.12 38;
-    --sidebar-primary-foreground: 0.98 0.008 75;
-    --sidebar-accent: 0.96 0.01 70;
-    --sidebar-accent-foreground: 0.28 0.06 50;
-    --sidebar-border: 0.9 0.02 70;
-    --sidebar-ring: 0.57 0.12 38;
+    --sidebar: 0.94 0.03 78;
+    --sidebar-foreground: 0.19 0.04 47;
+    --sidebar-primary: 0.47 0.2 27;
+    --sidebar-primary-foreground: 0.99 0.0 0;
+    --sidebar-accent: 0.88 0.06 72;
+    --sidebar-accent-foreground: 0.32 0.06 50;
+    --sidebar-border: 0.85 0.04 72;
+    --sidebar-ring: 0.47 0.2 27;
   }
 
   * {
@@ -89,13 +93,9 @@
 }
 
 @layer utilities {
-  /* Gradient text using terracotta → gold */
+  /* Gradient text using crimson → warm gold */
   .text-gradient-warm {
-    background: linear-gradient(
-      135deg,
-      oklch(0.57 0.12 38),
-      oklch(0.76 0.13 60)
-    );
+    background: linear-gradient(135deg, oklch(0.47 0.2 27), oklch(0.84 0.09 72));
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
@@ -104,38 +104,38 @@
   /* Subtle warm grid overlay */
   .grid-overlay {
     background-image: linear-gradient(
-        rgba(196, 106, 78, 0.04) 1px,
+        rgba(192, 57, 43, 0.04) 1px,
         transparent 1px
-      ), linear-gradient(90deg, rgba(196, 106, 78, 0.04) 1px, transparent 1px);
+      ), linear-gradient(90deg, rgba(192, 57, 43, 0.04) 1px, transparent 1px);
     background-size: 60px 60px;
   }
 
-  /* Terracotta glow */
+  /* Crimson glow */
   .terracotta-glow {
-    box-shadow: 0 0 40px rgba(196, 106, 78, 0.15), 0 0 80px
-      rgba(196, 106, 78, 0.06);
+    box-shadow: 0 0 40px rgba(192, 57, 43, 0.15), 0 0 80px
+      rgba(192, 57, 43, 0.06);
   }
 
-  /* Warm card style */
+  /* Warm card style — parchment with crimson glow border */
   .card-warm {
-    background: oklch(0.99 0.005 75);
-    border: 1px solid oklch(0.9 0.02 70);
-    border-radius: 0.5rem;
+    background: oklch(0.94 0.03 78 / 0.85);
+    border: 1px solid oklch(0.47 0.2 27 / 0.18);
+    border-radius: 0.75rem;
   }
 
-  /* Primary button — terracotta */
+  /* Primary button — crimson lustre */
   .btn-primary-warm {
-    background: oklch(0.57 0.12 38);
-    color: oklch(0.98 0.008 75);
+    background: oklch(0.47 0.2 27);
+    color: oklch(0.99 0.0 0);
     font-weight: 600;
     letter-spacing: 0.01em;
     transition: all 0.2s ease;
-    border-radius: 0.375rem;
+    border-radius: 0.75rem;
   }
 
   .btn-primary-warm:hover {
-    background: oklch(0.63 0.13 38);
-    box-shadow: 0 4px 16px rgba(196, 106, 78, 0.35);
+    background: oklch(0.52 0.2 27);
+    box-shadow: 0 4px 16px rgba(192, 57, 43, 0.35);
   }
 
   .btn-primary-warm:disabled {
@@ -143,9 +143,9 @@
     cursor: not-allowed;
   }
 
-  /* Pulse animation for minted NFT */
+  /* Pulse animation for minted NFT — crimson */
   .pulse-terracotta {
-    animation: pulse-terracotta 2s ease-in-out infinite;
+    animation: pulse-crimson 2s ease-in-out infinite;
   }
 
   /* Leaf motif decorative SVG container */
@@ -156,14 +156,14 @@
     opacity: 0.12;
   }
 
-  /* Sandstone section background — warm light stone, no green tint */
+  /* Parchment section background */
   .bg-sandstone {
-    background-color: oklch(0.97 0.008 70);
+    background-color: oklch(0.92 0.04 78);
   }
 
-  /* Light spring background — soft sage-mint, bright and fresh */
+  /* Warm light section — slightly lighter parchment */
   .bg-spring {
-    background-color: oklch(0.96 0.025 155);
+    background-color: oklch(0.96 0.025 78);
   }
 
   /* ── Progressive Image Reveal ── */
@@ -179,12 +179,12 @@
   }
 }
 
-@keyframes pulse-terracotta {
+@keyframes pulse-crimson {
   0%,
   100% {
-    box-shadow: 0 0 0 0 rgba(196, 106, 78, 0.4);
+    box-shadow: 0 0 0 0 rgba(192, 57, 43, 0.4);
   }
   50% {
-    box-shadow: 0 0 0 8px rgba(196, 106, 78, 0);
+    box-shadow: 0 0 0 8px rgba(192, 57, 43, 0);
   }
 }

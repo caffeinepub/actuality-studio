@@ -71,20 +71,40 @@ export default {
           border: 'oklch(var(--sidebar-border))',
           ring: 'oklch(var(--sidebar-ring))'
         },
-        // Autumn/Spring semantic palette tokens
-        terracotta: {
-          50:  'oklch(0.96 0.03 38)',
-          100: 'oklch(0.91 0.05 38)',
-          200: 'oklch(0.84 0.08 38)',
-          300: 'oklch(0.74 0.10 38)',
-          400: 'oklch(0.65 0.11 38)',
-          DEFAULT: 'oklch(0.57 0.12 38)',
-          600: 'oklch(0.50 0.11 38)',
-          700: 'oklch(0.42 0.09 38)',
-          800: 'oklch(0.33 0.07 38)',
-          900: 'oklch(0.24 0.05 38)',
+        // Actuality Studio semantic palette
+        crimson: {
+          50:  'oklch(0.96 0.03 27)',
+          100: 'oklch(0.90 0.07 27)',
+          200: 'oklch(0.82 0.11 27)',
+          300: 'oklch(0.70 0.15 27)',
+          400: 'oklch(0.58 0.18 27)',
+          DEFAULT: 'oklch(0.47 0.20 27)',
+          600: 'oklch(0.40 0.18 27)',
+          700: 'oklch(0.33 0.15 27)',
+          800: 'oklch(0.25 0.10 27)',
+          900: 'oklch(0.18 0.06 27)',
         },
-        // Extra light sage — near-white sage tint for improved readability
+        parchment: {
+          50:  'oklch(0.98 0.01 78)',
+          100: 'oklch(0.96 0.025 78)',
+          200: 'oklch(0.94 0.03 78)',
+          DEFAULT: 'oklch(0.92 0.04 78)',
+          400: 'oklch(0.88 0.05 75)',
+          500: 'oklch(0.82 0.06 73)',
+        },
+        // Keep terracotta alias for backward compat with any remaining refs
+        terracotta: {
+          50:  'oklch(0.96 0.03 27)',
+          100: 'oklch(0.90 0.07 27)',
+          200: 'oklch(0.82 0.11 27)',
+          300: 'oklch(0.70 0.15 27)',
+          400: 'oklch(0.58 0.18 27)',
+          DEFAULT: 'oklch(0.47 0.20 27)',
+          600: 'oklch(0.40 0.18 27)',
+          700: 'oklch(0.33 0.15 27)',
+          800: 'oklch(0.25 0.10 27)',
+          900: 'oklch(0.18 0.06 27)',
+        },
         sage: {
           50:  'oklch(0.99 0.005 148)',
           100: 'oklch(0.98 0.008 148)',
@@ -98,24 +118,18 @@ export default {
           900: 'oklch(0.24 0.06 148)',
         },
         gold: {
-          50:  'oklch(0.97 0.04 65)',
-          100: 'oklch(0.93 0.07 63)',
-          200: 'oklch(0.88 0.10 62)',
-          DEFAULT: 'oklch(0.76 0.13 60)',
-          400: 'oklch(0.68 0.13 58)',
-          500: 'oklch(0.60 0.12 55)',
-        },
-        blush: {
-          50:  'oklch(0.97 0.02 38)',
-          100: 'oklch(0.93 0.04 38)',
-          DEFAULT: 'oklch(0.78 0.07 38)',
-          300: 'oklch(0.70 0.08 38)',
+          50:  'oklch(0.97 0.04 72)',
+          100: 'oklch(0.93 0.06 72)',
+          200: 'oklch(0.89 0.08 72)',
+          DEFAULT: 'oklch(0.84 0.09 72)',
+          400: 'oklch(0.75 0.09 70)',
+          500: 'oklch(0.65 0.09 68)',
         },
         cream: {
-          50:  'oklch(0.99 0.005 80)',
-          DEFAULT: 'oklch(0.96 0.02 80)',
-          200: 'oklch(0.93 0.025 78)',
-          300: 'oklch(0.90 0.03 75)',
+          50:  'oklch(0.99 0.005 78)',
+          DEFAULT: 'oklch(0.96 0.025 78)',
+          200: 'oklch(0.94 0.03 78)',
+          300: 'oklch(0.90 0.04 75)',
         },
         forest: {
           50:  'oklch(0.94 0.03 145)',
@@ -127,6 +141,12 @@ export default {
           700: 'oklch(0.30 0.07 145)',
           800: 'oklch(0.22 0.05 145)',
         },
+        blush: {
+          50:  'oklch(0.97 0.02 38)',
+          100: 'oklch(0.93 0.04 38)',
+          DEFAULT: 'oklch(0.78 0.07 38)',
+          300: 'oklch(0.70 0.08 38)',
+        },
       },
       borderRadius: {
         lg: 'var(--radius)',
@@ -137,13 +157,13 @@ export default {
       },
       boxShadow: {
         xs: '0 1px 2px 0 rgba(0,0,0,0.05)',
-        // terracotta ≈ rgba(196,106,78)
-        warm: '0 4px 20px rgba(196, 106, 78, 0.20)',
-        'warm-lg': '0 8px 40px rgba(196, 106, 78, 0.15), 0 2px 8px rgba(196, 106, 78, 0.08)',
-        // extra-light sage ≈ rgba(240,248,242)
-        sage: '0 4px 20px rgba(240, 248, 242, 0.40)',
-        // warm dark brown ≈ rgba(62,48,42)
-        card: '0 2px 12px rgba(62, 48, 42, 0.08)',
+        // crimson glow shadows
+        warm: '0 4px 20px rgba(192, 57, 43, 0.18)',
+        'warm-lg': '0 8px 40px rgba(192, 57, 43, 0.15), 0 2px 8px rgba(192, 57, 43, 0.08)',
+        // parchment ambient
+        sage: '0 4px 20px rgba(245, 230, 200, 0.50)',
+        // deep brown card shadow
+        card: '0 2px 12px rgba(44, 26, 14, 0.10)',
       },
       keyframes: {
         'accordion-down': {
@@ -158,10 +178,9 @@ export default {
           from: { opacity: '0', transform: 'translateY(8px)' },
           to: { opacity: '1', transform: 'translateY(0)' }
         },
-        // terracotta ≈ rgba(196,106,78)
-        'pulse-terracotta': {
-          '0%, 100%': { boxShadow: '0 0 0 0 rgba(196, 106, 78, 0.40)' },
-          '50%': { boxShadow: '0 0 0 8px rgba(196, 106, 78, 0)' }
+        'pulse-crimson': {
+          '0%, 100%': { boxShadow: '0 0 0 0 rgba(192, 57, 43, 0.40)' },
+          '50%': { boxShadow: '0 0 0 8px rgba(192, 57, 43, 0)' }
         },
         'sway': {
           '0%, 100%': { transform: 'rotate(-2deg)' },
@@ -172,7 +191,7 @@ export default {
         'accordion-down': 'accordion-down 0.2s ease-out',
         'accordion-up': 'accordion-up 0.2s ease-out',
         'fade-in': 'fade-in 0.4s ease-out',
-        'pulse-terracotta': 'pulse-terracotta 2s ease-in-out infinite',
+        'pulse-crimson': 'pulse-crimson 2s ease-in-out infinite',
         'sway': 'sway 6s ease-in-out infinite',
       }
     }

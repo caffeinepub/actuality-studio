@@ -16,13 +16,11 @@ import { useGetCallerUserProfile } from "./hooks/useQueries";
 const LandingPage = lazy(() => import("./pages/LandingPage"));
 const MembershipPage = lazy(() => import("./pages/MembershipPage"));
 const CatalogPage = lazy(() => import("./pages/CatalogPage"));
+const MyCatalogPage = lazy(() => import("./pages/MyCatalogPage"));
 
 const queryClient = new QueryClient({
   defaultOptions: {
-    queries: {
-      staleTime: 1000 * 60 * 5,
-      retry: 1,
-    },
+    queries: { staleTime: 1000 * 60 * 5, retry: 1 },
   },
 });
 
@@ -45,10 +43,8 @@ function AppShell() {
     isLoading: profileLoading,
     isFetched,
   } = useGetCallerUserProfile();
-
   const showProfileSetup =
     isAuthenticated && !profileLoading && isFetched && userProfile === null;
-
   return (
     <>
       {isAuthenticated && <UpgradeBanner />}
@@ -90,12 +86,22 @@ const catalogRoute = createRoute({
   ),
 });
 
+const myCatalogRoute = createRoute({
+  getParentRoute: () => rootRoute,
+  path: "/my-catalog",
+  component: () => (
+    <Suspense fallback={<PageLoader />}>
+      <MyCatalogPage />
+    </Suspense>
+  ),
+});
+
 const routeTree = rootRoute.addChildren([
   indexRoute,
   membershipRoute,
   catalogRoute,
+  myCatalogRoute,
 ]);
-
 const router = createRouter({ routeTree });
 
 declare module "@tanstack/react-router" {
