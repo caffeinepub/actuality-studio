@@ -1,11 +1,9 @@
 import Map "mo:core/Map";
 import Time "mo:core/Time";
-import Int64 "mo:core/Int64";
 import Principal "mo:core/Principal";
 import Runtime "mo:core/Runtime";
 import Array "mo:core/Array";
 import Order "mo:core/Order";
-import Iter "mo:core/Iter";
 import MixinAuthorization "authorization/MixinAuthorization";
 import AccessControl "authorization/access-control";
 import MixinStorage "blob-storage/Mixin";
@@ -48,6 +46,58 @@ actor {
     };
     userProfiles.add(caller, profile);
   };
+
+  // ── Admin Principal Management ─────────────────────────────────────────────
+
+  public query func hasAnyAdmin() : async Bool {
+    accessControlState.adminAssigned;
+  };
+
+  public shared ({ caller }) func registerAsFirstAdmin() : async () {
+    if (caller.isAnonymous()) {
+      Runtime.trap("Anonymous callers cannot register as admin");
+    };
+    if (accessControlState.adminAssigned) {
+      Runtime.trap("Admin already registered");
+    };
+    accessControlState.userRoles.add(caller, #admin);
+    accessControlState.adminAssigned := true;
+  };
+
+  public shared ({ caller }) func addAdmin(user : Principal) : async () {
+    if (not AccessControl.isAdmin(accessControlState, caller)) {
+      Runtime.trap("Unauthorized: Only admins can add other admins");
+    };
+    accessControlState.userRoles.add(user, #admin);
+  };
+
+  public shared ({ caller }) func removeAdmin(user : Principal) : async () {
+    if (not AccessControl.isAdmin(accessControlState, caller)) {
+      Runtime.trap("Unauthorized: Only admins can remove admins");
+    };
+    // Count current admins
+    let adminCount = accessControlState.userRoles.entries().filter(
+      func((_, role) : (Principal, AccessControl.UserRole)) : Bool { role == #admin }
+    ).toArray().size();
+    if (adminCount <= 1) {
+      Runtime.trap("Cannot remove the last admin");
+    };
+    accessControlState.userRoles.add(user, #user);
+  };
+
+  public query ({ caller }) func listAdmins() : async [Text] {
+    if (not AccessControl.isAdmin(accessControlState, caller)) {
+      Runtime.trap("Unauthorized: Only admins can list admins");
+    };
+    let admins = accessControlState.userRoles.entries().filter(
+      func((_, role) : (Principal, AccessControl.UserRole)) : Bool { role == #admin }
+    ).map(
+      func((p, _) : (Principal, AccessControl.UserRole)) : Text { p.toText() }
+    ).toArray();
+    admins;
+  };
+
+  // ── Membership ─────────────────────────────────────────────────────────────
 
   public type MemberCategory = {
     #standard;

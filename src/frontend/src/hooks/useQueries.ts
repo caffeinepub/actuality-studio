@@ -7,6 +7,7 @@ import type {
 } from "../backend";
 import { MemberCategory } from "../backend";
 import { useActor } from "./useActor";
+import { useInternetIdentity } from "./useInternetIdentity";
 
 export function useGetCallerUserProfile() {
   const { actor, isFetching: actorFetching } = useActor();
@@ -297,5 +298,116 @@ export function useCohortData() {
       return { memberCount: 47, activeProjects: 12 };
     },
     staleTime: Number.POSITIVE_INFINITY,
+  });
+}
+
+// ── Admin principal management hooks ──────────────────────────────────────────
+// The backend.ts generated wrapper doesn't yet expose these methods, so we
+// cast the actor to a local interface that mirrors the backend.d.ts contract.
+
+import type { Principal as IcPrincipal } from "@icp-sdk/core/principal";
+
+interface AdminActor {
+  hasAnyAdmin(): Promise<boolean>;
+  isCallerAdmin(): Promise<boolean>;
+  listAdmins(): Promise<string[]>;
+  registerAsFirstAdmin(): Promise<void>;
+  addAdmin(user: IcPrincipal): Promise<void>;
+  removeAdmin(user: IcPrincipal): Promise<void>;
+}
+
+export function useHasAnyAdmin() {
+  const { actor, isFetching: actorFetching } = useActor();
+  return useQuery<boolean>({
+    queryKey: ["hasAnyAdmin"],
+    queryFn: async () => {
+      if (!actor) return false;
+      return (actor as unknown as AdminActor).hasAnyAdmin();
+    },
+    enabled: !!actor && !actorFetching,
+  });
+}
+
+export function useIsCallerAdmin() {
+  const { actor, isFetching: actorFetching } = useActor();
+  const { identity } = useInternetIdentity();
+  return useQuery<boolean>({
+    queryKey: ["isCallerAdmin", identity?.getPrincipal().toText()],
+    queryFn: async () => {
+      if (!actor || !identity) return false;
+      try {
+        return await (actor as unknown as AdminActor).isCallerAdmin();
+      } catch {
+        return false;
+      }
+    },
+    enabled: !!actor && !actorFetching && !!identity,
+  });
+}
+
+export function useListAdmins() {
+  const { actor, isFetching: actorFetching } = useActor();
+  const { identity } = useInternetIdentity();
+  return useQuery<string[]>({
+    queryKey: ["listAdmins"],
+    queryFn: async () => {
+      if (!actor) return [];
+      try {
+        return await (actor as unknown as AdminActor).listAdmins();
+      } catch {
+        return [];
+      }
+    },
+    enabled: !!actor && !actorFetching && !!identity,
+  });
+}
+
+export function useRegisterAsFirstAdmin() {
+  const { actor } = useActor();
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: async () => {
+      if (!actor) throw new Error("Actor not available");
+      return (actor as unknown as AdminActor).registerAsFirstAdmin();
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["hasAnyAdmin"] });
+      queryClient.invalidateQueries({ queryKey: ["isCallerAdmin"] });
+    },
+  });
+}
+
+export function useAddAdmin() {
+  const { actor } = useActor();
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: async (principalText: string) => {
+      if (!actor) throw new Error("Actor not available");
+      const { Principal } = await import("@icp-sdk/core/principal");
+      return (actor as unknown as AdminActor).addAdmin(
+        Principal.fromText(principalText),
+      );
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["listAdmins"] });
+    },
+  });
+}
+
+export function useRemoveAdmin() {
+  const { actor } = useActor();
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: async (principalText: string) => {
+      if (!actor) throw new Error("Actor not available");
+      const { Principal } = await import("@icp-sdk/core/principal");
+      return (actor as unknown as AdminActor).removeAdmin(
+        Principal.fromText(principalText),
+      );
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["listAdmins"] });
+      queryClient.invalidateQueries({ queryKey: ["isCallerAdmin"] });
+    },
   });
 }

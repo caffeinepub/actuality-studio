@@ -1,5 +1,5 @@
 import { Link, useRouter } from "@tanstack/react-router";
-import { Bookmark, Menu, X } from "lucide-react";
+import { Bookmark, Menu, ShieldCheck, X } from "lucide-react";
 import React, { useState, useEffect } from "react";
 import { useInternetIdentity } from "../hooks/useInternetIdentity";
 import { useGetCallerUserProfile } from "../hooks/useQueries";
@@ -15,6 +15,7 @@ const navItems: NavItem[] = [
   { kind: "link", label: "Memberships", to: "/membership" },
   { kind: "link", label: "Catalog", to: "/catalog" },
   { kind: "link", label: "My Catalog", to: "/my-catalog", authOnly: true },
+  { kind: "link", label: "Admin Login", to: "/admin" },
   { kind: "scroll", label: "Community", href: "#community" },
 ];
 
@@ -81,9 +82,15 @@ export default function Header() {
                   to={item.to}
                   className="flex items-center gap-1.5 px-3 py-2 text-sm font-body font-medium text-foreground/80 hover:text-primary rounded-md transition-all duration-200 hover:bg-primary/5 active:scale-95"
                   activeProps={{ className: "text-primary font-semibold" }}
+                  data-ocid={
+                    item.label === "Admin Login" ? "admin.link" : undefined
+                  }
                 >
                   {item.label === "My Catalog" && (
                     <Bookmark className="w-3.5 h-3.5" />
+                  )}
+                  {item.label === "Admin Login" && (
+                    <ShieldCheck className="w-3.5 h-3.5" />
                   )}
                   {item.label}
                 </Link>
@@ -142,6 +149,9 @@ export default function Header() {
               >
                 {item.label === "My Catalog" && (
                   <Bookmark className="w-4 h-4" />
+                )}
+                {item.label === "Admin Login" && (
+                  <ShieldCheck className="w-4 h-4" />
                 )}
                 {item.label}
               </Link>

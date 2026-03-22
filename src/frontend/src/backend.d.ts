@@ -66,8 +66,13 @@ export interface backendInterface {
     getMemberCohort(owner: Principal): Promise<Cohort>;
     getMembershipState(member: Principal): Promise<MembershipState>;
     getUserProfile(user: Principal): Promise<UserProfile | null>;
+    hasAnyAdmin(): Promise<boolean>;
     isCallerAdmin(): Promise<boolean>;
     mintBadge(): Promise<void>;
+    registerAsFirstAdmin(): Promise<void>;
+    addAdmin(user: Principal): Promise<void>;
+    removeAdmin(user: Principal): Promise<void>;
+    listAdmins(): Promise<Array<string>>;
     saveCallerUserProfile(profile: UserProfile): Promise<void>;
     submitRSVP(name: string, attending: boolean, inviteCode: string): Promise<void>;
     upgradeToPremium(user: Principal): Promise<void>;

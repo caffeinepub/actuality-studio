@@ -17,6 +17,7 @@ const LandingPage = lazy(() => import("./pages/LandingPage"));
 const MembershipPage = lazy(() => import("./pages/MembershipPage"));
 const CatalogPage = lazy(() => import("./pages/CatalogPage"));
 const MyCatalogPage = lazy(() => import("./pages/MyCatalogPage"));
+const AdminDashboardPage = lazy(() => import("./pages/AdminDashboardPage"));
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -96,11 +97,22 @@ const myCatalogRoute = createRoute({
   ),
 });
 
+const adminRoute = createRoute({
+  getParentRoute: () => rootRoute,
+  path: "/admin",
+  component: () => (
+    <Suspense fallback={<PageLoader />}>
+      <AdminDashboardPage />
+    </Suspense>
+  ),
+});
+
 const routeTree = rootRoute.addChildren([
   indexRoute,
   membershipRoute,
   catalogRoute,
   myCatalogRoute,
+  adminRoute,
 ]);
 const router = createRouter({ routeTree });
 

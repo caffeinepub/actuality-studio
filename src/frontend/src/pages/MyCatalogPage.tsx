@@ -3,18 +3,40 @@ import { Link } from "@tanstack/react-router";
 import { Bookmark, ShoppingBag, Tag } from "lucide-react";
 import { motion } from "motion/react";
 import React, { useState } from "react";
+import { MemberCategory } from "../backend";
 import SignInOverlay from "../components/SignInOverlay";
+import { useDiscountRates } from "../hooks/useDiscountRates";
 import { useInternetIdentity } from "../hooks/useInternetIdentity";
+import { useGetCallerMembershipState } from "../hooks/useQueries";
 import { useSavedCatalog } from "../hooks/useSavedCatalog";
 import { SEED_ENTRIES } from "./CatalogPage";
+
+function getMemberDiscount(
+  category: MemberCategory | null | undefined,
+  rates: { trial: number; cohort: number; patronPro: number; sponsor: number },
+): number {
+  switch (category) {
+    case MemberCategory.trial:
+      return rates.trial;
+    case MemberCategory.standard:
+      return rates.cohort;
+    case MemberCategory.premium:
+      return rates.patronPro;
+    default:
+      return rates.sponsor;
+  }
+}
 
 export default function MyCatalogPage() {
   const { identity } = useInternetIdentity();
   const isAuthenticated = !!identity;
   const { savedIds, unsaveItem } = useSavedCatalog();
   const [showSignIn, setShowSignIn] = useState(false);
+  const { rates } = useDiscountRates();
+  const { data: membershipState } = useGetCallerMembershipState();
 
   const savedEntries = SEED_ENTRIES.filter((e) => savedIds.includes(e.id));
+  const discount = getMemberDiscount(membershipState?.category, rates);
 
   if (!isAuthenticated) {
     return (
@@ -73,7 +95,7 @@ export default function MyCatalogPage() {
             No saved items yet
           </h1>
           <p className="font-body text-sm text-foreground/60 mb-6 leading-relaxed">
-            Browse the catalog and click "Save to My Catalog" on items you love
+            Browse the catalog and click “Save to My Catalog” on items you love
             to collect them here.
           </p>
           <Link
@@ -174,9 +196,11 @@ export default function MyCatalogPage() {
 
                   <p
                     className="font-body text-sm font-semibold mb-3"
-                    style={{ color: "#8b4513" }}
+                    style={{ color: discount > 0 ? "#c0392b" : "#8b4513" }}
                   >
-                    Member Price: Contact Us
+                    {discount > 0
+                      ? `Member Price: ${discount}% off`
+                      : "Member Price: Contact Us"}
                   </p>
 
                   <div className="flex items-center justify-between">

@@ -5,6 +5,7 @@ import {
   Clock,
   Crown,
   Loader2,
+  LogIn,
   Shield,
   Star,
 } from "lucide-react";
@@ -18,8 +19,9 @@ import {
 } from "../hooks/useQueries";
 
 export default function MembershipCard() {
-  const { identity } = useInternetIdentity();
+  const { identity, login, loginStatus } = useInternetIdentity();
   const isAuthenticated = !!identity;
+  const isLoggingIn = loginStatus === "logging-in";
   const { data: membership, isLoading } = useGetCallerMembershipState();
   const trialStatus = useTrialStatus();
   const mintBadge = useMintBadge();
@@ -27,10 +29,34 @@ export default function MembershipCard() {
   if (!isAuthenticated) {
     return (
       <div className="bg-background rounded-2xl border border-border/40 shadow-warm p-5 sm:p-6 text-center">
+        <h2 className="font-heading text-2xl sm:text-3xl font-bold text-foreground mb-4">
+          Your Membership Status
+        </h2>
         <Shield className="w-8 h-8 text-primary/40 mx-auto mb-3" />
-        <p className="font-body text-sm text-foreground/60">
-          Login to view your membership status.
+        <p className="font-body text-sm text-foreground/60 mb-4">
+          Track your trial, upgrade your tier, or mint your on-chain badge.
         </p>
+        <button
+          type="button"
+          onClick={() => login()}
+          disabled={isLoggingIn}
+          data-ocid="membership.login_button"
+          className="
+            inline-flex items-center justify-center gap-2 px-5 py-2.5
+            bg-primary text-primary-foreground
+            font-body font-semibold text-sm rounded-full
+            transition-all duration-200 ease-in-out
+            hover:scale-105 hover:shadow-md active:scale-95
+            disabled:opacity-50 disabled:hover:scale-100
+          "
+        >
+          {isLoggingIn ? (
+            <Loader2 className="w-4 h-4 animate-spin" />
+          ) : (
+            <LogIn className="w-4 h-4" />
+          )}
+          {isLoggingIn ? "Logging in…" : "Login to view membership status"}
+        </button>
       </div>
     );
   }

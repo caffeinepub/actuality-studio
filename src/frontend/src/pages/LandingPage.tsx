@@ -98,14 +98,6 @@ export default function LandingPage() {
       {/* Membership CTA */}
       <section className="py-16 sm:py-20 bg-sandstone">
         <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-8 sm:mb-10">
-            <h2 className="font-heading text-2xl sm:text-3xl lg:text-4xl font-bold text-foreground mb-3">
-              Your Membership Status
-            </h2>
-            <p className="font-body text-sm sm:text-base text-foreground/60">
-              Track your trial, upgrade your tier, or mint your on-chain badge.
-            </p>
-          </div>
           <MembershipCard />
         </div>
       </section>

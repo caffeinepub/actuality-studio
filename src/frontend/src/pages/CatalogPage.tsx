@@ -2,6 +2,7 @@ import { Input } from "@/components/ui/input";
 import { Bookmark, Loader2, Search } from "lucide-react";
 import { motion } from "motion/react";
 import React, { useState } from "react";
+import FindItemsPanel from "../components/FindItemsPanel";
 import SignInOverlay from "../components/SignInOverlay";
 import { useImageReveal } from "../hooks/useImageReveal";
 import { useInternetIdentity } from "../hooks/useInternetIdentity";
@@ -24,8 +25,7 @@ export const SEED_ENTRIES: CatalogEntry[] = [
     title: "McKinley Loft Shell A",
     description:
       "Primary ADU shell derived from the original north-wing classroom envelope. 620 sq ft with soaring 11′ ceilings, exposed brick, and original transom windows.",
-    imageUrl:
-      "https://placehold.co/800x600/c0392b/f5e6c8?text=McKinley+Loft+Shell+A",
+    imageUrl: "/assets/generated/mckinley-interior-apt.dim_1200x800.png",
     category: "ADU Shells",
     tags: ["adu", "loft", "north-wing", "premium"],
     accessLevel: "premium",
@@ -35,8 +35,7 @@ export const SEED_ENTRIES: CatalogEntry[] = [
     title: "Compact Studio Module",
     description:
       "Efficient 320 sq ft studio layout optimised for the school's standard classroom bay. Open plan with built-in storage wall and Murphy bed alcove.",
-    imageUrl:
-      "https://placehold.co/800x600/2c7a4b/f5e6c8?text=Compact+Studio+Module",
+    imageUrl: "/assets/generated/adu-shell-type-a.dim_600x400.png",
     category: "ADU Shells",
     tags: ["studio", "compact", "efficient"],
     accessLevel: "free",
@@ -46,8 +45,7 @@ export const SEED_ENTRIES: CatalogEntry[] = [
     title: "Corner Unit with Bay Window",
     description:
       "Premium corner ADU capturing two original window bays. 740 sq ft with angled living area and restored pressed-tin ceiling detail.",
-    imageUrl:
-      "https://placehold.co/800x600/c0392b/f5e6c8?text=Corner+Unit+Bay+Window",
+    imageUrl: "/assets/generated/mckinley-interior-detail.dim_1200x800.png",
     category: "ADU Shells",
     tags: ["corner", "bay-window", "premium"],
     accessLevel: "premium",
@@ -57,8 +55,7 @@ export const SEED_ENTRIES: CatalogEntry[] = [
     title: "Arts & Crafts Bedroom Set",
     description:
       "Seven-piece bedroom collection in white oak and hand-hammered copper hardware. Inspired by 1902 Craftsman detailing found in original McKinley millwork.",
-    imageUrl:
-      "https://placehold.co/800x600/8b6914/f5e6c8?text=Arts+%26+Crafts+Bedroom",
+    imageUrl: "/assets/generated/furniture-set-sovereign.dim_600x400.png",
     category: "Furniture Collections",
     tags: ["bedroom", "craftsman", "oak", "copper"],
     accessLevel: "preview",
@@ -68,8 +65,7 @@ export const SEED_ENTRIES: CatalogEntry[] = [
     title: "Craftsman Dining Suite",
     description:
       "Extending table seats 4–8 with matched spindle-back chairs. White oak with mortise-and-tenon joinery; optional built-in hutch available.",
-    imageUrl:
-      "https://placehold.co/800x600/8b6914/f5e6c8?text=Craftsman+Dining+Suite",
+    imageUrl: "/assets/generated/furniture-set-compact.dim_600x400.png",
     category: "Furniture Collections",
     tags: ["dining", "craftsman", "extendable"],
     accessLevel: "preview",
@@ -79,8 +75,7 @@ export const SEED_ENTRIES: CatalogEntry[] = [
     title: "Reading Nook Package",
     description:
       "Built-in window seat with under-seat storage, flanking bookshelves, and swing-arm lamp brackets. Designed to fit standard 36″ McKinley window bays.",
-    imageUrl:
-      "https://placehold.co/800x600/5a7a3a/f5e6c8?text=Reading+Nook+Package",
+    imageUrl: "/assets/generated/mckinley-staircase.dim_1200x800.png",
     category: "Furniture Collections",
     tags: ["nook", "storage", "built-in"],
     accessLevel: "free",
@@ -90,8 +85,7 @@ export const SEED_ENTRIES: CatalogEntry[] = [
     title: "Original Pressed Tin Ceiling Panel",
     description:
       "Exact reproduction of the 12″ × 12″ pressed tin pattern documented in the 1902 McKinley construction records. Available in raw, primed, and oil-rubbed bronze.",
-    imageUrl:
-      "https://placehold.co/800x600/c0392b/f5e6c8?text=Pressed+Tin+Ceiling",
+    imageUrl: "/assets/generated/mckinley-interior-detail.dim_1200x800.png",
     category: "Architectural Details",
     tags: ["ceiling", "tin", "1902", "historic"],
     accessLevel: "premium",
@@ -101,8 +95,7 @@ export const SEED_ENTRIES: CatalogEntry[] = [
     title: "1902 Brick Facade Detail",
     description:
       "High-resolution photogrammetric scan of the original Flemish-bond brickwork on the south elevation. Includes mortar analysis and repointing specification.",
-    imageUrl:
-      "https://placehold.co/800x600/7a3520/f5e6c8?text=1902+Brick+Facade",
+    imageUrl: "/assets/generated/mckinley-exterior.dim_1200x800.png",
     category: "Architectural Details",
     tags: ["brick", "facade", "scan", "historic"],
     accessLevel: "preview",
@@ -112,8 +105,7 @@ export const SEED_ENTRIES: CatalogEntry[] = [
     title: "McKinley Unit Floor Plan A",
     description:
       "Full construction-document set for Loft Shell A: floor plan, reflected ceiling plan, elevations, sections, and finish schedule. IFC + PDF formats.",
-    imageUrl:
-      "https://placehold.co/800x600/c0392b/f5e6c8?text=Unit+Floor+Plan+A",
+    imageUrl: "/assets/generated/mckinley-gymnasium-studio.dim_600x400.png",
     category: "Plans & Blueprints",
     tags: ["floor-plan", "IFC", "construction", "loft-a"],
     accessLevel: "premium",
@@ -123,8 +115,7 @@ export const SEED_ENTRIES: CatalogEntry[] = [
     title: "Site Plan — North Wing",
     description:
       "Site plan showing the north-wing ADU cluster layout, shared courtyard, bicycle storage, and utility easements at 117 N Napa Street.",
-    imageUrl:
-      "https://placehold.co/800x600/2c4a7a/f5e6c8?text=Site+Plan+North+Wing",
+    imageUrl: "/assets/generated/mckinley-1902.dim_600x400.png",
     category: "Plans & Blueprints",
     tags: ["site-plan", "north-wing", "courtyard"],
     accessLevel: "premium",
@@ -181,6 +172,8 @@ function CatalogCard({
           alt={entry.title}
           loading="lazy"
           decoding="async"
+          width={featured ? 1200 : 800}
+          height={featured ? 600 : 600}
           className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
         />
         {featured && (
@@ -247,11 +240,13 @@ export default function CatalogPage() {
   const [activeCategory, setActiveCategory] = useState("All");
   const [searchQuery, setSearchQuery] = useState("");
   const [showSignInOverlay, setShowSignInOverlay] = useState(false);
+  const [extraEntries, setExtraEntries] = useState<CatalogEntry[]>([]);
 
   const { isSaved, toggleSave } = useSavedCatalog();
 
-  const allEntries: CatalogEntry[] =
+  const baseEntries: CatalogEntry[] =
     entries && entries.length > 0 ? (entries as CatalogEntry[]) : SEED_ENTRIES;
+  const allEntries: CatalogEntry[] = [...baseEntries, ...extraEntries];
 
   const filteredEntries = allEntries.filter((entry) => {
     const matchesCategory =
@@ -316,7 +311,7 @@ export default function CatalogPage() {
             <Input
               data-ocid="catalog.search_input"
               type="text"
-              placeholder="Search by title or tag…"
+              placeholder="Search Catalog by Title or Tag"
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               className="pl-9 font-body text-sm bg-muted/30 border-border/30 focus:border-primary/40"
@@ -339,6 +334,16 @@ export default function CatalogPage() {
               </button>
             ))}
           </div>
+        </div>
+      </section>
+
+      <section className="py-4 bg-background/80">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <FindItemsPanel
+            onAddEntry={(entry) => setExtraEntries((prev) => [entry, ...prev])}
+            isAuthenticated={isAuthenticated}
+            onShowSignIn={() => setShowSignInOverlay(true)}
+          />
         </div>
       </section>
 
