@@ -1,7 +1,6 @@
 import { Link } from "@tanstack/react-router";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import React, { useState, useEffect, useCallback, useRef } from "react";
-import { useImageReveal } from "../hooks/useImageReveal";
 
 interface Slide {
   src: string;
@@ -56,13 +55,6 @@ export default function InspirationCarousel() {
   const [isTransitioning, setIsTransitioning] = useState(false);
   const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
-  // Reveal the carousel section as it scrolls into view
-  const { ref: sectionRef, isVisible: sectionVisible } =
-    useImageReveal<HTMLDivElement>({
-      threshold: 0.08,
-      rootMargin: "0px 0px -60px 0px",
-    });
-
   const goTo = useCallback(
     (index: number) => {
       if (isTransitioning) return;
@@ -107,10 +99,7 @@ export default function InspirationCarousel() {
         </div>
 
         {/* Carousel */}
-        <div
-          ref={sectionRef}
-          className={`relative rounded-2xl overflow-hidden shadow-2xl ${sectionVisible ? "image-reveal-visible" : "image-reveal-hidden"}`}
-        >
+        <div className="relative rounded-2xl overflow-hidden shadow-2xl">
           {/* Images */}
           <div className="relative aspect-[16/9] sm:aspect-[16/8] lg:aspect-[16/7] bg-forest/50">
             {slides.map((slide, i) => (

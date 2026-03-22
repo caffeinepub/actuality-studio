@@ -166,18 +166,17 @@
     background-color: oklch(0.96 0.025 78);
   }
 
-  /* ── Progressive Image Reveal ── */
-  /* image-reveal-hidden: never hides images — backward-compat alias */
+  /* ── Image Reveal Classes ── */
+  /* Both classes ensure images are always fully visible.
+   * Per-image fade-ins are handled via inline onLoad transitions. */
   .image-reveal-hidden {
     opacity: 1;
     transform: translateY(0);
   }
 
-  /* image-reveal-visible: gentle fade-in on mount */
   .image-reveal-visible {
     opacity: 1;
     transform: translateY(0);
-    animation: image-fade-in 0.65s ease-out both;
   }
 }
 
@@ -188,16 +187,5 @@
   }
   50% {
     box-shadow: 0 0 0 8px rgba(192, 57, 43, 0);
-  }
-}
-
-@keyframes image-fade-in {
-  from {
-    opacity: 0.3;
-    transform: translateY(8px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
   }
 }

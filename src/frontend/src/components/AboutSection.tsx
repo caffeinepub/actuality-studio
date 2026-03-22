@@ -1,12 +1,9 @@
 import { Link } from "@tanstack/react-router";
-import React from "react";
-import { useImageReveal } from "../hooks/useImageReveal";
+import React, { useState } from "react";
 
 export default function AboutSection() {
-  const { ref: img1Ref, isVisible: img1Visible } =
-    useImageReveal<HTMLDivElement>();
-  const { ref: img2Ref, isVisible: img2Visible } =
-    useImageReveal<HTMLDivElement>();
+  const [img1Loaded, setImg1Loaded] = useState(false);
+  const [img2Loaded, setImg2Loaded] = useState(false);
 
   return (
     <section
@@ -72,10 +69,7 @@ export default function AboutSection() {
           {/* Right: Images */}
           <div className="w-full md:w-1/2 grid grid-cols-2 gap-3 sm:gap-4">
             <div className="space-y-2">
-              <div
-                ref={img1Ref}
-                className={`rounded-xl overflow-hidden aspect-[4/3] shadow-warm ${img1Visible ? "image-reveal-visible" : "image-reveal-hidden"}`}
-              >
+              <div className="rounded-xl overflow-hidden aspect-[4/3] shadow-warm">
                 <img
                   src="/assets/generated/mckinley-1902.dim_600x400.png"
                   srcSet="/assets/generated/mckinley-1902.dim_600x400.png 600w"
@@ -83,6 +77,11 @@ export default function AboutSection() {
                   alt="McKinley Elementary School, Spokane, WA — c. 1902"
                   width={600}
                   height={400}
+                  onLoad={() => setImg1Loaded(true)}
+                  style={{
+                    opacity: img1Loaded ? 1 : 0,
+                    transition: "opacity 0.5s ease",
+                  }}
                   className="w-full h-full object-cover transition-transform duration-500 hover:scale-105"
                   loading="lazy"
                   decoding="async"
@@ -93,10 +92,7 @@ export default function AboutSection() {
               </p>
             </div>
             <div className="space-y-2">
-              <div
-                ref={img2Ref}
-                className={`rounded-xl overflow-hidden aspect-[4/3] shadow-warm ${img2Visible ? "image-reveal-visible" : "image-reveal-hidden"}`}
-              >
+              <div className="rounded-xl overflow-hidden aspect-[4/3] shadow-warm">
                 <img
                   src="/assets/generated/mckinley-gymnasium-studio.dim_600x400.png"
                   srcSet="/assets/generated/mckinley-gymnasium-studio.dim_600x400.png 600w"
@@ -104,6 +100,11 @@ export default function AboutSection() {
                   alt="McKinley Elementary School Gymnasium renovated as Actuality Studio, Spokane, WA"
                   width={600}
                   height={400}
+                  onLoad={() => setImg2Loaded(true)}
+                  style={{
+                    opacity: img2Loaded ? 1 : 0,
+                    transition: "opacity 0.5s ease",
+                  }}
                   className="w-full h-full object-cover transition-transform duration-500 hover:scale-105"
                   loading="lazy"
                   decoding="async"

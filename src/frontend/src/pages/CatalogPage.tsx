@@ -4,7 +4,6 @@ import { motion } from "motion/react";
 import React, { useState } from "react";
 import FindItemsPanel from "../components/FindItemsPanel";
 import SignInOverlay from "../components/SignInOverlay";
-import { useImageReveal } from "../hooks/useImageReveal";
 import { useInternetIdentity } from "../hooks/useInternetIdentity";
 import { useCatalogEntries } from "../hooks/useQueries";
 import { useSavedCatalog } from "../hooks/useSavedCatalog";
@@ -145,9 +144,7 @@ function CatalogCard({
   onShowSignIn: () => void;
   isAuthenticated: boolean;
 }) {
-  const { ref, isVisible } = useImageReveal<HTMLDivElement>({
-    threshold: 0.08,
-  });
+  const [imgLoaded, setImgLoaded] = useState(false);
 
   const handleSaveClick = () => {
     if (!isAuthenticated) {
@@ -159,10 +156,9 @@ function CatalogCard({
 
   return (
     <div
-      ref={ref}
       className={`group relative bg-background rounded-2xl border border-border/30 shadow-warm overflow-hidden hover:shadow-lg transition-all duration-300 hover:-translate-y-1 ${
-        isVisible ? "image-reveal-visible" : "image-reveal-hidden"
-      } ${featured ? "md:col-span-2" : ""}`}
+        featured ? "md:col-span-2" : ""
+      }`}
     >
       <div
         className={`relative overflow-hidden ${featured ? "aspect-[16/7]" : "aspect-[4/3]"}`}
@@ -174,6 +170,11 @@ function CatalogCard({
           decoding="async"
           width={featured ? 1200 : 800}
           height={featured ? 600 : 600}
+          onLoad={() => setImgLoaded(true)}
+          style={{
+            opacity: imgLoaded ? 1 : 0,
+            transition: "opacity 0.4s ease",
+          }}
           className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
         />
         {featured && (

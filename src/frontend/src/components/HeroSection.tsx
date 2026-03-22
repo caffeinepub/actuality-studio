@@ -1,25 +1,15 @@
 import { motion } from "motion/react";
 import React, { useState } from "react";
-import { useImageReveal } from "../hooks/useImageReveal";
 import EnrollmentModal from "./EnrollmentModal";
 
 export default function HeroSection() {
   const [enrollOpen, setEnrollOpen] = useState(false);
-  const { ref: heroImgRef, isVisible: heroImgVisible } =
-    useImageReveal<HTMLDivElement>({
-      threshold: 0.05,
-      rootMargin: "0px",
-    });
+  const [heroLoaded, setHeroLoaded] = useState(false);
 
   return (
     <section>
       {/* Hero image — clean, no overlay, no text */}
-      <div
-        ref={heroImgRef}
-        className={`w-full aspect-[21/9] overflow-hidden ${
-          heroImgVisible ? "image-reveal-visible" : "image-reveal-hidden"
-        }`}
-      >
+      <div className="w-full aspect-[21/9] overflow-hidden">
         <img
           src="/assets/generated/mckinley-school-hero.dim_1920x1080.png"
           srcSet="/assets/generated/mckinley-school-hero.dim_1920x1080.png 1920w"
@@ -27,6 +17,11 @@ export default function HeroSection() {
           alt="Historic McKinley Elementary School, Spokane, Washington"
           width={1920}
           height={1080}
+          onLoad={() => setHeroLoaded(true)}
+          style={{
+            opacity: heroLoaded ? 1 : 0,
+            transition: "opacity 0.5s ease",
+          }}
           className="w-full h-full object-cover object-center"
           loading="eager"
           fetchPriority="high"
