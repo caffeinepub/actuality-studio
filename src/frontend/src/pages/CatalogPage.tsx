@@ -144,6 +144,8 @@ function CatalogCard({
   onShowSignIn: () => void;
   isAuthenticated: boolean;
 }) {
+  const [imgLoaded, setImgLoaded] = useState(false);
+
   const handleSaveClick = () => {
     if (!isAuthenticated) {
       onShowSignIn();
@@ -168,6 +170,11 @@ function CatalogCard({
           decoding="async"
           width={featured ? 1200 : 800}
           height={featured ? 600 : 600}
+          onLoad={() => setImgLoaded(true)}
+          style={{
+            opacity: imgLoaded ? 1 : 0,
+            transition: "opacity 0.4s ease",
+          }}
           className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
         />
         {featured && (

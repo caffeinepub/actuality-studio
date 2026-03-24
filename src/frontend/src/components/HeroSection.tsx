@@ -4,6 +4,7 @@ import EnrollmentModal from "./EnrollmentModal";
 
 export default function HeroSection() {
   const [enrollOpen, setEnrollOpen] = useState(false);
+  const [heroLoaded, setHeroLoaded] = useState(false);
 
   return (
     <section>
@@ -16,6 +17,11 @@ export default function HeroSection() {
           alt="Historic McKinley Elementary School, Spokane, Washington"
           width={1920}
           height={1080}
+          onLoad={() => setHeroLoaded(true)}
+          style={{
+            opacity: heroLoaded ? 1 : 0,
+            transition: "opacity 0.5s ease",
+          }}
           className="w-full h-full object-cover object-center"
           loading="eager"
           fetchPriority="high"
