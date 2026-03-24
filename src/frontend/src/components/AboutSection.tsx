@@ -1,10 +1,7 @@
 import { Link } from "@tanstack/react-router";
-import React, { useState } from "react";
+import React from "react";
 
 export default function AboutSection() {
-  const [img1Loaded, setImg1Loaded] = useState(false);
-  const [img2Loaded, setImg2Loaded] = useState(false);
-
   return (
     <section
       id="about"
@@ -77,11 +74,6 @@ export default function AboutSection() {
                   alt="McKinley Elementary School, Spokane, WA — c. 1902"
                   width={600}
                   height={400}
-                  onLoad={() => setImg1Loaded(true)}
-                  style={{
-                    opacity: img1Loaded ? 1 : 0,
-                    transition: "opacity 0.5s ease",
-                  }}
                   className="w-full h-full object-cover transition-transform duration-500 hover:scale-105"
                   loading="lazy"
                   decoding="async"
@@ -100,11 +92,6 @@ export default function AboutSection() {
                   alt="McKinley Elementary School Gymnasium renovated as Actuality Studio, Spokane, WA"
                   width={600}
                   height={400}
-                  onLoad={() => setImg2Loaded(true)}
-                  style={{
-                    opacity: img2Loaded ? 1 : 0,
-                    transition: "opacity 0.5s ease",
-                  }}
                   className="w-full h-full object-cover transition-transform duration-500 hover:scale-105"
                   loading="lazy"
                   decoding="async"
