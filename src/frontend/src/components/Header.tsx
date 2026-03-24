@@ -66,12 +66,9 @@ export default function Header() {
             <img
               src="/assets/generated/logo-icon.dim_128x128.png"
               alt="Actuality Studio"
-              className="w-8 h-8 sm:w-9 sm:h-9 rounded-full object-cover"
+              className="w-10 h-10 sm:w-11 sm:h-11 rounded-full object-cover ring-2 ring-primary/20"
               loading="eager"
             />
-            <span className="font-heading text-lg sm:text-xl font-bold text-gold leading-tight hidden xs:block sm:block">
-              Actuality Studio
-            </span>
           </Link>
 
           <nav className="hidden md:flex items-center gap-1 lg:gap-2">

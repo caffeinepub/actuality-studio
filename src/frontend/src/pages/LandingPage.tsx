@@ -1,10 +1,10 @@
 import { Link } from "@tanstack/react-router";
 import React from "react";
 import AboutSection from "../components/AboutSection";
+import CatalogPreviewCarousel from "../components/CatalogPreviewCarousel";
 import HeroSection from "../components/HeroSection";
 import InspirationCarousel from "../components/InspirationCarousel";
 import MembershipCard from "../components/MembershipCard";
-import ProductTeaserGrid from "../components/ProductTeaserGrid";
 
 export default function LandingPage() {
   return (
@@ -12,7 +12,7 @@ export default function LandingPage() {
       <HeroSection />
       <AboutSection />
       <InspirationCarousel />
-      <ProductTeaserGrid />
+      <CatalogPreviewCarousel />
 
       {/* Mission Section */}
       <section className="py-16 sm:py-20 lg:py-28 bg-forest text-cream">
@@ -24,11 +24,16 @@ export default function LandingPage() {
             Sovereign Living,
             <span className="text-gold block sm:inline sm:ml-2">On-Chain</span>
           </h2>
-          <p className="font-body text-base sm:text-lg text-cream/75 leading-relaxed mb-8 sm:mb-10 max-w-2xl mx-auto">
-            We believe housing should be a right, not a commodity. By placing
-            membership and ownership records on the Internet Computer, we
-            eliminate custodians, reduce friction, and give residents true
-            sovereignty over their homes in Spokane, Washington.
+          <p className="font-body text-base sm:text-lg text-cream/80 leading-relaxed mb-8 sm:mb-10 max-w-2xl mx-auto">
+            We can assume that housing is a right, or that it&apos;s a choice —
+            like &ldquo;...Sovereignty in our own right&rdquo;. We can believe
+            everything we think (or not), but our Mind and our ability to Reason
+            are precious gifts that extend from within, when we
+            &ldquo;choose&rdquo; our highest joy, passion and excitement,
+            through Presence and Imagination. By placing membership and
+            ownership records on the Internet Computer, we eliminate custodians,
+            reduce friction, and help secure ownership and true sovereignty over
+            our homes.
           </p>
           <Link
             to="/membership"
