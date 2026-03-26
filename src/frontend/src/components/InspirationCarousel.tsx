@@ -13,8 +13,8 @@ interface Slide {
 
 const slides: Slide[] = [
   {
-    src: "/assets/generated/mckinley-exterior.dim_1200x800.png",
-    srcSet: "/assets/generated/mckinley-exterior.dim_1200x800.png 1200w",
+    src: "/assets/generated/mckinley-exterior.dim_900x600.jpg",
+    srcSet: "/assets/generated/mckinley-exterior.dim_900x600.jpg 900w",
     alt: "McKinley Elementary School, Spokane, WA — Exterior",
     caption:
       "The iconic 1902 red-brick facade of McKinley Elementary School in Spokane, Washington, preserved for future generations.",
@@ -22,8 +22,8 @@ const slides: Slide[] = [
     height: 800,
   },
   {
-    src: "/assets/generated/mckinley-interior-apt.dim_1200x800.png",
-    srcSet: "/assets/generated/mckinley-interior-apt.dim_1200x800.png 1200w",
+    src: "/assets/generated/mckinley-interior-apt.dim_900x600.jpg",
+    srcSet: "/assets/generated/mckinley-interior-apt.dim_900x600.jpg 900w",
     alt: "McKinley Lofts, Spokane, WA — Interior Apartment",
     caption:
       "Open-plan loft living with original hardwood floors and exposed brick inside Spokane's historic McKinley School.",
@@ -31,8 +31,8 @@ const slides: Slide[] = [
     height: 800,
   },
   {
-    src: "/assets/generated/mckinley-staircase.dim_1200x800.png",
-    srcSet: "/assets/generated/mckinley-staircase.dim_1200x800.png 1200w",
+    src: "/assets/generated/mckinley-staircase.dim_900x600.jpg",
+    srcSet: "/assets/generated/mckinley-staircase.dim_900x600.jpg 900w",
     alt: "McKinley Elementary School, Spokane, WA — Original Cast-Iron Staircase",
     caption:
       "Restored cast-iron staircases at Spokane's McKinley Elementary School — a century of stories in every step.",
@@ -40,8 +40,8 @@ const slides: Slide[] = [
     height: 800,
   },
   {
-    src: "/assets/generated/mckinley-interior-detail.dim_1200x800.png",
-    srcSet: "/assets/generated/mckinley-interior-detail.dim_1200x800.png 1200w",
+    src: "/assets/generated/mckinley-interior-detail.dim_900x600.jpg",
+    srcSet: "/assets/generated/mckinley-interior-detail.dim_900x600.jpg 900w",
     alt: "McKinley Elementary School, Spokane, WA — Interior Architectural Detail",
     caption:
       "Arched windows and original millwork bring warmth to every space in Spokane's McKinley Lofts.",

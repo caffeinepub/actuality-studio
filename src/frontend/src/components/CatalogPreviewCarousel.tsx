@@ -24,7 +24,7 @@ const SEED_PRODUCTS: Product[] = [
     description:
       "Modular 400 sq ft single-story accessory dwelling unit shell. Designed for efficient land use with flexible interior configurations.",
     badge: "ADU",
-    imageUrl: "/assets/generated/adu-shell-type-a.dim_600x400.png",
+    imageUrl: "/assets/generated/adu-shell-type-a.dim_640x427.jpg",
   },
   {
     id: "2",
@@ -32,7 +32,7 @@ const SEED_PRODUCTS: Product[] = [
     description:
       "Two-story 650 sq ft ADU with optional rooftop terrace. Maximizes vertical space while maintaining a small footprint.",
     badge: "ADU",
-    imageUrl: "/assets/generated/adu-shell-type-b.dim_600x400.png",
+    imageUrl: "/assets/generated/adu-shell-type-b.dim_640x427.jpg",
   },
   {
     id: "3",
@@ -40,7 +40,7 @@ const SEED_PRODUCTS: Product[] = [
     description:
       "Space-optimized furniture collection for studio and one-bedroom lofts. Thoughtfully curated for sovereign living.",
     badge: "Furniture",
-    imageUrl: "/assets/generated/furniture-set-compact.dim_600x400.png",
+    imageUrl: "/assets/generated/furniture-set-compact.dim_640x427.jpg",
   },
   {
     id: "4",
@@ -48,7 +48,7 @@ const SEED_PRODUCTS: Product[] = [
     description:
       "Premium curated collection for full-floor sovereign loft residences. Each piece selected for beauty, durability, and harmony.",
     badge: "Furniture",
-    imageUrl: "/assets/generated/furniture-set-sovereign.dim_600x400.png",
+    imageUrl: "/assets/generated/furniture-set-sovereign.dim_640x427.jpg",
   },
 ];
 
@@ -96,7 +96,7 @@ export default function CatalogPreviewCarousel() {
       badge: newProduct.badge.trim() || "Product",
       imageUrl:
         newProduct.imageUrl.trim() ||
-        "/assets/generated/adu-shell-type-a.dim_600x400.png",
+        "/assets/generated/adu-shell-type-a.dim_640x427.jpg",
     };
     setProducts((prev) => [...prev, added]);
     setNewProduct({ title: "", description: "", badge: "", imageUrl: "" });

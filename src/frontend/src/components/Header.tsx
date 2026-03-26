@@ -64,7 +64,7 @@ export default function Header() {
             className="flex items-center gap-2 shrink-0 transition-opacity duration-200 hover:opacity-80"
           >
             <img
-              src="/assets/generated/logo-icon.dim_128x128.png"
+              src="/assets/generated/logo-icon-transparent.dim_128x128.png"
               alt="Actuality Studio"
               className="w-10 h-10 sm:w-11 sm:h-11 rounded-full object-cover ring-2 ring-primary/20"
               loading="eager"

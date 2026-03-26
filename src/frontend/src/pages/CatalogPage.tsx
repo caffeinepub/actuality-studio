@@ -24,7 +24,7 @@ export const SEED_ENTRIES: CatalogEntry[] = [
     title: "McKinley Loft Shell A",
     description:
       "Primary ADU shell derived from the original north-wing classroom envelope. 620 sq ft with soaring 11′ ceilings, exposed brick, and original transom windows.",
-    imageUrl: "/assets/generated/mckinley-interior-apt.dim_1200x800.png",
+    imageUrl: "/assets/generated/mckinley-interior-apt.dim_900x600.jpg",
     category: "ADU Shells",
     tags: ["adu", "loft", "north-wing", "premium"],
     accessLevel: "premium",
@@ -34,7 +34,7 @@ export const SEED_ENTRIES: CatalogEntry[] = [
     title: "Compact Studio Module",
     description:
       "Efficient 320 sq ft studio layout optimised for the school's standard classroom bay. Open plan with built-in storage wall and Murphy bed alcove.",
-    imageUrl: "/assets/generated/adu-shell-type-a.dim_600x400.png",
+    imageUrl: "/assets/generated/adu-shell-type-a.dim_640x427.jpg",
     category: "ADU Shells",
     tags: ["studio", "compact", "efficient"],
     accessLevel: "free",
@@ -44,7 +44,7 @@ export const SEED_ENTRIES: CatalogEntry[] = [
     title: "Corner Unit with Bay Window",
     description:
       "Premium corner ADU capturing two original window bays. 740 sq ft with angled living area and restored pressed-tin ceiling detail.",
-    imageUrl: "/assets/generated/mckinley-interior-detail.dim_1200x800.png",
+    imageUrl: "/assets/generated/mckinley-interior-detail.dim_900x600.jpg",
     category: "ADU Shells",
     tags: ["corner", "bay-window", "premium"],
     accessLevel: "premium",
@@ -54,7 +54,7 @@ export const SEED_ENTRIES: CatalogEntry[] = [
     title: "Arts & Crafts Bedroom Set",
     description:
       "Seven-piece bedroom collection in white oak and hand-hammered copper hardware. Inspired by 1902 Craftsman detailing found in original McKinley millwork.",
-    imageUrl: "/assets/generated/furniture-set-sovereign.dim_600x400.png",
+    imageUrl: "/assets/generated/furniture-set-sovereign.dim_640x427.jpg",
     category: "Furniture Collections",
     tags: ["bedroom", "craftsman", "oak", "copper"],
     accessLevel: "preview",
@@ -64,7 +64,7 @@ export const SEED_ENTRIES: CatalogEntry[] = [
     title: "Craftsman Dining Suite",
     description:
       "Extending table seats 4–8 with matched spindle-back chairs. White oak with mortise-and-tenon joinery; optional built-in hutch available.",
-    imageUrl: "/assets/generated/furniture-set-compact.dim_600x400.png",
+    imageUrl: "/assets/generated/furniture-set-compact.dim_640x427.jpg",
     category: "Furniture Collections",
     tags: ["dining", "craftsman", "extendable"],
     accessLevel: "preview",
@@ -74,7 +74,7 @@ export const SEED_ENTRIES: CatalogEntry[] = [
     title: "Reading Nook Package",
     description:
       "Built-in window seat with under-seat storage, flanking bookshelves, and swing-arm lamp brackets. Designed to fit standard 36″ McKinley window bays.",
-    imageUrl: "/assets/generated/mckinley-staircase.dim_1200x800.png",
+    imageUrl: "/assets/generated/mckinley-staircase.dim_900x600.jpg",
     category: "Furniture Collections",
     tags: ["nook", "storage", "built-in"],
     accessLevel: "free",
@@ -84,7 +84,7 @@ export const SEED_ENTRIES: CatalogEntry[] = [
     title: "Original Pressed Tin Ceiling Panel",
     description:
       "Exact reproduction of the 12″ × 12″ pressed tin pattern documented in the 1902 McKinley construction records. Available in raw, primed, and oil-rubbed bronze.",
-    imageUrl: "/assets/generated/mckinley-interior-detail.dim_1200x800.png",
+    imageUrl: "/assets/generated/mckinley-interior-detail.dim_900x600.jpg",
     category: "Architectural Details",
     tags: ["ceiling", "tin", "1902", "historic"],
     accessLevel: "premium",
@@ -94,7 +94,7 @@ export const SEED_ENTRIES: CatalogEntry[] = [
     title: "1902 Brick Facade Detail",
     description:
       "High-resolution photogrammetric scan of the original Flemish-bond brickwork on the south elevation. Includes mortar analysis and repointing specification.",
-    imageUrl: "/assets/generated/mckinley-exterior.dim_1200x800.png",
+    imageUrl: "/assets/generated/mckinley-exterior.dim_900x600.jpg",
     category: "Architectural Details",
     tags: ["brick", "facade", "scan", "historic"],
     accessLevel: "preview",
@@ -104,7 +104,7 @@ export const SEED_ENTRIES: CatalogEntry[] = [
     title: "McKinley Unit Floor Plan A",
     description:
       "Full construction-document set for Loft Shell A: floor plan, reflected ceiling plan, elevations, sections, and finish schedule. IFC + PDF formats.",
-    imageUrl: "/assets/generated/mckinley-gymnasium-studio.dim_600x400.png",
+    imageUrl: "/assets/generated/mckinley-gymnasium-studio.dim_640x427.jpg",
     category: "Plans & Blueprints",
     tags: ["floor-plan", "IFC", "construction", "loft-a"],
     accessLevel: "premium",
@@ -114,7 +114,7 @@ export const SEED_ENTRIES: CatalogEntry[] = [
     title: "Site Plan — North Wing",
     description:
       "Site plan showing the north-wing ADU cluster layout, shared courtyard, bicycle storage, and utility easements at 117 N Napa Street.",
-    imageUrl: "/assets/generated/mckinley-1902.dim_600x400.png",
+    imageUrl: "/assets/generated/mckinley-1902.dim_640x427.jpg",
     category: "Plans & Blueprints",
     tags: ["site-plan", "north-wing", "courtyard"],
     accessLevel: "premium",

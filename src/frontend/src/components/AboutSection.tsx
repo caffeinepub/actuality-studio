@@ -65,8 +65,8 @@ export default function AboutSection() {
           <div className="space-y-2">
             <div className="rounded-xl overflow-hidden aspect-[4/3] shadow-warm">
               <img
-                src="/assets/generated/mckinley-1902.dim_600x400.png"
-                srcSet="/assets/generated/mckinley-1902.dim_600x400.png 600w"
+                src="/assets/generated/mckinley-1902.dim_640x427.jpg"
+                srcSet="/assets/generated/mckinley-1902.dim_640x427.jpg 640w"
                 sizes="(max-width: 640px) 100vw, 50vw"
                 alt="McKinley Elementary School, Spokane, WA — c. 1902"
                 width={600}
@@ -83,8 +83,8 @@ export default function AboutSection() {
           <div className="space-y-2">
             <div className="rounded-xl overflow-hidden aspect-[4/3] shadow-warm">
               <img
-                src="/assets/generated/mckinley-gymnasium-studio.dim_600x400.png"
-                srcSet="/assets/generated/mckinley-gymnasium-studio.dim_600x400.png 600w"
+                src="/assets/generated/mckinley-gymnasium-studio.dim_640x427.jpg"
+                srcSet="/assets/generated/mckinley-gymnasium-studio.dim_640x427.jpg 640w"
                 sizes="(max-width: 640px) 100vw, 50vw"
                 alt="McKinley Elementary School Gymnasium renovated as Actuality Studio, Spokane, WA"
                 width={600}

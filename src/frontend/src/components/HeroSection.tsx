@@ -8,14 +8,14 @@ export default function HeroSection() {
   return (
     <section>
       {/* Hero image — clean, no overlay, no text */}
-      <div className="w-full aspect-[21/9] overflow-hidden">
+      <div className="w-full aspect-[21/9] overflow-hidden bg-stone-200">
         <img
-          src="/assets/generated/mckinley-school-hero.dim_1920x1080.png"
-          srcSet="/assets/generated/mckinley-school-hero.dim_1920x1080.png 1920w"
+          src="/assets/generated/mckinley-school-hero.dim_1280x720.jpg"
+          srcSet="/assets/generated/mckinley-school-hero.dim_1280x720.jpg 1280w"
           sizes="100vw"
           alt="Historic McKinley Elementary School, Spokane, Washington"
-          width={1920}
-          height={1080}
+          width={1280}
+          height={720}
           className="w-full h-full object-cover object-center"
           loading="eager"
           fetchPriority="high"
