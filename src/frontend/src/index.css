@@ -4,64 +4,51 @@
 
 @layer base {
   :root {
-    --radius: 0.75rem;
+    --radius: 0.625rem;
+    --theme-glow: oklch(0.708 0 0 / 0.25);
 
-    /* ── Actuality Studio Palette ── */
-    /* Warm Parchment: #f5e6c8 → oklch(0.92 0.04 78) */
-    /* Crimson Lustre: #c0392b → oklch(0.47 0.20 27) */
-    /* Text Primary:  #2c1a0e → oklch(0.19 0.04 47) */
-    /* Text Secondary:#5a3a22 → oklch(0.32 0.06 50) */
-    /* Text Muted:    #7a5c44 → oklch(0.45 0.05 55) */
-    /* Warm Gold:     #e8c98a → oklch(0.84 0.09 72) */
+    --background: 1 0 0;
+    --foreground: 0.145 0 0;
 
-    --background: 0.92 0.04 78;
-    --foreground: 0.19 0.04 47;
+    --card: 1 0 0;
+    --card-foreground: 0.145 0 0;
 
-    /* Card — warm translucent parchment tint */
-    --card: 0.94 0.03 78;
-    --card-foreground: 0.19 0.04 47;
+    --popover: 1 0 0;
+    --popover-foreground: 0.145 0 0;
 
-    --popover: 0.95 0.03 78;
-    --popover-foreground: 0.19 0.04 47;
+    --primary: 0.205 0 0;
+    --primary-foreground: 0.985 0 0;
 
-    /* Primary = crimson lustre */
-    --primary: 0.47 0.2 27;
-    --primary-foreground: 0.99 0.0 0;
+    --secondary: 0.97 0 0;
+    --secondary-foreground: 0.205 0 0;
 
-    /* Secondary = warm parchment lighter */
-    --secondary: 0.96 0.025 78;
-    --secondary-foreground: 0.32 0.06 50;
+    --muted: 0.97 0 0;
+    --muted-foreground: 0.556 0 0;
 
-    /* Muted = warm gold tone */
-    --muted: 0.88 0.06 72;
-    --muted-foreground: 0.45 0.05 55;
+    --accent: 0.97 0 0;
+    --accent-foreground: 0.205 0 0;
 
-    /* Accent = deep warm gold */
-    --accent: 0.84 0.09 72;
-    --accent-foreground: 0.19 0.04 47;
+    --destructive: 0.577 0.245 27.325;
+    --destructive-foreground: 0.985 0 0;
 
-    --destructive: 0.42 0.22 25;
-    --destructive-foreground: 0.99 0.0 0;
+    --border: 0.922 0 0;
+    --input: 0.922 0 0;
+    --ring: 0.708 0 0;
 
-    /* Border = subtle crimson glow */
-    --border: 0.47 0.2 27 / 0.18;
-    --input: 0.85 0.04 72;
-    --ring: 0.47 0.2 27;
+    --chart-1: 0.646 0.222 41.116;
+    --chart-2: 0.6 0.118 184.704;
+    --chart-3: 0.398 0.07 227.392;
+    --chart-4: 0.828 0.189 84.429;
+    --chart-5: 0.769 0.188 70.08;
 
-    --chart-1: 0.47 0.2 27;
-    --chart-2: 0.84 0.09 72;
-    --chart-3: 0.32 0.06 50;
-    --chart-4: 0.6 0.12 38;
-    --chart-5: 0.75 0.07 55;
-
-    --sidebar: 0.94 0.03 78;
-    --sidebar-foreground: 0.19 0.04 47;
-    --sidebar-primary: 0.47 0.2 27;
-    --sidebar-primary-foreground: 0.99 0.0 0;
-    --sidebar-accent: 0.88 0.06 72;
-    --sidebar-accent-foreground: 0.32 0.06 50;
-    --sidebar-border: 0.85 0.04 72;
-    --sidebar-ring: 0.47 0.2 27;
+    --sidebar: 0.985 0 0;
+    --sidebar-foreground: 0.145 0 0;
+    --sidebar-primary: 0.205 0 0;
+    --sidebar-primary-foreground: 0.985 0 0;
+    --sidebar-accent: 0.97 0 0;
+    --sidebar-accent-foreground: 0.205 0 0;
+    --sidebar-border: 0.922 0 0;
+    --sidebar-ring: 0.708 0 0;
   }
 
   * {
@@ -70,7 +57,7 @@
 
   body {
     @apply bg-background text-foreground;
-    font-family: "Space Grotesk", system-ui, sans-serif;
+    font-family: "DM Sans", system-ui, sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
   }
@@ -87,8 +74,15 @@
 
   h5,
   h6 {
-    font-family: "Space Grotesk", system-ui, sans-serif;
+    font-family: "DM Sans", system-ui, sans-serif;
     font-weight: 600;
+  }
+
+  code,
+  kbd,
+  samp,
+  pre {
+    font-family: "JetBrains Mono", monospace;
   }
 }
 

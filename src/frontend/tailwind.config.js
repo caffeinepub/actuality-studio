@@ -16,10 +16,11 @@ export default {
     },
     extend: {
       fontFamily: {
-        sans: ['Space Grotesk', 'system-ui', 'sans-serif'],
-        body: ['Space Grotesk', 'system-ui', 'sans-serif'],
+        sans: ['DM Sans', 'system-ui', 'sans-serif'],
+        body: ['DM Sans', 'system-ui', 'sans-serif'],
+        display: ['Playfair Display', 'Georgia', 'serif'],
         heading: ['Playfair Display', 'Georgia', 'serif'],
-        mono: ['Space Mono', 'monospace'],
+        mono: ['JetBrains Mono', 'monospace'],
       },
       colors: {
         border: 'oklch(var(--border))',
@@ -165,6 +166,8 @@ export default {
         sage: '0 4px 20px rgba(245, 230, 200, 0.50)',
         // deep brown card shadow
         card: '0 2px 12px rgba(44, 26, 14, 0.10)',
+        // Steiner glow
+        'glow-sm': '0 0 12px 3px var(--theme-glow)',
       },
       keyframes: {
         'accordion-down': {
