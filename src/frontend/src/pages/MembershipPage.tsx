@@ -10,10 +10,13 @@ interface Tier {
   features: string[];
   buttonLabel: string;
   accentColor: "sage" | "blush" | "terracotta" | "gold" | "forest";
+  bgWash: string;
   featured?: boolean;
   comingSoon?: boolean;
 }
 
+// Steiner's own chart accent palette (OKLCH from actuality-studio-theme-w3r.caffeine.xyz)
+// chart-1: warm amber, chart-2: cool teal, chart-4: warm golden, chart-3: cool slate
 const tiers: Tier[] = [
   {
     id: "trial",
@@ -29,6 +32,7 @@ const tiers: Tier[] = [
     ],
     buttonLabel: "Start Free Trial",
     accentColor: "sage",
+    bgWash: "oklch(0.646 0.222 41.116)", // Steiner chart-1 — warm amber
   },
   {
     id: "standard",
@@ -45,6 +49,7 @@ const tiers: Tier[] = [
     ],
     buttonLabel: "Enroll Now",
     accentColor: "terracotta",
+    bgWash: "oklch(0.6 0.118 184.704)", // Steiner chart-2 — cool teal
     featured: true,
   },
   {
@@ -62,6 +67,7 @@ const tiers: Tier[] = [
     ],
     buttonLabel: "Go Premium",
     accentColor: "gold",
+    bgWash: "oklch(0.828 0.189 84.429)", // Steiner chart-4 — warm golden yellow
   },
   {
     id: "sovereign",
@@ -77,6 +83,7 @@ const tiers: Tier[] = [
     ],
     buttonLabel: "Contact Us",
     accentColor: "forest",
+    bgWash: "oklch(0.398 0.07 227.392)", // Steiner chart-3 — cool slate/indigo
     comingSoon: true,
   },
 ];
@@ -125,6 +132,7 @@ export default function MembershipPage() {
                 features={tier.features}
                 buttonLabel={tier.buttonLabel}
                 accentColor={tier.accentColor}
+                bgWash={tier.bgWash}
                 featured={tier.featured}
                 comingSoon={tier.comingSoon}
                 onEnroll={() => handleEnroll(tier)}
