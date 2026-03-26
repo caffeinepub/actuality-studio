@@ -56,7 +56,6 @@ export default function CatalogPreviewCarousel() {
   const [products, setProducts] = useState<Product[]>(SEED_PRODUCTS);
   const [currentIndex, setCurrentIndex] = useState(0);
   const [direction, setDirection] = useState<"next" | "prev">("next");
-  const [imgLoaded, setImgLoaded] = useState(false);
   const [showAddForm, setShowAddForm] = useState(false);
   const [newProduct, setNewProduct] = useState({
     title: "",
@@ -72,14 +71,12 @@ export default function CatalogPreviewCarousel() {
   const goNext = () => {
     if (products.length <= 1) return;
     setDirection("next");
-    setImgLoaded(false);
     setCurrentIndex((prev) => (prev + 1) % products.length);
   };
 
   const goPrev = () => {
     if (products.length <= 1) return;
     setDirection("prev");
-    setImgLoaded(false);
     setCurrentIndex((prev) => (prev - 1 + products.length) % products.length);
   };
 
@@ -88,7 +85,6 @@ export default function CatalogPreviewCarousel() {
     const next = products.filter((_, i) => i !== currentIndex);
     setProducts(next);
     setCurrentIndex((prev) => Math.min(prev, next.length - 1));
-    setImgLoaded(false);
   };
 
   const handleAdd = () => {
@@ -106,7 +102,6 @@ export default function CatalogPreviewCarousel() {
     setNewProduct({ title: "", description: "", badge: "", imageUrl: "" });
     setShowAddForm(false);
     setCurrentIndex(products.length);
-    setImgLoaded(false);
   };
 
   const slideVariants = {
@@ -155,11 +150,6 @@ export default function CatalogPreviewCarousel() {
                   src={current.imageUrl}
                   alt={current.title}
                   className="w-full h-full object-cover"
-                  style={{
-                    opacity: imgLoaded ? 1 : 0,
-                    transition: "opacity 0.4s ease",
-                  }}
-                  onLoad={() => setImgLoaded(true)}
                   loading="lazy"
                   decoding="async"
                 />
@@ -199,7 +189,6 @@ export default function CatalogPreviewCarousel() {
                     type="button"
                     onClick={() => {
                       setDirection(i > currentIndex ? "next" : "prev");
-                      setImgLoaded(false);
                       setCurrentIndex(i);
                     }}
                     className={`w-2 h-2 rounded-full transition-all duration-200 ${
