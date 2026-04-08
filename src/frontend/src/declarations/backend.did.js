@@ -75,6 +75,15 @@ export const SavedCatalogItem = IDL.Record({
   'savedAt' : Time,
   'category' : IDL.Text,
 });
+export const InternetProduct = IDL.Record({
+  'id' : IDL.Text,
+  'title' : IDL.Text,
+  'source' : IDL.Text,
+  'description' : IDL.Text,
+  'purchaseUrl' : IDL.Text,
+  'imageUrl' : IDL.Text,
+  'price' : IDL.Text,
+});
 
 export const idlService = IDL.Service({
   '_immutableObjectStorageBlobsAreLive' : IDL.Func(
@@ -117,6 +126,17 @@ export const idlService = IDL.Service({
   'getCohort' : IDL.Func([], [IDL.Opt(Cohort)], ['query']),
   'getDiscountRates' : IDL.Func([], [DiscountRates], ['query']),
   'getInviteCodes' : IDL.Func([], [IDL.Vec(InviteCode)], ['query']),
+  'getItemRatings' : IDL.Func(
+      [IDL.Text],
+      [
+        IDL.Record({
+          'upvotes' : IDL.Nat,
+          'callerRating' : IDL.Opt(IDL.Int),
+          'downvotes' : IDL.Nat,
+        }),
+      ],
+      ['query'],
+    ),
   'getMemberCohort' : IDL.Func([IDL.Principal], [Cohort], ['query']),
   'getMembershipState' : IDL.Func(
       [IDL.Principal],
@@ -133,11 +153,17 @@ export const idlService = IDL.Service({
   'isCallerAdmin' : IDL.Func([], [IDL.Bool], ['query']),
   'listAdmins' : IDL.Func([], [IDL.Vec(IDL.Text)], ['query']),
   'mintBadge' : IDL.Func([], [], []),
+  'rateItem' : IDL.Func([IDL.Text, IDL.Int], [], []),
   'registerAsFirstAdmin' : IDL.Func([], [], []),
   'removeAdmin' : IDL.Func([IDL.Principal], [], []),
   'removeSavedCatalogItem' : IDL.Func([IDL.Text], [], []),
   'saveCallerUserProfile' : IDL.Func([UserProfile], [], []),
   'saveCatalogItem' : IDL.Func([SavedCatalogItem], [], []),
+  'searchInternetProducts' : IDL.Func(
+      [IDL.Text],
+      [IDL.Vec(InternetProduct)],
+      [],
+    ),
   'setDiscountRates' : IDL.Func([DiscountRates], [], []),
   'submitRSVP' : IDL.Func([IDL.Text, IDL.Bool, IDL.Text], [], []),
   'upgradeToPremium' : IDL.Func([IDL.Principal], [], []),
@@ -213,6 +239,15 @@ export const idlFactory = ({ IDL }) => {
     'savedAt' : Time,
     'category' : IDL.Text,
   });
+  const InternetProduct = IDL.Record({
+    'id' : IDL.Text,
+    'title' : IDL.Text,
+    'source' : IDL.Text,
+    'description' : IDL.Text,
+    'purchaseUrl' : IDL.Text,
+    'imageUrl' : IDL.Text,
+    'price' : IDL.Text,
+  });
   
   return IDL.Service({
     '_immutableObjectStorageBlobsAreLive' : IDL.Func(
@@ -255,6 +290,17 @@ export const idlFactory = ({ IDL }) => {
     'getCohort' : IDL.Func([], [IDL.Opt(Cohort)], ['query']),
     'getDiscountRates' : IDL.Func([], [DiscountRates], ['query']),
     'getInviteCodes' : IDL.Func([], [IDL.Vec(InviteCode)], ['query']),
+    'getItemRatings' : IDL.Func(
+        [IDL.Text],
+        [
+          IDL.Record({
+            'upvotes' : IDL.Nat,
+            'callerRating' : IDL.Opt(IDL.Int),
+            'downvotes' : IDL.Nat,
+          }),
+        ],
+        ['query'],
+      ),
     'getMemberCohort' : IDL.Func([IDL.Principal], [Cohort], ['query']),
     'getMembershipState' : IDL.Func(
         [IDL.Principal],
@@ -275,11 +321,17 @@ export const idlFactory = ({ IDL }) => {
     'isCallerAdmin' : IDL.Func([], [IDL.Bool], ['query']),
     'listAdmins' : IDL.Func([], [IDL.Vec(IDL.Text)], ['query']),
     'mintBadge' : IDL.Func([], [], []),
+    'rateItem' : IDL.Func([IDL.Text, IDL.Int], [], []),
     'registerAsFirstAdmin' : IDL.Func([], [], []),
     'removeAdmin' : IDL.Func([IDL.Principal], [], []),
     'removeSavedCatalogItem' : IDL.Func([IDL.Text], [], []),
     'saveCallerUserProfile' : IDL.Func([UserProfile], [], []),
     'saveCatalogItem' : IDL.Func([SavedCatalogItem], [], []),
+    'searchInternetProducts' : IDL.Func(
+        [IDL.Text],
+        [IDL.Vec(InternetProduct)],
+        [],
+      ),
     'setDiscountRates' : IDL.Func([DiscountRates], [], []),
     'submitRSVP' : IDL.Func([IDL.Text, IDL.Bool, IDL.Text], [], []),
     'upgradeToPremium' : IDL.Func([IDL.Principal], [], []),

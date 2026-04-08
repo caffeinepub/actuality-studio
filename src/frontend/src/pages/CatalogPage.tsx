@@ -1,11 +1,20 @@
+import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Bookmark, ExternalLink, Loader2, Search } from "lucide-react";
+import {
+  Bookmark,
+  ExternalLink,
+  Loader2,
+  Search,
+  ThumbsDown,
+  ThumbsUp,
+  X,
+} from "lucide-react";
 import { motion } from "motion/react";
-import React, { useState } from "react";
+import { type CSSProperties, useState } from "react";
 import FindItemsPanel from "../components/FindItemsPanel";
 import SignInOverlay from "../components/SignInOverlay";
 import { useInternetIdentity } from "../hooks/useInternetIdentity";
-import { useCatalogEntries } from "../hooks/useQueries";
+import { useCatalogEntries, useItemRating } from "../hooks/useQueries";
 import { useSavedCatalog } from "../hooks/useSavedCatalog";
 
 export interface CatalogEntry {
@@ -131,16 +140,96 @@ const CATEGORIES = [
   "Plans & Blueprints",
 ];
 
+// ── Rating buttons ─────────────────────────────────────────────────────────────
+
+function RatingButtons({
+  itemId,
+  isAuthenticated,
+  onShowSignIn,
+}: {
+  itemId: string;
+  isAuthenticated: boolean;
+  onShowSignIn: () => void;
+}) {
+  const { ratingsQuery, rateMutation } = useItemRating(itemId);
+  const ratings = ratingsQuery.data ?? {
+    upvotes: 0,
+    downvotes: 0,
+    callerRating: null,
+  };
+
+  const handleRate = (rating: 1 | -1) => {
+    if (!isAuthenticated) {
+      onShowSignIn();
+      return;
+    }
+    rateMutation.mutate(rating);
+  };
+
+  const isUpActive = ratings.callerRating === 1;
+  const isDownActive = ratings.callerRating === -1;
+  const isLoading = rateMutation.isPending;
+
+  return (
+    <div className="flex items-center gap-2 mt-2">
+      <button
+        type="button"
+        title={isAuthenticated ? "Upvote" : "Sign in to rate items"}
+        aria-label="Upvote this item"
+        disabled={isLoading}
+        data-ocid="catalog.rate.up"
+        onClick={() => handleRate(1)}
+        className={`flex items-center gap-1 px-2 py-1 rounded-full text-xs font-body font-medium transition-all duration-200 border ${
+          isUpActive
+            ? "bg-primary/15 border-primary/40 text-primary"
+            : isAuthenticated
+              ? "border-border/40 text-foreground/40 hover:border-primary/40 hover:text-primary hover:bg-primary/5"
+              : "border-border/20 text-foreground/25 cursor-not-allowed"
+        }`}
+      >
+        <ThumbsUp
+          className="w-3 h-3"
+          fill={isUpActive ? "currentColor" : "none"}
+          strokeWidth={isUpActive ? 0 : 2}
+        />
+        <span>{ratings.upvotes}</span>
+      </button>
+      <button
+        type="button"
+        title={isAuthenticated ? "Downvote" : "Sign in to rate items"}
+        aria-label="Downvote this item"
+        disabled={isLoading}
+        data-ocid="catalog.rate.down"
+        onClick={() => handleRate(-1)}
+        className={`flex items-center gap-1 px-2 py-1 rounded-full text-xs font-body font-medium transition-all duration-200 border ${
+          isDownActive
+            ? "bg-destructive/15 border-destructive/40 text-destructive"
+            : isAuthenticated
+              ? "border-border/40 text-foreground/40 hover:border-destructive/40 hover:text-destructive hover:bg-destructive/5"
+              : "border-border/20 text-foreground/25 cursor-not-allowed"
+        }`}
+      >
+        <ThumbsDown
+          className="w-3 h-3"
+          fill={isDownActive ? "currentColor" : "none"}
+          strokeWidth={isDownActive ? 0 : 2}
+        />
+        <span>{ratings.downvotes}</span>
+      </button>
+    </div>
+  );
+}
+
+// ── Catalog Card ───────────────────────────────────────────────────────────────
+
 function CatalogCard({
   entry,
-  featured = false,
   isSaved,
   onToggleSave,
   onShowSignIn,
   isAuthenticated,
 }: {
   entry: CatalogEntry;
-  featured?: boolean;
   isSaved: boolean;
   onToggleSave: () => void;
   onShowSignIn: () => void;
@@ -156,60 +245,50 @@ function CatalogCard({
 
   return (
     <div
-      className={`group relative bg-background rounded-2xl border border-border/30 shadow-warm overflow-hidden hover:shadow-lg transition-all duration-300 hover:-translate-y-1 ${
-        featured ? "md:col-span-2" : ""
-      }`}
+      className="group relative bg-card rounded-2xl border border-border/30 shadow-sm overflow-hidden hover:shadow-md transition-all duration-300 hover:-translate-y-0.5 break-inside-avoid mb-4"
+      style={{ breakInside: "avoid" }}
     >
-      <div
-        className={`relative overflow-hidden ${featured ? "aspect-[16/7]" : "aspect-[4/3]"}`}
-      >
+      <div className="relative overflow-hidden">
         <img
           src={entry.imageUrl}
           alt={entry.title}
           loading="lazy"
           decoding="async"
-          width={featured ? 1200 : 800}
-          height={featured ? 600 : 600}
+          width={640}
+          height={427}
           onError={(e) => {
             e.currentTarget.src =
               "/assets/generated/mckinley-exterior.dim_900x600.jpg";
           }}
-          className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+          className="w-full h-auto object-cover transition-transform duration-500 group-hover:scale-103"
         />
-        {featured && (
-          <div className="absolute top-3 left-3">
-            <span className="text-xs font-body font-bold tracking-widest uppercase bg-primary text-primary-foreground px-3 py-1 rounded-full">
-              Spotlight
-            </span>
-          </div>
-        )}
       </div>
 
-      <div className="p-4 sm:p-5">
-        <div className="flex items-start justify-between gap-2 mb-2">
-          <h3 className="font-heading text-base sm:text-lg font-semibold text-foreground leading-snug">
+      <div className="p-4">
+        <div className="flex items-start justify-between gap-2 mb-1.5">
+          <h3 className="font-heading text-sm sm:text-base font-semibold text-foreground leading-snug min-w-0">
             {entry.title}
           </h3>
-          <span className="shrink-0 text-xs font-body text-foreground/40 bg-muted/40 px-2 py-0.5 rounded-full">
+          <span className="shrink-0 text-xs font-body text-foreground/40 bg-muted/40 px-2 py-0.5 rounded-full whitespace-nowrap">
             {entry.category}
           </span>
         </div>
-        <p className="font-body text-xs sm:text-sm text-foreground/60 leading-relaxed mb-3">
+        <p className="font-body text-xs text-foreground/60 leading-relaxed mb-2">
           {entry.description}
         </p>
-        <div className="flex flex-wrap gap-1.5 mb-3">
+        <div className="flex flex-wrap gap-1 mb-2">
           {entry.tags.map((tag) => (
             <span
               key={tag}
-              className="text-xs font-body text-foreground/40 bg-muted/30 px-2 py-0.5 rounded-full"
+              className="text-xs font-body text-foreground/40 bg-muted/30 px-1.5 py-0.5 rounded-full"
             >
               #{tag}
             </span>
           ))}
         </div>
         {entry.price && (
-          <div className="mb-3">
-            <span className="inline-block font-body text-sm font-bold text-primary bg-primary/10 px-3 py-1 rounded-full">
+          <div className="mb-2">
+            <span className="inline-block font-body text-sm font-bold text-primary bg-primary/10 px-3 py-0.5 rounded-full">
               ${entry.price}
             </span>
           </div>
@@ -220,32 +299,64 @@ function CatalogCard({
             target="_blank"
             rel="noopener noreferrer"
             data-ocid="catalog.order_link"
-            className="inline-flex items-center gap-1.5 text-sm font-body font-semibold text-primary hover:text-primary/80 transition-colors mb-3"
+            className="inline-flex items-center gap-1 text-xs font-body font-semibold text-primary hover:text-primary/80 transition-colors mb-2"
           >
-            <ExternalLink className="w-3.5 h-3.5" />
+            <ExternalLink className="w-3 h-3" />
             Order Now →
           </a>
         )}
-        <button
-          type="button"
-          onClick={handleSaveClick}
-          data-ocid="catalog.save.button"
-          className={`flex items-center gap-1.5 text-sm font-body transition-all duration-200 ${
-            isSaved
-              ? "text-primary font-semibold"
-              : "text-foreground/50 hover:text-primary"
-          }`}
-        >
-          <Bookmark
-            className="w-4 h-4"
-            fill={isSaved ? "currentColor" : "none"}
+
+        <div className="flex items-center justify-between flex-wrap gap-2 pt-2 border-t border-border/20">
+          <button
+            type="button"
+            onClick={handleSaveClick}
+            data-ocid="catalog.save.button"
+            className={`flex items-center gap-1 text-xs font-body transition-all duration-200 ${
+              isSaved
+                ? "text-primary font-semibold"
+                : "text-foreground/50 hover:text-primary"
+            }`}
+          >
+            <Bookmark
+              className="w-3.5 h-3.5"
+              fill={isSaved ? "currentColor" : "none"}
+            />
+            {isSaved ? "Saved" : "Save to My Catalog"}
+          </button>
+
+          <RatingButtons
+            itemId={entry.id}
+            isAuthenticated={isAuthenticated}
+            onShowSignIn={onShowSignIn}
           />
-          {isSaved ? "Saved" : "Save to My Catalog"}
-        </button>
+        </div>
       </div>
     </div>
   );
 }
+
+// ── Result count badge ─────────────────────────────────────────────────────────
+
+function ResultCount({
+  count,
+  query,
+}: {
+  count: number;
+  query: string;
+}) {
+  if (!query) return null;
+  return (
+    <span
+      data-ocid="catalog.result_count"
+      className="inline-flex items-center gap-1 text-xs font-body font-medium text-foreground/50 bg-muted/40 px-3 py-1 rounded-full border border-border/20"
+    >
+      {count} result{count !== 1 ? "s" : ""} for{" "}
+      <em className="not-italic font-semibold text-foreground/70">"{query}"</em>
+    </span>
+  );
+}
+
+// ── Main Page ──────────────────────────────────────────────────────────────────
 
 export default function CatalogPage() {
   const { identity } = useInternetIdentity();
@@ -270,10 +381,12 @@ export default function CatalogPage() {
   const filteredEntries = allEntries.filter((entry) => {
     const matchesCategory =
       activeCategory === "All" || entry.category === activeCategory;
-    const q = searchQuery.toLowerCase();
+    const q = searchQuery.trim().toLowerCase();
     const matchesSearch =
       !q ||
       entry.title.toLowerCase().includes(q) ||
+      entry.description.toLowerCase().includes(q) ||
+      entry.category.toLowerCase().includes(q) ||
       entry.tags.some((t) => t.toLowerCase().includes(q));
     return matchesCategory && matchesSearch;
   });
@@ -285,9 +398,12 @@ export default function CatalogPage() {
     (e) => !featuredEntries.find((f) => f.id === e.id),
   );
 
+  const activeSearch = searchQuery.trim();
+
   return (
     <div className="min-h-screen bg-background overflow-x-hidden">
-      <section className="py-12 sm:py-16 lg:py-20 bg-gradient-to-b from-[#f5e6c8]/60 to-background">
+      {/* Hero */}
+      <section className="py-12 sm:py-16 lg:py-20 bg-gradient-to-b from-[oklch(0.95_0.03_78_/_0.6)] to-background">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <motion.span
             initial={{ opacity: 0, y: 10 }}
@@ -323,19 +439,40 @@ export default function CatalogPage() {
         </div>
       </section>
 
+      {/* Sticky search bar */}
       <section className="sticky top-0 z-20 bg-background/95 backdrop-blur-sm border-b border-border/20 py-4">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-3">
-          <div className="relative max-w-md">
-            <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-foreground/40" />
-            <Input
-              data-ocid="catalog.search_input"
-              type="text"
-              placeholder="Search Catalog by Title or Tag"
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
-              className="pl-9 font-body text-sm bg-muted/30 border-border/30 focus:border-primary/40"
-            />
+          <div className="flex items-center gap-2">
+            <div className="relative flex-1 max-w-lg">
+              <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-foreground/40" />
+              <Input
+                data-ocid="catalog.search_input"
+                type="text"
+                placeholder="Search Catalog by Title, Tag, Description, or Category"
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                className="pl-9 pr-9 font-body text-sm bg-muted/30 border-border/30 focus:border-primary/40"
+              />
+              {activeSearch && (
+                <button
+                  type="button"
+                  aria-label="Clear search"
+                  onClick={() => setSearchQuery("")}
+                  data-ocid="catalog.search_clear"
+                  className="absolute right-3 top-1/2 -translate-y-1/2 text-foreground/40 hover:text-foreground/70 transition-colors"
+                >
+                  <X className="w-3.5 h-3.5" />
+                </button>
+              )}
+            </div>
+            {activeSearch && (
+              <ResultCount
+                count={filteredEntries.length}
+                query={activeSearch}
+              />
+            )}
           </div>
+
           <div className="flex gap-1.5 overflow-x-auto pb-1 scrollbar-hide">
             {CATEGORIES.map((cat) => (
               <button
@@ -356,7 +493,8 @@ export default function CatalogPage() {
         </div>
       </section>
 
-      <section className="py-4 bg-background/80">
+      {/* Internet Search panel */}
+      <section className="py-4 bg-muted/20 border-b border-border/10">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <FindItemsPanel
             onAddEntry={(entry) => setExtraEntries((prev) => [entry, ...prev])}
@@ -366,6 +504,7 @@ export default function CatalogPage() {
         </div>
       </section>
 
+      {/* Catalog grid */}
       <section className="pb-16 sm:pb-20 lg:pb-28 pt-8">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           {entriesLoading ? (
@@ -383,15 +522,31 @@ export default function CatalogPage() {
             </div>
           ) : filteredEntries.length === 0 ? (
             <div className="text-center py-20" data-ocid="catalog.empty_state">
-              <p className="font-body text-sm text-foreground/50">
-                No items match your search.
+              <p className="font-body text-lg font-semibold text-foreground/50 mb-2">
+                No items found
               </p>
+              {activeSearch && (
+                <div className="space-y-2">
+                  <p className="font-body text-sm text-foreground/40">
+                    No results match "{activeSearch}"
+                  </p>
+                  <Button
+                    variant="ghost"
+                    size="sm"
+                    onClick={() => setSearchQuery("")}
+                    className="text-primary hover:text-primary/80"
+                  >
+                    Clear search
+                  </Button>
+                </div>
+              )}
             </div>
           ) : (
             <>
+              {/* Spotlight — standard 2-col grid for featured items */}
               {featuredEntries.length > 0 && (
                 <div className="mb-10">
-                  <h2 className="font-heading text-lg font-semibold text-foreground/70 mb-4 tracking-wide uppercase text-sm">
+                  <h2 className="font-heading text-base font-semibold text-foreground/60 mb-4 tracking-widest uppercase text-sm">
                     Spotlight
                   </h2>
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-5 sm:gap-6">
@@ -400,13 +555,12 @@ export default function CatalogPage() {
                         key={entry.id}
                         initial={{ opacity: 0, y: 20 }}
                         animate={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.5, delay: i * 0.1 }}
+                        transition={{ duration: 0.45, delay: i * 0.1 }}
                         data-ocid={`catalog.item.${i + 1}`}
                       >
                         <CatalogCard
                           entry={entry}
                           isAuthenticated={isAuthenticated}
-                          featured
                           isSaved={isSaved(entry.id)}
                           onToggleSave={() => toggleSave(entry.id)}
                           onShowSignIn={() => setShowSignInOverlay(true)}
@@ -417,21 +571,33 @@ export default function CatalogPage() {
                 </div>
               )}
 
+              {/* Main masonry grid */}
               {remainingEntries.length > 0 && (
                 <>
                   {featuredEntries.length > 0 && (
-                    <h2 className="font-heading text-lg font-semibold text-foreground/70 mb-4 tracking-wide uppercase text-sm">
+                    <h2 className="font-heading text-base font-semibold text-foreground/60 mb-4 tracking-widest uppercase text-sm">
                       All Items
                     </h2>
                   )}
-                  <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-6 lg:gap-8">
+                  {/* CSS Multi-column masonry layout */}
+                  <div
+                    data-ocid="catalog.masonry_grid"
+                    style={{
+                      columnCount:
+                        "var(--masonry-cols)" as CSSProperties["columnCount"],
+                      columnGap: "1rem",
+                    }}
+                    className="[--masonry-cols:1] sm:[--masonry-cols:2] lg:[--masonry-cols:3] xl:[--masonry-cols:4] 2xl:[--masonry-cols:5]"
+                  >
                     {remainingEntries.map((entry, i) => (
                       <motion.div
                         key={entry.id}
-                        initial={{ opacity: 0, y: 20 }}
+                        initial={{ opacity: 0, y: 16 }}
                         animate={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.5, delay: i * 0.06 }}
+                        transition={{ duration: 0.4, delay: i * 0.05 }}
                         data-ocid={`catalog.item.${featuredEntries.length + i + 1}`}
+                        style={{ breakInside: "avoid" }}
+                        className="break-inside-avoid"
                       >
                         <CatalogCard
                           entry={entry}

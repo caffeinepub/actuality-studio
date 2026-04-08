@@ -22,6 +22,15 @@ export interface DiscountRates {
   'cohort' : bigint,
   'sponsorClient' : bigint,
 }
+export interface InternetProduct {
+  'id' : string,
+  'title' : string,
+  'source' : string,
+  'description' : string,
+  'purchaseUrl' : string,
+  'imageUrl' : string,
+  'price' : string,
+}
 export interface InviteCode {
   'created' : Time,
   'code' : string,
@@ -101,6 +110,10 @@ export interface _SERVICE {
   'getCohort' : ActorMethod<[], [] | [Cohort]>,
   'getDiscountRates' : ActorMethod<[], DiscountRates>,
   'getInviteCodes' : ActorMethod<[], Array<InviteCode>>,
+  'getItemRatings' : ActorMethod<
+    [string],
+    { 'upvotes' : bigint, 'callerRating' : [] | [bigint], 'downvotes' : bigint }
+  >,
   'getMemberCohort' : ActorMethod<[Principal], Cohort>,
   'getMembershipState' : ActorMethod<[Principal], MembershipState>,
   'getSavedCatalogItems' : ActorMethod<[], Array<SavedCatalogItem>>,
@@ -109,11 +122,13 @@ export interface _SERVICE {
   'isCallerAdmin' : ActorMethod<[], boolean>,
   'listAdmins' : ActorMethod<[], Array<string>>,
   'mintBadge' : ActorMethod<[], undefined>,
+  'rateItem' : ActorMethod<[string, bigint], undefined>,
   'registerAsFirstAdmin' : ActorMethod<[], undefined>,
   'removeAdmin' : ActorMethod<[Principal], undefined>,
   'removeSavedCatalogItem' : ActorMethod<[string], undefined>,
   'saveCallerUserProfile' : ActorMethod<[UserProfile], undefined>,
   'saveCatalogItem' : ActorMethod<[SavedCatalogItem], undefined>,
+  'searchInternetProducts' : ActorMethod<[string], Array<InternetProduct>>,
   'setDiscountRates' : ActorMethod<[DiscountRates], undefined>,
   'submitRSVP' : ActorMethod<[string, boolean, string], undefined>,
   'upgradeToPremium' : ActorMethod<[Principal], undefined>,

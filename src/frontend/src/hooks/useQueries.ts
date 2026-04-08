@@ -2,7 +2,9 @@ import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import type {
   Cohort,
   CohortMember,
+  InternetProduct,
   MembershipState,
+  SavedCatalogItem,
   UserProfile,
 } from "../backend";
 import { MemberCategory } from "../backend";
@@ -69,7 +71,6 @@ export function useCreateTrialMembership() {
   return useMutation({
     mutationFn: async () => {
       if (!actor) throw new Error("Actor not available");
-      // Direct on-chain mint — caller becomes owner, no custodian
       return actor.createTrialMembership();
     },
     onSuccess: () => {
@@ -85,7 +86,6 @@ export function useMintBadge() {
   return useMutation({
     mutationFn: async () => {
       if (!actor) throw new Error("Actor not available");
-      // Direct on-chain mint — caller becomes owner, no custodian
       return actor.mintBadge();
     },
     onSuccess: () => {
@@ -301,9 +301,191 @@ export function useCohortData() {
   });
 }
 
-// ── Admin principal management hooks ──────────────────────────────────────────
-// The backend.ts generated wrapper doesn't yet expose these methods, so we
-// cast the actor to a local interface that mirrors the backend.d.ts contract.
+// ── Internet Product Search ───────────────────────────────────────────────────
+
+export function useSearchInternetProducts(
+  searchTerm: string,
+  enabled: boolean,
+) {
+  const { actor, isFetching: actorFetching } = useActor();
+  return useQuery<InternetProduct[]>({
+    queryKey: ["internetProducts", searchTerm],
+    queryFn: async () => {
+      if (!actor) return [];
+      return actor.searchInternetProducts(searchTerm);
+    },
+    enabled:
+      enabled && !!actor && !actorFetching && searchTerm.trim().length > 0,
+    retry: false,
+    staleTime: 1000 * 60 * 5,
+  });
+}
+
+// ── Item Ratings ──────────────────────────────────────────────────────────────
+
+export interface ItemRatings {
+  upvotes: number;
+  downvotes: number;
+  callerRating: number | null;
+}
+
+export function useGetItemRatings(itemId: string) {
+  const { actor, isFetching: actorFetching } = useActor();
+  const { identity } = useInternetIdentity();
+  return useQuery<ItemRatings>({
+    queryKey: ["itemRatings", itemId, identity?.getPrincipal().toText()],
+    queryFn: async () => {
+      if (!actor) return { upvotes: 0, downvotes: 0, callerRating: null };
+      const res = await actor.getItemRatings(itemId);
+      return {
+        upvotes: Number(res.upvotes),
+        downvotes: Number(res.downvotes),
+        callerRating:
+          res.callerRating !== undefined ? Number(res.callerRating) : null,
+      };
+    },
+    enabled: !!actor && !actorFetching,
+    retry: false,
+  });
+}
+
+export function useRateItem() {
+  const { actor } = useActor();
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: async ({
+      itemId,
+      rating,
+    }: { itemId: string; rating: 1 | -1 }) => {
+      if (!actor) throw new Error("Actor not available");
+      return actor.rateItem(itemId, BigInt(rating));
+    },
+    onSuccess: (_data, variables) => {
+      queryClient.invalidateQueries({
+        queryKey: ["itemRatings", variables.itemId],
+      });
+    },
+  });
+}
+
+/**
+ * Composite hook combining ratings query + optimistic-update mutation for a
+ * single catalog item. Use this in CatalogCard for a clean API.
+ */
+export function useItemRating(itemId: string) {
+  const { identity } = useInternetIdentity();
+  const { actor, isFetching: actorFetching } = useActor();
+  const queryClient = useQueryClient();
+
+  const ratingKey = ["itemRatings", itemId];
+
+  const ratingsQuery = useQuery<ItemRatings>({
+    queryKey: ratingKey,
+    queryFn: async () => {
+      if (!actor) return { upvotes: 0, downvotes: 0, callerRating: null };
+      try {
+        const res = await actor.getItemRatings(itemId);
+        return {
+          upvotes: Number(res.upvotes),
+          downvotes: Number(res.downvotes),
+          callerRating:
+            res.callerRating !== undefined ? Number(res.callerRating) : null,
+        };
+      } catch {
+        return { upvotes: 0, downvotes: 0, callerRating: null };
+      }
+    },
+    enabled: !!actor && !actorFetching,
+    staleTime: 1000 * 60,
+  });
+
+  const rateMutation = useMutation({
+    mutationFn: async (rating: 1 | -1) => {
+      if (!actor || !identity) throw new Error("Not authenticated");
+      return actor.rateItem(itemId, BigInt(rating));
+    },
+    onMutate: async (rating: 1 | -1) => {
+      await queryClient.cancelQueries({ queryKey: ratingKey });
+      const prev = queryClient.getQueryData<ItemRatings>(ratingKey);
+      if (prev) {
+        const wasUp = prev.callerRating === 1;
+        const wasDown = prev.callerRating === -1;
+        const isToggleOff =
+          (rating === 1 && wasUp) || (rating === -1 && wasDown);
+        queryClient.setQueryData<ItemRatings>(ratingKey, {
+          upvotes: isToggleOff
+            ? prev.upvotes - (wasUp ? 1 : 0)
+            : rating === 1
+              ? prev.upvotes + 1 - (wasUp ? 1 : 0)
+              : prev.upvotes - (wasUp ? 1 : 0),
+          downvotes: isToggleOff
+            ? prev.downvotes - (wasDown ? 1 : 0)
+            : rating === -1
+              ? prev.downvotes + 1 - (wasDown ? 1 : 0)
+              : prev.downvotes - (wasDown ? 1 : 0),
+          callerRating: isToggleOff ? null : rating,
+        });
+      }
+      return { prev };
+    },
+    onError: (_err, _rating, context) => {
+      if (context?.prev) {
+        queryClient.setQueryData(ratingKey, context.prev);
+      }
+    },
+    onSettled: () => {
+      queryClient.invalidateQueries({ queryKey: ratingKey });
+    },
+  });
+
+  return { ratingsQuery, rateMutation };
+}
+
+// ── Saved Catalog Items (backend-persisted) ──────────────────────────────────
+
+export function useGetSavedCatalogItems() {
+  const { actor, isFetching: actorFetching } = useActor();
+  const { identity } = useInternetIdentity();
+  return useQuery<SavedCatalogItem[]>({
+    queryKey: ["savedCatalogItems", identity?.getPrincipal().toText()],
+    queryFn: async () => {
+      if (!actor) return [];
+      return actor.getSavedCatalogItems();
+    },
+    enabled: !!actor && !actorFetching && !!identity,
+    retry: false,
+  });
+}
+
+export function useSaveCatalogItem() {
+  const { actor } = useActor();
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: async (item: SavedCatalogItem) => {
+      if (!actor) throw new Error("Actor not available");
+      return actor.saveCatalogItem(item);
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["savedCatalogItems"] });
+    },
+  });
+}
+
+export function useRemoveSavedCatalogItem() {
+  const { actor } = useActor();
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: async (itemId: string) => {
+      if (!actor) throw new Error("Actor not available");
+      return actor.removeSavedCatalogItem(itemId);
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["savedCatalogItems"] });
+    },
+  });
+}
+
+// ── Admin principal management hooks ─────────────────────────────────────────
 
 import type { Principal as IcPrincipal } from "@icp-sdk/core/principal";
 

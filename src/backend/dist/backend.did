@@ -59,6 +59,16 @@ type InviteCode =
    created: Time;
    used: bool;
  };
+type InternetProduct = 
+ record {
+   description: text;
+   id: text;
+   imageUrl: text;
+   price: text;
+   purchaseUrl: text;
+   source: text;
+   title: text;
+ };
 type DiscountRates = 
  record {
    cohort: nat;
@@ -101,6 +111,12 @@ service : {
   getCohort: () -> (opt Cohort) query;
   getDiscountRates: () -> (DiscountRates) query;
   getInviteCodes: () -> (vec InviteCode) query;
+  getItemRatings: (itemId: text) ->
+   (record {
+      callerRating: opt int;
+      downvotes: nat;
+      upvotes: nat;
+    }) query;
   getMemberCohort: (owner: principal) -> (Cohort) query;
   getMembershipState: (member: principal) -> (MembershipState) query;
   getSavedCatalogItems: () -> (vec SavedCatalogItem) query;
@@ -109,11 +125,13 @@ service : {
   isCallerAdmin: () -> (bool) query;
   listAdmins: () -> (vec text) query;
   mintBadge: () -> ();
+  rateItem: (itemId: text, rating: int) -> ();
   registerAsFirstAdmin: () -> ();
   removeAdmin: (user: principal) -> ();
   removeSavedCatalogItem: (itemId: text) -> ();
   saveCallerUserProfile: (profile: UserProfile) -> ();
   saveCatalogItem: (item: SavedCatalogItem) -> ();
+  searchInternetProducts: (searchTerm: text) -> (vec InternetProduct);
   setDiscountRates: (rates: DiscountRates) -> ();
   submitRSVP: (name: text, attending: bool, inviteCode: text) -> ();
   upgradeToPremium: (user: principal) -> ();

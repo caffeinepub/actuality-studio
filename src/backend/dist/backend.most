@@ -73,11 +73,51 @@ actor {
   stable defaultTrialPeriod : Int;
   stable var discountRates :
     {cohort : Nat; patronPro : Nat; sponsorClient : Nat; trial : Nat};
+  stable ic :
+    actor {
+      http_request :
+        shared {
+                 body : ?Blob;
+                 headers : [{name : Text; value : Text}];
+                 is_replicated : ?Bool;
+                 max_response_bytes : ?Nat64;
+                 method : {#get; #head; #post};
+                 transform :
+                   ?{
+                      context : Blob;
+                      function :
+                        shared {
+                                 context : Blob;
+                                 response :
+                                   {
+                                     body : Blob;
+                                     headers : [{name : Text; value : Text}];
+                                     status : Nat
+                                   }
+                               } ->
+                          async
+                            {
+                              body : Blob;
+                              headers : [{name : Text; value : Text}];
+                              status : Nat
+                            }
+                    };
+                 url : Text
+               } ->
+          async
+            {
+              body : Blob;
+              headers : [{name : Text; value : Text}];
+              status : Nat
+            }
+    };
   stable inviteState :
     {
       var inviteCodes : Map__605269027<Text, InviteCode__761281821>;
       var rsvps : Map__605269027<Text, RSVP__815186634>
     };
+  stable itemRatings :
+    {var root : Node__46230540<Text, Int>; var size : Nat__490723111};
   stable memberships :
     {
       var root : Node__46230540<Principal, MembershipState__128396195>;

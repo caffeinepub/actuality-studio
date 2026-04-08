@@ -132,6 +132,15 @@ export interface DiscountRates {
     cohort: bigint;
     sponsorClient: bigint;
 }
+export interface InternetProduct {
+    id: string;
+    title: string;
+    source: string;
+    description: string;
+    purchaseUrl: string;
+    imageUrl: string;
+    price: string;
+}
 export interface UserProfile {
     name: string;
 }
@@ -179,6 +188,11 @@ export interface backendInterface {
     getCohort(): Promise<Cohort | null>;
     getDiscountRates(): Promise<DiscountRates>;
     getInviteCodes(): Promise<Array<InviteCode>>;
+    getItemRatings(itemId: string): Promise<{
+        upvotes: bigint;
+        callerRating?: bigint;
+        downvotes: bigint;
+    }>;
     getMemberCohort(owner: Principal): Promise<Cohort>;
     getMembershipState(member: Principal): Promise<MembershipState>;
     getSavedCatalogItems(): Promise<Array<SavedCatalogItem>>;
@@ -187,11 +201,13 @@ export interface backendInterface {
     isCallerAdmin(): Promise<boolean>;
     listAdmins(): Promise<Array<string>>;
     mintBadge(): Promise<void>;
+    rateItem(itemId: string, rating: bigint): Promise<void>;
     registerAsFirstAdmin(): Promise<void>;
     removeAdmin(user: Principal): Promise<void>;
     removeSavedCatalogItem(itemId: string): Promise<void>;
     saveCallerUserProfile(profile: UserProfile): Promise<void>;
     saveCatalogItem(item: SavedCatalogItem): Promise<void>;
+    searchInternetProducts(searchTerm: string): Promise<Array<InternetProduct>>;
     setDiscountRates(rates: DiscountRates): Promise<void>;
     submitRSVP(name: string, attending: boolean, inviteCode: string): Promise<void>;
     upgradeToPremium(user: Principal): Promise<void>;
@@ -479,6 +495,24 @@ export class Backend implements backendInterface {
             return result;
         }
     }
+    async getItemRatings(arg0: string): Promise<{
+        upvotes: bigint;
+        callerRating?: bigint;
+        downvotes: bigint;
+    }> {
+        if (this.processError) {
+            try {
+                const result = await this.actor.getItemRatings(arg0);
+                return from_candid_record_n32(this._uploadFile, this._downloadFile, result);
+            } catch (e) {
+                this.processError(e);
+                throw new Error("unreachable");
+            }
+        } else {
+            const result = await this.actor.getItemRatings(arg0);
+            return from_candid_record_n32(this._uploadFile, this._downloadFile, result);
+        }
+    }
     async getMemberCohort(arg0: Principal): Promise<Cohort> {
         if (this.processError) {
             try {
@@ -591,6 +625,20 @@ export class Backend implements backendInterface {
             return result;
         }
     }
+    async rateItem(arg0: string, arg1: bigint): Promise<void> {
+        if (this.processError) {
+            try {
+                const result = await this.actor.rateItem(arg0, arg1);
+                return result;
+            } catch (e) {
+                this.processError(e);
+                throw new Error("unreachable");
+            }
+        } else {
+            const result = await this.actor.rateItem(arg0, arg1);
+            return result;
+        }
+    }
     async registerAsFirstAdmin(): Promise<void> {
         if (this.processError) {
             try {
@@ -658,6 +706,20 @@ export class Backend implements backendInterface {
             }
         } else {
             const result = await this.actor.saveCatalogItem(arg0);
+            return result;
+        }
+    }
+    async searchInternetProducts(arg0: string): Promise<Array<InternetProduct>> {
+        if (this.processError) {
+            try {
+                const result = await this.actor.searchInternetProducts(arg0);
+                return result;
+            } catch (e) {
+                this.processError(e);
+                throw new Error("unreachable");
+            }
+        } else {
+            const result = await this.actor.searchInternetProducts(arg0);
             return result;
         }
     }
@@ -734,6 +796,9 @@ function from_candid_opt_n21(_uploadFile: (file: ExternalBlob) => Promise<Uint8A
 function from_candid_opt_n24(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: [] | [_Cohort]): Cohort | null {
     return value.length === 0 ? null : from_candid_Cohort_n25(_uploadFile, _downloadFile, value[0]);
 }
+function from_candid_opt_n33(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: [] | [bigint]): bigint | null {
+    return value.length === 0 ? null : value[0];
+}
 function from_candid_opt_n6(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: [] | [boolean]): boolean | null {
     return value.length === 0 ? null : value[0];
 }
@@ -780,6 +845,21 @@ function from_candid_record_n29(_uploadFile: (file: ExternalBlob) => Promise<Uin
     return {
         principal: value.principal,
         role: from_candid_MemberRole_n30(_uploadFile, _downloadFile, value.role)
+    };
+}
+function from_candid_record_n32(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: {
+    upvotes: bigint;
+    callerRating: [] | [bigint];
+    downvotes: bigint;
+}): {
+    upvotes: bigint;
+    callerRating?: bigint;
+    downvotes: bigint;
+} {
+    return {
+        upvotes: value.upvotes,
+        callerRating: record_opt_to_undefined(from_candid_opt_n33(_uploadFile, _downloadFile, value.callerRating)),
+        downvotes: value.downvotes
     };
 }
 function from_candid_record_n5(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: {

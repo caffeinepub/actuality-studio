@@ -1,15 +1,19 @@
 import { Badge } from "@/components/ui/badge";
 import { Link } from "@tanstack/react-router";
-import { Bookmark, ShoppingBag, Tag } from "lucide-react";
+import { Bookmark, ShoppingBag, Tag, ThumbsDown, ThumbsUp } from "lucide-react";
 import { motion } from "motion/react";
 import React, { useState } from "react";
 import { MemberCategory } from "../backend";
 import SignInOverlay from "../components/SignInOverlay";
 import { useDiscountRates } from "../hooks/useDiscountRates";
 import { useInternetIdentity } from "../hooks/useInternetIdentity";
-import { useGetCallerMembershipState } from "../hooks/useQueries";
-import { useSavedCatalog } from "../hooks/useSavedCatalog";
-import { SEED_ENTRIES } from "./CatalogPage";
+import {
+  useGetCallerMembershipState,
+  useGetItemRatings,
+  useGetSavedCatalogItems,
+  useRateItem,
+  useRemoveSavedCatalogItem,
+} from "../hooks/useQueries";
 
 function getMemberDiscount(
   category: MemberCategory | null | undefined,
@@ -27,15 +31,66 @@ function getMemberDiscount(
   }
 }
 
+// ── Per-item rating widget backed by actor ────────────────────────────────────
+function RatingWidget({ itemId }: { itemId: string }) {
+  const { data: ratings } = useGetItemRatings(itemId);
+  const { mutate: rateItem } = useRateItem();
+  const { identity } = useInternetIdentity();
+  const isAuth = !!identity;
+
+  const handleRate = (rating: 1 | -1) => {
+    if (!isAuth) return;
+    rateItem({ itemId, rating });
+  };
+
+  const upvotes = ratings?.upvotes ?? 0;
+  const downvotes = ratings?.downvotes ?? 0;
+  const callerRating = ratings?.callerRating ?? null;
+
+  return (
+    <div className="flex items-center gap-1.5">
+      <button
+        type="button"
+        onClick={() => handleRate(1)}
+        disabled={!isAuth}
+        aria-label="Thumbs up"
+        className={`flex items-center gap-1 px-2 py-1 rounded-full text-xs font-body font-semibold transition-colors duration-150 ${
+          callerRating === 1
+            ? "bg-primary text-primary-foreground"
+            : "bg-muted/40 text-muted-foreground hover:bg-primary/10 hover:text-primary disabled:opacity-40 disabled:cursor-not-allowed"
+        }`}
+      >
+        <ThumbsUp className="w-3 h-3" />
+        {upvotes > 0 && <span>{upvotes}</span>}
+      </button>
+      <button
+        type="button"
+        onClick={() => handleRate(-1)}
+        disabled={!isAuth}
+        aria-label="Thumbs down"
+        className={`flex items-center gap-1 px-2 py-1 rounded-full text-xs font-body font-semibold transition-colors duration-150 ${
+          callerRating === -1
+            ? "bg-destructive text-destructive-foreground"
+            : "bg-muted/40 text-muted-foreground hover:bg-destructive/10 hover:text-destructive disabled:opacity-40 disabled:cursor-not-allowed"
+        }`}
+      >
+        <ThumbsDown className="w-3 h-3" />
+        {downvotes > 0 && <span>{downvotes}</span>}
+      </button>
+    </div>
+  );
+}
+
+// ── Page ──────────────────────────────────────────────────────────────────────
 export default function MyCatalogPage() {
   const { identity } = useInternetIdentity();
   const isAuthenticated = !!identity;
-  const { savedIds, unsaveItem } = useSavedCatalog();
   const [showSignIn, setShowSignIn] = useState(false);
   const { rates } = useDiscountRates();
   const { data: membershipState } = useGetCallerMembershipState();
+  const { data: savedItems = [], isLoading } = useGetSavedCatalogItems();
+  const { mutate: removeItem } = useRemoveSavedCatalogItem();
 
-  const savedEntries = SEED_ENTRIES.filter((e) => savedIds.includes(e.id));
   const discount = getMemberDiscount(membershipState?.category, rates);
 
   if (!isAuthenticated) {
@@ -69,7 +124,7 @@ export default function MyCatalogPage() {
     );
   }
 
-  if (savedEntries.length === 0) {
+  if (!isLoading && savedItems.length === 0) {
     return (
       <div className="min-h-screen bg-background flex flex-col items-center justify-center px-4 py-24">
         <div
@@ -124,7 +179,8 @@ export default function MyCatalogPage() {
             transition={{ duration: 0.55, delay: 0.2 }}
             className="font-body text-sm sm:text-base text-foreground/60 max-w-xl mx-auto"
           >
-            Your saved items with member pricing
+            {savedItems.length} saved item{savedItems.length !== 1 ? "s" : ""}{" "}
+            with member pricing
           </motion.p>
           <motion.div
             initial={{ scaleX: 0, opacity: 0 }}
@@ -137,30 +193,39 @@ export default function MyCatalogPage() {
 
       <section className="pb-16 sm:pb-20 lg:pb-28 pt-8">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          {/* Masonry layout: 1→2→3→4→5 columns */}
           <div
-            className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-6 lg:gap-8"
             data-ocid="my-catalog.list"
+            className="
+              [column-count:1]
+              sm:[column-count:2]
+              md:[column-count:3]
+              lg:[column-count:4]
+              xl:[column-count:5]
+              [column-gap:1.25rem]
+            "
           >
-            {savedEntries.map((entry, i) => (
+            {savedItems.map((item, i) => (
               <motion.div
-                key={entry.id}
+                key={item.itemId}
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.45, delay: i * 0.07 }}
+                transition={{ duration: 0.45, delay: i * 0.06 }}
                 data-ocid={`my-catalog.item.${i + 1}`}
-                className="group relative bg-background rounded-2xl border border-border/30 shadow-warm overflow-hidden hover:shadow-lg transition-all duration-300 hover:-translate-y-1"
+                className="mb-5 group relative bg-card rounded-2xl border border-border/30 overflow-hidden hover:shadow-lg transition-all duration-300 hover:-translate-y-0.5"
+                style={{ breakInside: "avoid" }}
               >
-                <div className="relative aspect-[4/3] overflow-hidden">
+                {/* Image */}
+                <div className="relative overflow-hidden bg-muted/20">
                   <img
-                    src={entry.imageUrl}
-                    alt={entry.title}
+                    src={item.imageUrl}
+                    alt={item.title}
                     loading="lazy"
                     decoding="async"
-                    width={640}
-                    height={480}
-                    className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                    className="w-full object-cover transition-transform duration-500 group-hover:scale-105"
+                    style={{ maxHeight: "220px", minHeight: "120px" }}
                   />
-                  <div className="absolute top-3 left-3">
+                  <div className="absolute top-2 left-2">
                     <Badge className="text-xs font-body font-bold px-2.5 py-1 rounded-full flex items-center gap-1 bg-primary text-primary-foreground">
                       <Tag className="w-3 h-3" />
                       Member Special
@@ -168,15 +233,20 @@ export default function MyCatalogPage() {
                   </div>
                 </div>
 
-                <div className="p-4 sm:p-5">
+                {/* Content */}
+                <div className="p-4">
                   <div className="flex items-start justify-between gap-2 mb-1.5">
-                    <h3 className="font-heading text-base font-semibold text-foreground leading-snug">
-                      {entry.title}
+                    <h3 className="font-heading text-sm font-semibold text-foreground leading-snug min-w-0">
+                      {item.title}
                     </h3>
-                    <span className="shrink-0 text-xs font-body text-foreground/40 bg-muted/40 px-2 py-0.5 rounded-full">
-                      {entry.category}
+                    <span className="shrink-0 text-xs font-body text-muted-foreground bg-muted/40 px-2 py-0.5 rounded-full">
+                      {item.category}
                     </span>
                   </div>
+
+                  <p className="font-body text-xs text-foreground/60 line-clamp-2 mb-2 leading-relaxed">
+                    {item.description}
+                  </p>
 
                   <p className="font-body text-sm font-semibold text-primary mb-3">
                     {discount > 0
@@ -185,21 +255,12 @@ export default function MyCatalogPage() {
                   </p>
 
                   <div className="flex items-center justify-between">
-                    <div className="flex flex-wrap gap-1">
-                      {entry.tags.slice(0, 2).map((tag) => (
-                        <span
-                          key={tag}
-                          className="text-xs font-body text-foreground/40 bg-muted/30 px-2 py-0.5 rounded-full"
-                        >
-                          #{tag}
-                        </span>
-                      ))}
-                    </div>
+                    <RatingWidget itemId={item.itemId} />
                     <button
                       type="button"
-                      onClick={() => unsaveItem(entry.id)}
+                      onClick={() => removeItem(item.itemId)}
                       data-ocid={`my-catalog.delete_button.${i + 1}`}
-                      className="text-xs font-body text-foreground/40 hover:text-destructive transition-colors duration-150 shrink-0"
+                      className="text-xs font-body text-muted-foreground hover:text-destructive transition-colors duration-150 shrink-0"
                     >
                       Remove
                     </button>
