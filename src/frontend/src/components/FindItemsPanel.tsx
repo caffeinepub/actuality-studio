@@ -11,6 +11,7 @@ import {
 import {
   ChevronDown,
   ChevronUp,
+  ExternalLink,
   Globe,
   Loader2,
   Lock,
@@ -59,6 +60,8 @@ const ACTUALITY_CATEGORIES = [
   "Architectural Details",
   "Plans & Blueprints",
 ];
+
+const FALLBACK_IMG = "/assets/generated/mckinley-exterior.dim_900x600.jpg";
 
 interface ExternalProduct {
   id: number;
@@ -111,43 +114,73 @@ function ResultCard({
   onSelect: () => void;
   isSelected: boolean;
 }) {
+  const orderUrl = `https://www.amazon.com/s?k=${encodeURIComponent(product.title)}`;
+
   return (
-    <button
-      type="button"
-      onClick={onSelect}
-      className={`text-left group rounded-xl border transition-all duration-200 overflow-hidden ${
+    <div
+      className={`group rounded-xl border transition-all duration-200 overflow-hidden flex flex-col ${
         isSelected
           ? "border-primary shadow-md ring-2 ring-primary/30"
           : "border-border/30 hover:border-primary/40 hover:shadow-sm"
       }`}
     >
-      <div className="aspect-[4/3] overflow-hidden bg-muted/20">
-        <img
-          src={product.thumbnail}
-          alt={product.title}
-          loading="lazy"
-          className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
-        />
-      </div>
-      <div className="p-3">
-        <h4 className="font-heading text-sm font-semibold text-foreground line-clamp-1 mb-0.5">
-          {product.title}
-        </h4>
-        {product.brand && (
-          <p className="font-body text-xs text-foreground/50 mb-1">
-            {product.brand}
+      {/* Image */}
+      <button
+        type="button"
+        onClick={onSelect}
+        className="block w-full text-left"
+      >
+        <div className="aspect-video overflow-hidden bg-muted/20">
+          <img
+            src={product.thumbnail}
+            alt={product.title}
+            loading="lazy"
+            onError={(e) => {
+              e.currentTarget.src = FALLBACK_IMG;
+            }}
+            className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
+          />
+        </div>
+      </button>
+
+      {/* Content */}
+      <div className="p-3 flex flex-col flex-1">
+        <button type="button" onClick={onSelect} className="text-left mb-2">
+          <h4 className="font-heading text-sm font-semibold text-foreground line-clamp-2 leading-snug mb-1">
+            {product.title}
+          </h4>
+          {product.brand && (
+            <p className="font-body text-xs text-foreground/50 mb-1">
+              {product.brand}
+            </p>
+          )}
+          <p className="font-body text-xs text-foreground/60 line-clamp-3 leading-relaxed">
+            {product.description}
           </p>
-        )}
-        <div className="flex items-center justify-between">
-          <span className="font-body text-xs font-semibold text-primary">
-            ${product.price.toFixed(2)}
-          </span>
-          <span className="text-xs font-body text-foreground/40 bg-muted/40 px-2 py-0.5 rounded-full capitalize">
-            {product.category}
-          </span>
+        </button>
+
+        <div className="mt-auto pt-2 border-t border-border/15">
+          <div className="flex items-center justify-between mb-2">
+            <span className="font-body text-base font-bold text-primary">
+              ${product.price.toFixed(2)}
+            </span>
+            <span className="text-xs font-body text-foreground/40 bg-muted/40 px-2 py-0.5 rounded-full capitalize">
+              {product.category}
+            </span>
+          </div>
+          <a
+            href={orderUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            onClick={(e) => e.stopPropagation()}
+            className="flex items-center justify-center gap-1.5 w-full py-1.5 px-3 rounded-lg bg-primary/10 text-primary hover:bg-primary/20 transition-colors text-xs font-body font-semibold"
+          >
+            <ExternalLink className="w-3 h-3" />
+            View &amp; Order →
+          </a>
         </div>
       </div>
-    </button>
+    </div>
   );
 }
 
@@ -158,13 +191,17 @@ function TagUploadPanel({
   onShowSignIn,
 }: {
   product: ExternalProduct;
-  onUpload: (entry: CatalogEntry) => void;
+  onUpload: (entry: CatalogEntry, price: string, sourceUrl: string) => void;
   isAuthenticated: boolean;
   onShowSignIn: () => void;
 }) {
   const [tags, setTags] = useState<string[]>(() => autoTags(product));
   const [newTag, setNewTag] = useState("");
   const [category, setCategory] = useState(() => guessCategory(product));
+  const [price, setPrice] = useState(() => product.price.toFixed(2));
+  const [sourceUrl, setSourceUrl] = useState(
+    () => `https://www.amazon.com/s?k=${encodeURIComponent(product.title)}`,
+  );
 
   const removeTag = (tag: string) =>
     setTags((prev) => prev.filter((t) => t !== tag));
@@ -190,8 +227,10 @@ function TagUploadPanel({
       category,
       tags,
       accessLevel: "free",
+      price,
+      sourceUrl,
     };
-    onUpload(entry);
+    onUpload(entry, price, sourceUrl);
     toast.success(`"${product.title}" added to Catalog!`);
   };
 
@@ -207,6 +246,9 @@ function TagUploadPanel({
         <img
           src={product.thumbnail}
           alt={product.title}
+          onError={(e) => {
+            e.currentTarget.src = FALLBACK_IMG;
+          }}
           className="w-20 h-20 rounded-xl object-cover shrink-0 border border-border/20"
         />
         <div>
@@ -223,6 +265,45 @@ function TagUploadPanel({
           </p>
         </div>
       </div>
+
+      {/* Price & Source URL fields */}
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-4">
+        <div>
+          <p className="font-body text-xs font-semibold text-foreground/60 uppercase tracking-wide mb-1.5">
+            Price
+          </p>
+          <div className="relative">
+            <span className="absolute left-3 top-1/2 -translate-y-1/2 font-body text-sm text-foreground/50">
+              $
+            </span>
+            <Input
+              data-ocid="find_items.price_input"
+              type="text"
+              value={price}
+              onChange={(e) => setPrice(e.target.value)}
+              className="font-body text-sm bg-background/80 border-border/30 h-9 pl-6"
+            />
+          </div>
+        </div>
+        <div>
+          <p className="font-body text-xs font-semibold text-foreground/60 uppercase tracking-wide mb-1.5">
+            Source / Order URL
+          </p>
+          <Input
+            data-ocid="find_items.source_url_input"
+            type="url"
+            value={sourceUrl}
+            onChange={(e) => setSourceUrl(e.target.value)}
+            className="font-body text-sm bg-background/80 border-border/30 h-9"
+            placeholder="https://..."
+          />
+        </div>
+      </div>
+
+      <p className="font-body text-xs text-foreground/50 italic mb-4 bg-background/40 rounded-lg px-3 py-2 border border-border/20">
+        Members can save this item with pricing and a direct order link visible
+        in their personal catalog.
+      </p>
 
       {/* Auto-suggested tags */}
       <div className="mb-3">
@@ -477,10 +558,10 @@ export default function FindItemsPanel({
               {!isLoading && results.length > 0 && (
                 <>
                   <p className="font-body text-xs text-foreground/50 mt-3 mb-2">
-                    {results.length} items found — click one to tag and upload
-                    to catalog
+                    {results.length} items found — click an item to tag and
+                    upload to catalog
                   </p>
-                  <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3">
+                  <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
                     {results.map((product) => (
                       <div key={product.id} className="relative">
                         {uploadedIds.has(product.id) && (

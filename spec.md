@@ -1,28 +1,31 @@
-# Actuality Studio — Steiner Theme Implementation
+# Actuality Studio
 
 ## Current State
-The app uses a warm parchment palette (oklch orange/brown tones, crimson buttons, Space Grotesk body font, Playfair Display headings, Space Mono code font). All color tokens are warm-tinted OKLCH values.
+CatalogPage.tsx uses `opacity: imgLoaded ? 1 : 0` with `onLoad` on catalog card images — causing blank images whenever browser cache skips the onLoad event. FindItemsPanel uses dummyjson.com thumbnails (blocked by ICP CSP) and result cards only show a small thumbnail + price badge with no order/payment links.
 
 ## Requested Changes (Diff)
 
 ### Add
-- DM Sans Google Font (body)
-- JetBrains Mono Google Font (code/mono)
-- `--theme-glow` CSS custom property
-- `shadow-glow-sm` Tailwind shadow utility
-- `font-display` Tailwind font family (Playfair Display)
+- Result cards in FindItemsPanel show: image, title, description, price, "View & Order" button linking to an Amazon/Google Shopping search for that product
+- Payment/order info section in TagUploadPanel showing price with "Order Now" external link
+- When item is uploaded to catalog, the catalog card stores and displays a source URL so users can click through to purchase
 
 ### Modify
-- `index.html`: add DM Sans + JetBrains Mono to Google Fonts link
-- `tailwind.config.js`: update font-sans/font-body → DM Sans, font-mono → JetBrains Mono, add font-display
-- `src/index.css`: replace all OKLCH color tokens with Steiner's neutral grayscale OKLCH tokens; update body font to DM Sans; update --radius to 0.625rem
+- Remove `opacity: imgLoaded ? 1 : 0` and `onLoad` state from CatalogCard — images appear immediately with no JS opacity gate
+- Use `open-proxy` pattern for dummyjson thumbnail URLs via a CSS background fallback OR switch to a reliable open API (Open Library / Unsplash placeholder with product data) so images actually load
+- ResultCard in FindItemsPanel redesigned: larger image, full description, price prominently, "View & Order" button (links to `https://www.amazon.com/s?k=TITLE` as external link)
+- TagUploadPanel shows price field (editable), source URL field, and payment info note
+- CatalogEntry type extended with optional `price`, `sourceUrl` fields
+- CatalogCard shows price and "Order / View Source" link button when those fields exist
 
 ### Remove
-- Space Grotesk references from font stacks
-- Space Mono from mono font stack
-- Warm parchment color tokens (replaced by neutral grays)
+- `imgLoaded` state and `onLoad` / `style={{ opacity }}` from CatalogCard
+- Hard dependency on dummyjson CDN images that fail ICP CSP — use `onerror` fallback to a local placeholder
 
 ## Implementation Plan
-1. Update index.html Google Fonts URL to include DM Sans + JetBrains Mono
-2. Update tailwind.config.js font families
-3. Replace index.css color tokens and body font with Steiner values
+1. In CatalogCard: remove imgLoaded state, remove onLoad and opacity style — images show immediately
+2. Extend CatalogEntry interface with `price?: string` and `sourceUrl?: string`
+3. In CatalogCard: if entry.price exists, show price badge; if entry.sourceUrl exists, show "Order Now" external link button
+4. In ResultCard: enlarge layout, show description, price prominently, add "View & Order" button linking to Amazon search for that product title, add onerror fallback on img tag
+5. In TagUploadPanel: add editable price field, add sourceUrl field (pre-filled with Amazon search link), show order/payment note
+6. In FindItemsPanel.handleUpload: include price and sourceUrl in the CatalogEntry passed to onAddEntry

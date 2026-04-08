@@ -1,5 +1,5 @@
 import { Input } from "@/components/ui/input";
-import { Bookmark, Loader2, Search } from "lucide-react";
+import { Bookmark, ExternalLink, Loader2, Search } from "lucide-react";
 import { motion } from "motion/react";
 import React, { useState } from "react";
 import FindItemsPanel from "../components/FindItemsPanel";
@@ -16,6 +16,8 @@ export interface CatalogEntry {
   category: string;
   tags: string[];
   accessLevel: "free" | "preview" | "premium";
+  price?: string;
+  sourceUrl?: string;
 }
 
 export const SEED_ENTRIES: CatalogEntry[] = [
@@ -144,8 +146,6 @@ function CatalogCard({
   onShowSignIn: () => void;
   isAuthenticated: boolean;
 }) {
-  const [imgLoaded, setImgLoaded] = useState(false);
-
   const handleSaveClick = () => {
     if (!isAuthenticated) {
       onShowSignIn();
@@ -170,10 +170,9 @@ function CatalogCard({
           decoding="async"
           width={featured ? 1200 : 800}
           height={featured ? 600 : 600}
-          onLoad={() => setImgLoaded(true)}
-          style={{
-            opacity: imgLoaded ? 1 : 0,
-            transition: "opacity 0.4s ease",
+          onError={(e) => {
+            e.currentTarget.src =
+              "/assets/generated/mckinley-exterior.dim_900x600.jpg";
           }}
           className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
         />
@@ -208,6 +207,25 @@ function CatalogCard({
             </span>
           ))}
         </div>
+        {entry.price && (
+          <div className="mb-3">
+            <span className="inline-block font-body text-sm font-bold text-primary bg-primary/10 px-3 py-1 rounded-full">
+              ${entry.price}
+            </span>
+          </div>
+        )}
+        {entry.sourceUrl && (
+          <a
+            href={entry.sourceUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            data-ocid="catalog.order_link"
+            className="inline-flex items-center gap-1.5 text-sm font-body font-semibold text-primary hover:text-primary/80 transition-colors mb-3"
+          >
+            <ExternalLink className="w-3.5 h-3.5" />
+            Order Now →
+          </a>
+        )}
         <button
           type="button"
           onClick={handleSaveClick}
