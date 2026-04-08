@@ -62,25 +62,12 @@ export default function AdminDiscountSettings() {
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.45 }}
     >
-      <Card
-        className="max-w-2xl"
-        style={{
-          backgroundColor: "#fdf6ec",
-          border: "1.5px solid rgba(192,57,43,0.18)",
-          boxShadow: "0 2px 16px rgba(192,57,43,0.07)",
-        }}
-      >
+      <Card className="max-w-2xl border-border/40 shadow-warm bg-card">
         <CardHeader className="pb-4">
-          <CardTitle
-            className="font-heading text-xl"
-            style={{ color: "#2c1a0e" }}
-          >
+          <CardTitle className="font-heading text-xl text-foreground">
             Discount Rates by Membership Tier
           </CardTitle>
-          <CardDescription
-            className="font-body text-sm leading-relaxed"
-            style={{ color: "#7a5c44" }}
-          >
+          <CardDescription className="font-body text-sm leading-relaxed text-foreground/60">
             Set the automatic discount applied to saved catalog items for each
             member type. Rates are applied as a percentage off the list price.
           </CardDescription>
@@ -90,18 +77,16 @@ export default function AdminDiscountSettings() {
           {TIERS.map((tier) => (
             <div
               key={tier.key}
-              className="flex items-center justify-between gap-4 p-4 rounded-xl transition-colors duration-150"
-              style={{ backgroundColor: "rgba(245,230,200,0.45)" }}
+              className="flex items-center justify-between gap-4 p-4 rounded-xl bg-muted/30 transition-colors duration-150"
             >
               <div className="flex-1 min-w-0">
                 <Label
                   htmlFor={`discount-${tier.key}`}
-                  className="font-body font-semibold text-sm block mb-0.5"
-                  style={{ color: "#2c1a0e" }}
+                  className="font-body font-semibold text-sm block mb-0.5 text-foreground"
                 >
                   {tier.label}
                 </Label>
-                <p className="font-body text-xs" style={{ color: "#7a5c44" }}>
+                <p className="font-body text-xs text-foreground/55">
                   {tier.description}
                 </p>
               </div>
@@ -114,17 +99,9 @@ export default function AdminDiscountSettings() {
                   value={draft[tier.key]}
                   onChange={(e) => handleChange(tier.key, e.target.value)}
                   data-ocid={`admin.${tier.key}.input`}
-                  className="w-20 text-center font-body font-semibold text-sm"
-                  style={{
-                    backgroundColor: "#fff",
-                    borderColor: "rgba(192,57,43,0.3)",
-                    color: "#2c1a0e",
-                  }}
+                  className="w-20 text-center font-body font-semibold text-sm bg-background border-border/40"
                 />
-                <span
-                  className="font-body text-sm font-medium"
-                  style={{ color: "#5a3a22" }}
-                >
+                <span className="font-body text-sm font-medium text-foreground/60">
                   %
                 </span>
               </div>
@@ -138,11 +115,7 @@ export default function AdminDiscountSettings() {
             <Button
               onClick={handleSave}
               data-ocid="admin.settings.save_button"
-              className="flex-1 font-body font-semibold transition-all duration-200 hover:scale-[1.02] active:scale-95"
-              style={{
-                backgroundColor: "#c0392b",
-                color: "#ffffff",
-              }}
+              className="flex-1 bg-primary text-primary-foreground font-body font-semibold transition-all duration-200 hover:scale-[1.02] active:scale-95 hover:bg-primary/90"
             >
               {saved ? "✓ Saved!" : "Save Discount Rates"}
             </Button>
@@ -150,12 +123,7 @@ export default function AdminDiscountSettings() {
               variant="outline"
               onClick={handleReset}
               data-ocid="admin.settings.secondary_button"
-              className="font-body font-medium transition-all duration-200 hover:scale-[1.02] active:scale-95"
-              style={{
-                borderColor: "rgba(192,57,43,0.35)",
-                color: "#c0392b",
-                backgroundColor: "transparent",
-              }}
+              className="font-body font-medium transition-all duration-200 hover:scale-[1.02] active:scale-95 border-primary/30 text-primary hover:bg-primary/5"
             >
               Reset to Defaults
             </Button>

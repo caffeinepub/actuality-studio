@@ -1,0 +1,98 @@
+// Version: 1.0.0
+type CohortMember__982867411 =
+  {principal : Principal; role : MemberRole__617126294};
+type Cohort__282052298 =
+  {
+    createdAt : Time__900049286;
+    members : [CohortMember__982867411];
+    owner : Principal
+  };
+type Data__791452850<K, V> =
+  {var count : Nat__490723111; kvs : [var ?(K, V)]};
+type Int__270357528 = Int__616954475;
+type Int__616954475 = Int;
+type Internal__8484328<K, V> =
+  {children : [var ?Node__46230540<K, V>]; data : Data__791452850<K, V>};
+type InviteCode__761281821 =
+  {code : Text; created : Time__900049286; used : Bool};
+type Leaf__809889148<K, V> = {data : Data__791452850<K, V>};
+type List__415060402<T> = List__790383201<T>;
+type List__790383201<T> =
+  {
+    var blockIndex : Nat__490723111;
+    var blocks : [var [var ?T]];
+    var elementIndex : Nat__490723111
+  };
+type Map__158565046<K, V> = Map__297112838<K, V>;
+type Map__297112838<K, V> =
+  {var root : Node__46230540<K, V>; var size : Nat__490723111};
+type Map__605269027<K, V> = Map__158565046<K, V>;
+type MemberCategory__152094468 = {#premium; #standard; #trial};
+type MemberRole__617126294 = {#family; #friend; #professional};
+type MembershipState__128396195 =
+  {
+    badgeMinted : Bool;
+    category : MemberCategory__152094468;
+    trialEndsAt : ?Time__900049286
+  };
+type Nat__490723111 = Nat__920180692;
+type Nat__920180692 = Nat;
+type Node__46230540<K, V> =
+  {#internal : Internal__8484328<K, V>; #leaf : Leaf__809889148<K, V>};
+type RSVP__815186634 =
+  {
+    attending : Bool;
+    inviteCode : Text;
+    name : Text;
+    timestamp : Time__900049286
+  };
+type SavedCatalogItem__777989551 =
+  {
+    category : Text;
+    description : Text;
+    imageUrl : Text;
+    itemId : Text;
+    savedAt : Time__900049286;
+    title : Text
+  };
+type Time__796480547 = Int__270357528;
+type Time__900049286 = Time__796480547;
+type UserProfile__491224006 = {name : Text};
+type UserRole__1054455867 = {#admin; #guest; #user};
+actor {
+  stable accessControlState :
+    {
+      var adminAssigned : Bool;
+      userRoles : Map__605269027<Principal, UserRole__1054455867>
+    };
+  stable cohorts :
+    {
+      var root : Node__46230540<Principal, Cohort__282052298>;
+      var size : Nat__490723111
+    };
+  stable defaultTrialPeriod : Int;
+  stable var discountRates :
+    {cohort : Nat; patronPro : Nat; sponsorClient : Nat; trial : Nat};
+  stable inviteState :
+    {
+      var inviteCodes : Map__605269027<Text, InviteCode__761281821>;
+      var rsvps : Map__605269027<Text, RSVP__815186634>
+    };
+  stable memberships :
+    {
+      var root : Node__46230540<Principal, MembershipState__128396195>;
+      var size : Nat__490723111
+    };
+  stable savedCatalogItems :
+    {
+      var root :
+        Node__46230540<Principal,
+                        List__415060402<SavedCatalogItem__777989551>>;
+      var size : Nat__490723111
+    };
+  stable userProfiles :
+    {
+      var root : Node__46230540<Principal, UserProfile__491224006>;
+      var size : Nat__490723111
+    }
+};

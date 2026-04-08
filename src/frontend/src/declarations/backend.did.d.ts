@@ -16,6 +16,12 @@ export interface Cohort {
   'createdAt' : Time,
 }
 export interface CohortMember { 'principal' : Principal, 'role' : MemberRole }
+export interface DiscountRates {
+  'trial' : bigint,
+  'patronPro' : bigint,
+  'cohort' : bigint,
+  'sponsorClient' : bigint,
+}
 export interface InviteCode {
   'created' : Time,
   'code' : string,
@@ -38,39 +44,51 @@ export interface RSVP {
   'timestamp' : Time,
   'attending' : boolean,
 }
+export interface SavedCatalogItem {
+  'itemId' : string,
+  'title' : string,
+  'description' : string,
+  'imageUrl' : string,
+  'savedAt' : Time,
+  'category' : string,
+}
 export type Time = bigint;
 export interface UserProfile { 'name' : string }
 export type UserRole = { 'admin' : null } |
   { 'user' : null } |
   { 'guest' : null };
-export interface _CaffeineStorageCreateCertificateResult {
+export interface _ImmutableObjectStorageCreateCertificateResult {
   'method' : string,
   'blob_hash' : string,
 }
-export interface _CaffeineStorageRefillInformation {
+export interface _ImmutableObjectStorageRefillInformation {
   'proposed_top_up_amount' : [] | [bigint],
 }
-export interface _CaffeineStorageRefillResult {
+export interface _ImmutableObjectStorageRefillResult {
   'success' : [] | [boolean],
   'topped_up_amount' : [] | [bigint],
 }
 export interface _SERVICE {
-  '_caffeineStorageBlobIsLive' : ActorMethod<[Uint8Array], boolean>,
-  '_caffeineStorageBlobsToDelete' : ActorMethod<[], Array<Uint8Array>>,
-  '_caffeineStorageConfirmBlobDeletion' : ActorMethod<
+  '_immutableObjectStorageBlobsAreLive' : ActorMethod<
+    [Array<Uint8Array>],
+    Array<boolean>
+  >,
+  '_immutableObjectStorageBlobsToDelete' : ActorMethod<[], Array<Uint8Array>>,
+  '_immutableObjectStorageConfirmBlobDeletion' : ActorMethod<
     [Array<Uint8Array>],
     undefined
   >,
-  '_caffeineStorageCreateCertificate' : ActorMethod<
+  '_immutableObjectStorageCreateCertificate' : ActorMethod<
     [string],
-    _CaffeineStorageCreateCertificateResult
+    _ImmutableObjectStorageCreateCertificateResult
   >,
-  '_caffeineStorageRefillCashier' : ActorMethod<
-    [[] | [_CaffeineStorageRefillInformation]],
-    _CaffeineStorageRefillResult
+  '_immutableObjectStorageRefillCashier' : ActorMethod<
+    [[] | [_ImmutableObjectStorageRefillInformation]],
+    _ImmutableObjectStorageRefillResult
   >,
-  '_caffeineStorageUpdateGatewayPrincipals' : ActorMethod<[], undefined>,
-  '_initializeAccessControlWithSecret' : ActorMethod<[string], undefined>,
+  '_immutableObjectStorageUpdateGatewayPrincipals' : ActorMethod<[], undefined>,
+  '_initializeAccessControl' : ActorMethod<[], undefined>,
+  'addAdmin' : ActorMethod<[Principal], undefined>,
   'assignCallerUserRole' : ActorMethod<[Principal, UserRole], undefined>,
   'createCohort' : ActorMethod<[Array<CohortMember>], undefined>,
   'createTrialMembership' : ActorMethod<[], undefined>,
@@ -81,13 +99,22 @@ export interface _SERVICE {
   'getCallerUserProfile' : ActorMethod<[], [] | [UserProfile]>,
   'getCallerUserRole' : ActorMethod<[], UserRole>,
   'getCohort' : ActorMethod<[], [] | [Cohort]>,
+  'getDiscountRates' : ActorMethod<[], DiscountRates>,
   'getInviteCodes' : ActorMethod<[], Array<InviteCode>>,
   'getMemberCohort' : ActorMethod<[Principal], Cohort>,
   'getMembershipState' : ActorMethod<[Principal], MembershipState>,
+  'getSavedCatalogItems' : ActorMethod<[], Array<SavedCatalogItem>>,
   'getUserProfile' : ActorMethod<[Principal], [] | [UserProfile]>,
+  'hasAnyAdmin' : ActorMethod<[], boolean>,
   'isCallerAdmin' : ActorMethod<[], boolean>,
+  'listAdmins' : ActorMethod<[], Array<string>>,
   'mintBadge' : ActorMethod<[], undefined>,
+  'registerAsFirstAdmin' : ActorMethod<[], undefined>,
+  'removeAdmin' : ActorMethod<[Principal], undefined>,
+  'removeSavedCatalogItem' : ActorMethod<[string], undefined>,
   'saveCallerUserProfile' : ActorMethod<[UserProfile], undefined>,
+  'saveCatalogItem' : ActorMethod<[SavedCatalogItem], undefined>,
+  'setDiscountRates' : ActorMethod<[DiscountRates], undefined>,
   'submitRSVP' : ActorMethod<[string, boolean, string], undefined>,
   'upgradeToPremium' : ActorMethod<[Principal], undefined>,
 }

@@ -18,6 +18,8 @@ const MembershipPage = lazy(() => import("./pages/MembershipPage"));
 const CatalogPage = lazy(() => import("./pages/CatalogPage"));
 const MyCatalogPage = lazy(() => import("./pages/MyCatalogPage"));
 const AdminDashboardPage = lazy(() => import("./pages/AdminDashboardPage"));
+const PrivacyPage = lazy(() => import("./pages/PrivacyPage"));
+const TermsPage = lazy(() => import("./pages/TermsPage"));
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -107,12 +109,34 @@ const adminRoute = createRoute({
   ),
 });
 
+const privacyRoute = createRoute({
+  getParentRoute: () => rootRoute,
+  path: "/privacy",
+  component: () => (
+    <Suspense fallback={<PageLoader />}>
+      <PrivacyPage />
+    </Suspense>
+  ),
+});
+
+const termsRoute = createRoute({
+  getParentRoute: () => rootRoute,
+  path: "/terms",
+  component: () => (
+    <Suspense fallback={<PageLoader />}>
+      <TermsPage />
+    </Suspense>
+  ),
+});
+
 const routeTree = rootRoute.addChildren([
   indexRoute,
   membershipRoute,
   catalogRoute,
   myCatalogRoute,
   adminRoute,
+  privacyRoute,
+  termsRoute,
 ]);
 const router = createRouter({ routeTree });
 

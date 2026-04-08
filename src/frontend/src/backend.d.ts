@@ -8,6 +8,21 @@ export interface None {
 }
 export type Option<T> = Some<T> | None;
 export type Time = bigint;
+export interface CohortMember {
+    principal: Principal;
+    role: MemberRole;
+}
+export interface Cohort {
+    members: Array<CohortMember>;
+    owner: Principal;
+    createdAt: Time;
+}
+export interface RSVP {
+    name: string;
+    inviteCode: string;
+    timestamp: Time;
+    attending: boolean;
+}
 export interface InviteCode {
     created: Time;
     code: string;
@@ -18,23 +33,22 @@ export interface MembershipState {
     category: MemberCategory;
     trialEndsAt?: Time;
 }
-export interface Cohort {
-    members: Array<CohortMember>;
-    owner: Principal;
-    createdAt: Time;
-}
-export interface CohortMember {
-    principal: Principal;
-    role: MemberRole;
+export interface DiscountRates {
+    trial: bigint;
+    patronPro: bigint;
+    cohort: bigint;
+    sponsorClient: bigint;
 }
 export interface UserProfile {
     name: string;
 }
-export interface RSVP {
-    name: string;
-    inviteCode: string;
-    timestamp: Time;
-    attending: boolean;
+export interface SavedCatalogItem {
+    itemId: string;
+    title: string;
+    description: string;
+    imageUrl: string;
+    savedAt: Time;
+    category: string;
 }
 export enum MemberCategory {
     trial = "trial",
@@ -52,6 +66,7 @@ export enum UserRole {
     guest = "guest"
 }
 export interface backendInterface {
+    addAdmin(user: Principal): Promise<void>;
     assignCallerUserRole(user: Principal, role: UserRole): Promise<void>;
     createCohort(members: Array<CohortMember>): Promise<void>;
     createTrialMembership(): Promise<void>;
@@ -62,18 +77,22 @@ export interface backendInterface {
     getCallerUserProfile(): Promise<UserProfile | null>;
     getCallerUserRole(): Promise<UserRole>;
     getCohort(): Promise<Cohort | null>;
+    getDiscountRates(): Promise<DiscountRates>;
     getInviteCodes(): Promise<Array<InviteCode>>;
     getMemberCohort(owner: Principal): Promise<Cohort>;
     getMembershipState(member: Principal): Promise<MembershipState>;
+    getSavedCatalogItems(): Promise<Array<SavedCatalogItem>>;
     getUserProfile(user: Principal): Promise<UserProfile | null>;
     hasAnyAdmin(): Promise<boolean>;
     isCallerAdmin(): Promise<boolean>;
+    listAdmins(): Promise<Array<string>>;
     mintBadge(): Promise<void>;
     registerAsFirstAdmin(): Promise<void>;
-    addAdmin(user: Principal): Promise<void>;
     removeAdmin(user: Principal): Promise<void>;
-    listAdmins(): Promise<Array<string>>;
+    removeSavedCatalogItem(itemId: string): Promise<void>;
     saveCallerUserProfile(profile: UserProfile): Promise<void>;
+    saveCatalogItem(item: SavedCatalogItem): Promise<void>;
+    setDiscountRates(rates: DiscountRates): Promise<void>;
     submitRSVP(name: string, attending: boolean, inviteCode: string): Promise<void>;
     upgradeToPremium(user: Principal): Promise<void>;
 }

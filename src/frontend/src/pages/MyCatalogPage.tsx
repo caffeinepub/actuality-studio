@@ -42,14 +42,8 @@ export default function MyCatalogPage() {
     return (
       <div className="min-h-screen bg-background flex flex-col items-center justify-center px-4 py-24">
         <div className="text-center max-w-sm">
-          <div
-            className="w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-5"
-            style={{ backgroundColor: "rgba(192,57,43,0.1)" }}
-          >
-            <ShoppingBag
-              className="w-8 h-8"
-              style={{ color: "var(--color-crimson-lustre, #c0392b)" }}
-            />
+          <div className="w-16 h-16 rounded-full bg-primary/10 flex items-center justify-center mx-auto mb-5">
+            <ShoppingBag className="w-8 h-8 text-primary" />
           </div>
           <h1 className="font-heading text-2xl font-bold text-foreground mb-3">
             My Catalog
@@ -82,21 +76,15 @@ export default function MyCatalogPage() {
           className="text-center max-w-sm"
           data-ocid="my-catalog.empty_state"
         >
-          <div
-            className="w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-5"
-            style={{ backgroundColor: "rgba(192,57,43,0.1)" }}
-          >
-            <Bookmark
-              className="w-8 h-8"
-              style={{ color: "var(--color-crimson-lustre, #c0392b)" }}
-            />
+          <div className="w-16 h-16 rounded-full bg-primary/10 flex items-center justify-center mx-auto mb-5">
+            <Bookmark className="w-8 h-8 text-primary" />
           </div>
           <h1 className="font-heading text-2xl font-bold text-foreground mb-3">
             No saved items yet
           </h1>
           <p className="font-body text-sm text-foreground/60 mb-6 leading-relaxed">
-            Browse the catalog and click “Save to My Catalog” on items you love
-            to collect them here.
+            Browse the catalog and click &ldquo;Save to My Catalog&rdquo; on
+            items you love to collect them here.
           </p>
           <Link
             to="/catalog"
@@ -112,7 +100,7 @@ export default function MyCatalogPage() {
 
   return (
     <div className="min-h-screen bg-background overflow-x-hidden">
-      <section className="py-12 sm:py-16 lg:py-20 bg-gradient-to-b from-[#f5e6c8]/60 to-background">
+      <section className="py-12 sm:py-16 lg:py-20 bg-sandstone">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <motion.span
             initial={{ opacity: 0, y: 10 }}
@@ -168,16 +156,12 @@ export default function MyCatalogPage() {
                     alt={entry.title}
                     loading="lazy"
                     decoding="async"
+                    width={640}
+                    height={480}
                     className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
                   />
                   <div className="absolute top-3 left-3">
-                    <Badge
-                      className="text-xs font-body font-bold px-2.5 py-1 rounded-full flex items-center gap-1"
-                      style={{
-                        backgroundColor: "var(--color-crimson-lustre, #c0392b)",
-                        color: "#fff",
-                      }}
-                    >
+                    <Badge className="text-xs font-body font-bold px-2.5 py-1 rounded-full flex items-center gap-1 bg-primary text-primary-foreground">
                       <Tag className="w-3 h-3" />
                       Member Special
                     </Badge>
@@ -194,10 +178,7 @@ export default function MyCatalogPage() {
                     </span>
                   </div>
 
-                  <p
-                    className="font-body text-sm font-semibold mb-3"
-                    style={{ color: discount > 0 ? "#c0392b" : "#8b4513" }}
-                  >
+                  <p className="font-body text-sm font-semibold text-primary mb-3">
                     {discount > 0
                       ? `Member Price: ${discount}% off`
                       : "Member Price: Contact Us"}
@@ -232,11 +213,7 @@ export default function MyCatalogPage() {
             <Link
               to="/catalog"
               data-ocid="my-catalog.link"
-              className="inline-flex items-center gap-2 px-7 py-3 rounded-full border-2 font-body font-semibold text-sm transition-all duration-200 hover:scale-105 active:scale-95"
-              style={{
-                borderColor: "var(--color-crimson-lustre, #c0392b)",
-                color: "var(--color-crimson-lustre, #c0392b)",
-              }}
+              className="inline-flex items-center gap-2 px-7 py-3 rounded-full border-2 border-primary text-primary font-body font-semibold text-sm transition-all duration-200 hover:scale-105 active:scale-95 hover:bg-primary/5"
             >
               <Bookmark className="w-4 h-4" />
               Browse More Items

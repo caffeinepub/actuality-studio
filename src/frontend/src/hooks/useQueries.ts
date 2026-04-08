@@ -205,9 +205,9 @@ export function useCatalogEntries() {
           title: "McKinley Loft — Unit A",
           description:
             "Open-plan loft conversion with original hardwood floors and exposed brick.",
-          category: "Residential",
+          category: "ADU Shells",
           accessLevel: "free",
-          imageUrl: "/assets/generated/mckinley-interior-apt.dim_1200x800.png",
+          imageUrl: "/assets/generated/mckinley-interior-apt.dim_900x600.jpg",
           tags: ["loft", "residential", "historic"],
         },
         {
@@ -215,9 +215,9 @@ export function useCatalogEntries() {
           title: "ADU Shell — Type A",
           description:
             "Modular accessory dwelling unit shell, 400 sq ft, single-story.",
-          category: "ADU",
+          category: "ADU Shells",
           accessLevel: "preview",
-          imageUrl: "/assets/generated/adu-shell-type-a.dim_600x400.png",
+          imageUrl: "/assets/generated/adu-shell-type-a.dim_640x427.jpg",
           tags: ["adu", "modular", "shell"],
         },
         {
@@ -225,9 +225,9 @@ export function useCatalogEntries() {
           title: "ADU Shell — Type B",
           description:
             "Two-story ADU shell with rooftop terrace option, 650 sq ft.",
-          category: "ADU",
+          category: "ADU Shells",
           accessLevel: "preview",
-          imageUrl: "/assets/generated/adu-shell-type-b.dim_600x400.png",
+          imageUrl: "/assets/generated/adu-shell-type-b.dim_640x427.jpg",
           tags: ["adu", "two-story", "terrace"],
         },
         {
@@ -235,9 +235,9 @@ export function useCatalogEntries() {
           title: "Sovereign Furniture Set — Compact",
           description:
             "Curated compact furniture collection for small-space living.",
-          category: "Furniture",
+          category: "Furniture Collections",
           accessLevel: "premium",
-          imageUrl: "/assets/generated/furniture-set-compact.dim_600x400.png",
+          imageUrl: "/assets/generated/furniture-set-compact.dim_640x427.jpg",
           tags: ["furniture", "compact", "curated"],
         },
         {
@@ -245,9 +245,9 @@ export function useCatalogEntries() {
           title: "Sovereign Furniture Set — Full",
           description:
             "Complete sovereign furniture collection for full loft buildout.",
-          category: "Furniture",
+          category: "Furniture Collections",
           accessLevel: "premium",
-          imageUrl: "/assets/generated/furniture-set-sovereign.dim_600x400.png",
+          imageUrl: "/assets/generated/furniture-set-sovereign.dim_640x427.jpg",
           tags: ["furniture", "full", "sovereign"],
         },
         {
@@ -255,9 +255,9 @@ export function useCatalogEntries() {
           title: "McKinley Staircase Detail",
           description:
             "Original 1902 cast-iron staircase restoration blueprints and specifications.",
-          category: "Historic",
+          category: "Architectural Details",
           accessLevel: "premium",
-          imageUrl: "/assets/generated/mckinley-staircase.dim_1200x800.png",
+          imageUrl: "/assets/generated/mckinley-staircase.dim_900x600.jpg",
           tags: ["historic", "staircase", "restoration"],
         },
       ];

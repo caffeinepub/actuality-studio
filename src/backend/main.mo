@@ -1,19 +1,19 @@
 import Map "mo:core/Map";
+import List "mo:core/List";
 import Time "mo:core/Time";
 import Principal "mo:core/Principal";
 import Runtime "mo:core/Runtime";
-import Array "mo:core/Array";
 import Order "mo:core/Order";
-import MixinAuthorization "authorization/MixinAuthorization";
-import AccessControl "authorization/access-control";
-import MixinStorage "blob-storage/Mixin";
-import InviteLinksModule "invite-links/invite-links-module";
+import MixinAuthorization "mo:caffeineai-authorization/MixinAuthorization";
+import AccessControl "mo:caffeineai-authorization/access-control";
+import MixinObjectStorage "mo:caffeineai-object-storage/Mixin";
+import InviteLinksModule "mo:caffeineai-invite-links/invite-links-module";
 import Random "mo:core/Random";
 
 
 
 actor {
-  include MixinStorage();
+  include MixinObjectStorage();
 
   let accessControlState = AccessControl.initState();
   include MixinAuthorization(accessControlState);
@@ -299,5 +299,86 @@ actor {
       Runtime.trap("Unauthorized: Only admins can view invite codes");
     };
     InviteLinksModule.getInviteCodes(inviteState);
+  };
+
+  // ── Discount Rates ─────────────────────────────────────────────────────────
+
+  public type DiscountRates = {
+    trial : Nat;
+    cohort : Nat;
+    patronPro : Nat;
+    sponsorClient : Nat;
+  };
+
+  var discountRates : DiscountRates = {
+    trial = 5;
+    cohort = 10;
+    patronPro = 20;
+    sponsorClient = 30;
+  };
+
+  public query func getDiscountRates() : async DiscountRates {
+    discountRates;
+  };
+
+  public shared ({ caller }) func setDiscountRates(rates : DiscountRates) : async () {
+    if (not AccessControl.isAdmin(accessControlState, caller)) {
+      Runtime.trap("Unauthorized: Only admins can set discount rates");
+    };
+    discountRates := rates;
+  };
+
+  // ── Saved Catalog Items ─────────────────────────────────────────────────────
+
+  public type SavedCatalogItem = {
+    itemId : Text;
+    title : Text;
+    description : Text;
+    imageUrl : Text;
+    category : Text;
+    savedAt : Time.Time;
+  };
+
+  let savedCatalogItems = Map.empty<Principal, List.List<SavedCatalogItem>>();
+
+  public shared ({ caller }) func saveCatalogItem(item : SavedCatalogItem) : async () {
+    if (not (AccessControl.hasPermission(accessControlState, caller, #user))) {
+      Runtime.trap("Unauthorized: Only members can save catalog items");
+    };
+
+    let existing = switch (savedCatalogItems.get(caller)) {
+      case (?list) { list };
+      case null { List.empty<SavedCatalogItem>() };
+    };
+
+    // Remove existing entry with same itemId to avoid duplicates, then add updated
+    let filtered = existing.filter(func(i : SavedCatalogItem) : Bool { i.itemId != item.itemId });
+    filtered.add(item);
+    savedCatalogItems.add(caller, filtered);
+  };
+
+  public shared ({ caller }) func removeSavedCatalogItem(itemId : Text) : async () {
+    if (not (AccessControl.hasPermission(accessControlState, caller, #user))) {
+      Runtime.trap("Unauthorized: Only members can remove saved catalog items");
+    };
+
+    switch (savedCatalogItems.get(caller)) {
+      case (null) {};
+      case (?list) {
+        let filtered = list.filter(func(i : SavedCatalogItem) : Bool { i.itemId != itemId });
+        savedCatalogItems.add(caller, filtered);
+      };
+    };
+  };
+
+  public query ({ caller }) func getSavedCatalogItems() : async [SavedCatalogItem] {
+    if (not (AccessControl.hasPermission(accessControlState, caller, #user))) {
+      Runtime.trap("Unauthorized: Only members can view saved catalog items");
+    };
+
+    switch (savedCatalogItems.get(caller)) {
+      case (null) { [] };
+      case (?list) { list.toArray() };
+    };
   };
 };
